@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Asmita Answers - English</title>
+  <style>
+    body { font-family: sans-serif; }
+    nav { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <button onclick="location.href='../asmitaanswers.html'">Back to Asmita Answers</button>
+  </nav>
+  <h1>English Premium Content</h1>
+  <p>This is the premium English section.</p>
+  
+  <script>
+    const validEnglish = 'class10/asmita/english/abc';
+    
+    // Utility functions
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    
+    const stored = localStorage.getItem('dongle_english') || getCookie('dongle_english');
+    if (!stored || stored !== validEnglish) {
+      alert('Access Denied: Correct English dongle required.');
+      window.location.href = '../asmitaanswers.html';
+    }
+  </script>
+</body>
+</html>
