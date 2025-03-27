@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Asmita Answers</title>
+  <style>
+    body { font-family: sans-serif; }
+    nav { margin-bottom: 20px; }
+    .subject-buttons button { margin: 5px; }
+    /* Popup style */
+    #donglePopup {
+      display: none; 
+      position: fixed; 
+      top: 20%; left: 50%; 
+      transform: translate(-50%, 0); 
+      border: 1px solid #333; 
+      background: #f9f9f9; 
+      padding: 20px;
+      z-index: 1000;
+    }
+    #donglePopup h3 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <h1>Asmita Answers (Premium)</h1>
+  <nav>
+    <button onclick="location.href='../class10.html'">Back to Class10</button>
+  </nav>
+  <div class="subject-buttons">
+    <!-- Navigation to the premium subject pages -->
+    <button onclick="location.href='asmitaanswers/english.html'">English</button>
+    <button onclick="location.href='asmitaanswers/nepali.html'">Nepali</button>
+    <button onclick="location.href='asmitaanswers/social.html'">Social</button>
+    <button onclick="location.href='asmitaanswers/math.html'">Math</button>
+  </div>
+  
+  <br>
+  <!-- Thank You Button triggers the dongle popup after 5 clicks -->
+  <button id="thankYouBtn">Thank You</button>
+  
+  <!-- Dongle Popup -->
+  <div id="donglePopup">
+    <h3>Enter Dongle for Subjects</h3>
+    <div id="dongleForms">
+      <!-- Each subject’s entry is only shown if the dongle has not been accepted yet -->
+      <div id="formEnglish">
+        <label>English:</label>
+        <input type="text" id="inputEnglish" placeholder="Enter dongle">
+        <button onclick="submitDongle('english')">Submit</button>
+      </div>
+      <br>
+      <div id="formNepali">
+        <label>Nepali:</label>
+        <input type="text" id="inputNepali" placeholder="Enter dongle">
+        <button onclick="submitDongle('nepali')">Submit</button>
+      </div>
+      <br>
+      <div id="formSocial">
+        <label>Social:</label>
+        <input type="text" id="inputSocial" placeholder="Enter dongle">
+        <button onclick="submitDongle('social')">Submit</button>
+      </div>
+      <br>
+      <div id="formMath">
+        <label>Math:</label>
+        <input type="text" id="inputMath" placeholder="Enter dongle">
+        <button onclick="submitDongle('math')">Submit</button>
+      </div>
+      <br>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  
+  <script>
+    // Valid dongle values for each subject
+    const validDongles = {
+      english: 'class10/asmita/english/abc',
+      nepali:  'class10/asmita/nepali/def',
+      social:  'class10/asmita/social/ghi',
+      math:    'class10/asmita/math/jkl'
+    };
+
+    let thankYouCount = 0;
+    const thankYouBtn = document.getElementById('thankYouBtn');
+    const donglePopup = document.getElementById('donglePopup');
+
+    thankYouBtn.addEventListener('click', function() {
+      thankYouCount++;
+      if (thankYouCount >= 5) {
+        showPopup();
+      }
+    });
+
+    function showPopup() {
+      // For each subject, hide its form if the dongle is already stored
+      ['english', 'nepali', 'social', 'math'].forEach(subject => {
+        if (getDongle(subject)) {
+          document.getElementById('form' + capitalize(subject)).style.display = 'none';
+        } else {
+          document.getElementById('form' + capitalize(subject)).style.display = 'block';
+        }
+      });
+      donglePopup.style.display = 'block';
+    }
+
+    function closePopup() {
+      donglePopup.style.display = 'none';
+      thankYouCount = 0;  // Reset count on popup close (refresh will also clear it)
+    }
+
+    function submitDongle(subject) {
+      const inputId = 'input' + capitalize(subject);
+      const entered = document.getElementById(inputId).value.trim();
+      if (entered === validDongles[subject]) {
+        // Store in localStorage and as a cookie
+        localStorage.setItem('dongle_' + subject, entered);
+        document.cookie = 'dongle_' + subject + '=' + entered + '; path=/';
+        alert(capitalize(subject) + ' dongle accepted!');
+        document.getElementById('form' + capitalize(subject)).style.display = 'none';
+      } else {
+        alert('Error: Wrong dongle for ' + subject);
+      }
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // Utility to get a dongle value from cookie or localStorage
+    function getDongle(subject) {
+      let val = localStorage.getItem('dongle_' + subject);
+      if (!val) {
+        val = getCookie('dongle_' + subject);
+      }
+      return val;
+    }
+
+    // Simple function to read a cookie value by name
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+  </script>
+</body>
+</html>
