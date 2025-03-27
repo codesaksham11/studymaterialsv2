@@ -1,24 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Class10</title>
+  <meta charset="UTF-8">
+  <title>Class 10 Sets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; }
-    nav { margin-bottom: 20px; }
-    button { margin: 5px; }
+    /* Basic reset and font */
+    body, h1, h2, p, ul, li, button, a {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background: #f7f9fc;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #2a9d8f;
+      margin-bottom: 10px;
+    }
+    header p.subheading {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    /* Content container */
+    .content {
+      width: 100%;
+      max-width: 700px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    /* Section headings */
+    .section-heading {
+      font-size: 1.8rem;
+      color: #264653;
+      margin: 20px 0 10px;
+      text-align: center;
+    }
+    /* Option boxes styling */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .option-box {
+      background: #264653;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.3s;
+      font-size: 1.1rem;
+    }
+    .option-box:hover {
+      background: #2a9d8f;
+    }
+    /* Back button styling */
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #e9c46a;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1rem;
+    }
+    .back-btn:hover {
+      background: #f4a261;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .option-box {
+        font-size: 1rem;
+        padding: 12px;
+      }
+      .back-btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Class10 Section</h1>
-  <nav>
-    <button onclick="location.href='index.html'">Back to Home</button>
-  </nav>
-  <p>Select a subcategory:</p>
-  <button onclick="location.href='class10/asmitaquestions.html'">Asmita Questions</button>
-  <button onclick="location.href='class10/neemaquestions.html'">Neema Questions</button>
-  <button onclick="location.href='class10/asmitaanswers.html'">Asmita Answers (Premium)</button>
-  <button onclick="location.href='class10/neemaanswers.html'">Neema Answers</button>
-  <button onclick="location.href='class10/requestdongle.html'">Request Dongle</button>
+  <header>
+    <h1>Class 10 Sets</h1>
+    <p class="subheading">Publication (Questions) and Publication (Answers)</p>
+  </header>
+  
+  <div class="content">
+    <!-- Publication (Questions) Section -->
+    <div class="section-heading">Publication (Questions)</div>
+    <div class="options">
+      <a href="asmitaquestions.html" class="option-box">Asmita</a>
+      <a href="neemaquestions.html" class="option-box">Neema</a>
+      <a href="abcdquestions.html" class="option-box">Abcd</a>
+    </div>
+    
+    <!-- Publication (Answers) Section -->
+    <div class="section-heading">Publication (Answers)</div>
+    <div class="options">
+      <a href="asmitaanswers.html" class="option-box">Asmita</a>
+      <a href="neemaanswers.html" class="option-box">Neema</a>
+      <a href="abcdanswers.html" class="option-box">Abcd</a>
+      <a href="requestdongle.html" class="option-box">Request Dongle</a>
+    </div>
+    
+    <!-- Back Button -->
+    <div style="text-align: center;">
+      <a href="index.html" class="back-btn">Back</a>
+    </div>
+  </div>
 </body>
 </html>
