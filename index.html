@@ -1,28 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Index</title>
+  <meta charset="UTF-8">
+  <title>NEB HELP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; }
-    .box {
-      border: 1px solid #333; 
-      padding: 20px; 
-      margin: 10px; 
-      display: inline-block; 
-      cursor: pointer;
+    /* Base reset and font */
+    body, h1, h2, h3, p, ul, li, button, a {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
-    nav { margin-bottom: 20px; }
+    body {
+      background: #f7f9fc;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #2a9d8f;
+      margin-bottom: 10px;
+    }
+    header p.subheading {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    /* Content area */
+    .content {
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .bullet-points {
+      text-align: left;
+      margin: 20px 0;
+      font-size: 1rem;
+      color: #444;
+    }
+    .bullet-points ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    .see-more {
+      color: #e76f51;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    .hidden-text {
+      display: none;
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #333;
+    }
+    /* Vertical option boxes */
+    .options {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option-box {
+      background: #264653;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    .option-box:hover {
+      background: #2a9d8f;
+    }
+    /* Additional texts */
+    .info-text {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.5;
+    }
+    /* Version text at bottom */
+    .version {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: #999;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .option-box {
+        font-size: 1rem;
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Welcome to the Prototype</h1>
-  <nav>
-    <button onclick="location.href='class10.html'">Class10</button>
-    <button onclick="location.href='class8.html'">Class8</button>
-    <button onclick="location.href='feedback.html'">Feedback</button>
-  </nav>
+  <header>
+    <h1>Welcome to NEB HELP</h1>
+    <p class="subheading">Do you feel like you write answers still don't get marks? Here may be the reasons:</p>
+  </header>
   
-  <p>This is the landing page. Click a button above to navigate.</p>
+  <div class="content">
+    <!-- Bullet list -->
+    <div class="bullet-points">
+      <ul>
+        <li>The answer you search on the internet may not match with the curriculum of Nepal.</li>
+        <li>You write, but it doesn't contain the words teachers seek in answers.</li>
+        <li>You didn't practice 10 set.</li>
+      </ul>
+    </div>
+    <!-- See more toggle -->
+    <div class="see-more" onclick="toggleMore()">See more...</div>
+    <div id="moreText" class="hidden-text">
+      <p>10 set are expensive, so every student may not have access to it. With the goal that every student passes this year, we provide you every question from each ten set in <strong>FREE</strong>.</p>
+    </div>
+    
+    <!-- Vertical option boxes -->
+    <div class="options">
+      <a href="class10.html" class="option-box">Class 10 (SEE)</a>
+      <a href="class8.html" class="option-box">Class 8 (BLE)</a>
+      <a href="feedback.html" class="option-box">Feedback</a>
+    </div>
+    
+    <!-- Instructional texts -->
+    <div class="info-text">
+      <p>To see question set, select your grade &gt; then publication of ten set &gt; then subject.</p>
+      <p>If you think any publication is left, tell us via feedback.</p>
+    </div>
+  </div>
+  
+  <!-- Version info -->
+  <div class="version">
+    v.1.2.1 android/ios/windows
+  </div>
+  
+  <script>
+    function toggleMore() {
+      const moreText = document.getElementById('moreText');
+      if (moreText.style.display === "block") {
+        moreText.style.display = "none";
+      } else {
+        moreText.style.display = "block";
+      }
+    }
+  </script>
 </body>
 </html>
