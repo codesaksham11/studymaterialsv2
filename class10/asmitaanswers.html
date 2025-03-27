@@ -5,7 +5,7 @@
   <title>Asmita (answers) - Class 10</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Reset and base styling */
+    /* Reset and base styling (same as before) */
     body, h1, h2, p, div, input, button, a {
       margin: 0;
       padding: 0;
@@ -30,7 +30,7 @@
       color: #2a9d8f;
       margin-bottom: 10px;
     }
-    /* Container for the content */
+    /* Container for the content (same as before) */
     .content {
       width: 100%;
       max-width: 800px;
@@ -39,7 +39,7 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    /* Subject list box */
+    /* Subject list box (same as before) */
     .subject-list {
       margin: 20px 0;
     }
@@ -67,7 +67,7 @@
     .subject-link:hover {
       background: #2a9d8f;
     }
-    /* Thank You button */
+    /* Thank You button (same as before) */
     .thank-you-btn {
       margin: 30px auto 10px auto;
       display: block;
@@ -83,7 +83,7 @@
     .thank-you-btn:hover {
       background: #ffbf69;
     }
-    /* Hidden dongle entry section */
+    /* Hidden dongle entry section (same as before) */
     .dongle-section {
       display: none;
       margin: 20px 0;
@@ -130,7 +130,7 @@
     .dongle-row button:hover {
       background: #3ab0a6;
     }
-    /* Back button */
+    /* Back button (same as before) */
     .back-btn {
       display: inline-block;
       margin: 30px auto 10px auto;
@@ -147,7 +147,7 @@
     .back-btn:hover {
       background: #f29e74;
     }
-    /* Responsive adjustments */
+    /* Responsive adjustments (same as before) */
     @media (max-width: 480px) {
       header h1 {
         font-size: 2rem;
@@ -171,12 +171,13 @@
   <header>
     <h1>Asmita (answers)</h1>
   </header>
-  
+
   <div class="content">
     <!-- Subjects List Section -->
     <div class="subject-list">
       <h2>Subjects</h2>
       <div class="subjects">
+        <!-- Corrected Links - Just the filenames -->
         <a href="english.html" class="subject-link">English</a>
         <a href="nepali.html" class="subject-link">Nepali</a>
         <a href="social.html" class="subject-link">Social</a>
@@ -190,10 +191,10 @@
         <a href="education.html" class="subject-link">Education</a>
       </div>
     </div>
-    
+
     <!-- Thank You Button (for Dongle Entry) -->
     <button id="thankYouBtn" class="thank-you-btn">Thank You</button>
-    
+
     <!-- Hidden Dongle Entry Section -->
     <div id="dongleSection" class="dongle-section">
       <h3>Enter Dongle for Each Subject</h3>
@@ -201,16 +202,15 @@
         <!-- Rows will be inserted here for each subject if not already validated -->
       </div>
     </div>
-    
+
     <!-- Back Button -->
     <div style="text-align: center;">
-      <a href="class10.html" class="back-btn">Back</a>
+      <a href="../class10.html" class="back-btn">Back</a>  <!-- Corrected Back Button to go up one level -->
     </div>
   </div>
-  
+
   <script>
-    // Define subjects with display names and valid dongle values.
-    // The valid dongle values remain as before.
+    // JavaScript code (same as before - dongle logic)
     const subjects = {
       english:   { display: "English", valid: "class10/asmita/english/abc" },
       nepali:    { display: "Nepali", valid: "class10/asmita/nepali/def" },
@@ -225,12 +225,12 @@
       education: { display: "Education", valid: "class10/asmita/education/103" }
     };
 
-    // Build a unique storage key for each subject using the hierarchy
+    // Build a unique storage key for each subject using the hierarchy (same as before)
     function getStorageKey(subject) {
       return "dongle_class10_asmitaanswers_" + subject;
     }
 
-    // Thank You button click counter
+    // Thank You button click counter (same as before)
     let thankYouCount = 0;
     const thankYouBtn = document.getElementById('thankYouBtn');
     const dongleSection = document.getElementById('dongleSection');
@@ -243,7 +243,7 @@
       }
     });
 
-    // Show dongle entry rows for subjects that are not validated
+    // Show dongle entry rows for subjects that are not validated (same as before)
     function showDongleSection() {
       dongleContainer.innerHTML = "";
       Object.keys(subjects).forEach(key => {
@@ -254,19 +254,19 @@
           // Create a row for dongle entry.
           const row = document.createElement('div');
           row.className = 'dongle-row';
-          
+
           const label = document.createElement('label');
           label.textContent = subjects[key].display;
-          
+
           const input = document.createElement('input');
           input.type = 'text';
           input.placeholder = 'Enter dongle';
           input.id = 'input_' + key;
-          
+
           const btn = document.createElement('button');
           btn.textContent = 'Submit';
           btn.onclick = () => submitDongle(key);
-          
+
           row.appendChild(label);
           row.appendChild(input);
           row.appendChild(btn);
@@ -276,7 +276,7 @@
       dongleSection.style.display = 'block';
     }
 
-    // Submit dongle for a subject
+    // Submit dongle for a subject (same as before)
     function submitDongle(subject) {
       const storageKey = getStorageKey(subject);
       const input = document.getElementById('input_' + subject);
@@ -293,7 +293,7 @@
       }
     }
 
-    // Helper function to read a cookie by name.
+    // Helper function to read a cookie by name. (same as before)
     function getCookie(name) {
       const value = "; " + document.cookie;
       const parts = value.split("; " + name + "=");
