@@ -1,145 +1,296 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Asmita Answers</title>
+  <meta charset="UTF-8">
+  <title>Asmita (answers) - Class 10</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; }
-    nav { margin-bottom: 20px; }
-    .subject-buttons button { margin: 5px; }
-    /* Popup style */
-    #donglePopup {
-      display: none; 
-      position: fixed; 
-      top: 20%; left: 50%; 
-      transform: translate(-50%, 0); 
-      border: 1px solid #333; 
-      background: #f9f9f9; 
-      padding: 20px;
-      z-index: 1000;
+    /* Reset and base styling */
+    body, h1, h2, p, div, input, button, a {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
-    #donglePopup h3 { margin-top: 0; }
+    body {
+      background: #f7f9fc;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #2a9d8f;
+      margin-bottom: 10px;
+    }
+    /* Container for the content */
+    .content {
+      width: 100%;
+      max-width: 800px;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    /* Subject list box */
+    .subject-list {
+      margin: 20px 0;
+    }
+    .subject-list h2 {
+      font-size: 2rem;
+      color: #264653;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .subjects {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .subject-link {
+      background: #264653;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.3s;
+      font-size: 1.1rem;
+    }
+    .subject-link:hover {
+      background: #2a9d8f;
+    }
+    /* Thank You button */
+    .thank-you-btn {
+      margin: 30px auto 10px auto;
+      display: block;
+      background: #ff9f1c;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .thank-you-btn:hover {
+      background: #ffbf69;
+    }
+    /* Hidden dongle entry section */
+    .dongle-section {
+      display: none;
+      margin: 20px 0;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+    .dongle-section h3 {
+      text-align: center;
+      color: #264653;
+      margin-bottom: 15px;
+    }
+    .dongle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    .dongle-row label {
+      flex: 1;
+      font-size: 1rem;
+      color: #333;
+    }
+    .dongle-row input {
+      flex: 2;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 0 10px;
+      font-size: 1rem;
+    }
+    .dongle-row button {
+      flex: 1;
+      background: #2a9d8f;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .dongle-row button:hover {
+      background: #3ab0a6;
+    }
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      margin: 30px auto 10px auto;
+      background: #e76f51;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1rem;
+    }
+    .back-btn:hover {
+      background: #f29e74;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .subject-link, .thank-you-btn, .back-btn {
+        font-size: 1rem;
+        padding: 12px 20px;
+      }
+      .dongle-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .dongle-row input, .dongle-row button {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Asmita Answers (Premium)</h1>
-  <nav>
-    <button onclick="location.href='../class10.html'">Back to Class10</button>
-  </nav>
-  <div class="subject-buttons">
-    <!-- Navigation to the premium subject pages -->
-    <button onclick="location.href='asmitaanswers/english.html'">English</button>
-    <button onclick="location.href='asmitaanswers/nepali.html'">Nepali</button>
-    <button onclick="location.href='asmitaanswers/social.html'">Social</button>
-    <button onclick="location.href='asmitaanswers/math.html'">Math</button>
-  </div>
+  <header>
+    <h1>Asmita (answers)</h1>
+  </header>
   
-  <br>
-  <!-- Thank You Button triggers the dongle popup after 5 clicks -->
-  <button id="thankYouBtn">Thank You</button>
-  
-  <!-- Dongle Popup -->
-  <div id="donglePopup">
-    <h3>Enter Dongle for Subjects</h3>
-    <div id="dongleForms">
-      <!-- Each subject’s entry is only shown if the dongle has not been accepted yet -->
-      <div id="formEnglish">
-        <label>English:</label>
-        <input type="text" id="inputEnglish" placeholder="Enter dongle">
-        <button onclick="submitDongle('english')">Submit</button>
+  <div class="content">
+    <!-- Subjects List Section -->
+    <div class="subject-list">
+      <h2>Subjects</h2>
+      <div class="subjects">
+        <a href="english.html" class="subject-link">English</a>
+        <a href="nepali.html" class="subject-link">Nepali</a>
+        <a href="social.html" class="subject-link">Social</a>
+        <a href="math.html" class="subject-link">Math</a>
+        <a href="science.html" class="subject-link">Science</a>
+        <a href="optmath.html" class="subject-link">Opt. Math</a>
+        <a href="population.html" class="subject-link">Population</a>
+        <a href="economics.html" class="subject-link">Economics</a>
+        <a href="account.html" class="subject-link">Account</a>
+        <a href="computer.html" class="subject-link">Computer</a>
+        <a href="education.html" class="subject-link">Education</a>
       </div>
-      <br>
-      <div id="formNepali">
-        <label>Nepali:</label>
-        <input type="text" id="inputNepali" placeholder="Enter dongle">
-        <button onclick="submitDongle('nepali')">Submit</button>
+    </div>
+    
+    <!-- Thank You Button (for Dongle Entry) -->
+    <button id="thankYouBtn" class="thank-you-btn">Thank You</button>
+    
+    <!-- Hidden Dongle Entry Section -->
+    <div id="dongleSection" class="dongle-section">
+      <h3>Enter Dongle for Each Subject</h3>
+      <div id="dongleContainer">
+        <!-- Rows will be inserted here for each subject if not already validated -->
       </div>
-      <br>
-      <div id="formSocial">
-        <label>Social:</label>
-        <input type="text" id="inputSocial" placeholder="Enter dongle">
-        <button onclick="submitDongle('social')">Submit</button>
-      </div>
-      <br>
-      <div id="formMath">
-        <label>Math:</label>
-        <input type="text" id="inputMath" placeholder="Enter dongle">
-        <button onclick="submitDongle('math')">Submit</button>
-      </div>
-      <br>
-      <button onclick="closePopup()">Close</button>
+    </div>
+    
+    <!-- Back Button -->
+    <div style="text-align: center;">
+      <a href="../class10.html" class="back-btn">Back</a>
     </div>
   </div>
   
   <script>
-    // Valid dongle values for each subject
-    const validDongles = {
-      english: 'class10/asmita/english/abc',
-      nepali:  'class10/asmita/nepali/def',
-      social:  'class10/asmita/social/ghi',
-      math:    'class10/asmita/math/jkl'
+    // Object with subject details and valid dongle values.
+    const subjects = {
+      english:   { display: "English", valid: "class10/asmita/english/abc" },
+      nepali:    { display: "Nepali", valid: "class10/asmita/nepali/def" },
+      social:    { display: "Social", valid: "class10/asmita/social/ghi" },
+      math:      { display: "Math", valid: "class10/asmita/math/jkl" },
+      science:   { display: "Science", valid: "class10/asmita/science/mno" },
+      optmath:   { display: "Opt. Math", valid: "class10/asmita/optmath/123" },
+      population:{ display: "Population", valid: "class10/asmita/population/456" },
+      economics: { display: "Economics", valid: "class10/asmita/economics/789" },
+      account:   { display: "Account", valid: "class10/asmita/account/101" },
+      computer:  { display: "Computer", valid: "class10/asmita/computer/102" },
+      education: { display: "Education", valid: "class10/asmita/education/103" }
     };
 
+    // Click counter for Thank You button
     let thankYouCount = 0;
     const thankYouBtn = document.getElementById('thankYouBtn');
-    const donglePopup = document.getElementById('donglePopup');
+    const dongleSection = document.getElementById('dongleSection');
+    const dongleContainer = document.getElementById('dongleContainer');
 
-    thankYouBtn.addEventListener('click', function() {
+    // When Thank You button is clicked, increase counter; only open dongle entry after 5 clicks.
+    thankYouBtn.addEventListener('click', () => {
       thankYouCount++;
       if (thankYouCount >= 5) {
-        showPopup();
+        showDongleSection();
       }
     });
 
-    function showPopup() {
-      // For each subject, hide its form if the dongle is already stored
-      ['english', 'nepali', 'social', 'math'].forEach(subject => {
-        if (getDongle(subject)) {
-          document.getElementById('form' + capitalize(subject)).style.display = 'none';
-        } else {
-          document.getElementById('form' + capitalize(subject)).style.display = 'block';
+    // Function to show dongle entry section and populate rows for subjects not yet validated.
+    function showDongleSection() {
+      // Clear container first (in case of multiple openings)
+      dongleContainer.innerHTML = "";
+      Object.keys(subjects).forEach(key => {
+        // Only show dongle entry row if the cookie is not already set.
+        if (!getCookie('dongle_' + key)) {
+          const row = document.createElement('div');
+          row.className = 'dongle-row';
+          // Label with subject name.
+          const label = document.createElement('label');
+          label.textContent = subjects[key].display;
+          // Input field.
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.placeholder = 'Enter dongle';
+          input.id = 'input_' + key;
+          // Submit button.
+          const btn = document.createElement('button');
+          btn.textContent = 'Submit';
+          btn.onclick = () => submitDongle(key);
+          
+          row.appendChild(label);
+          row.appendChild(input);
+          row.appendChild(btn);
+          dongleContainer.appendChild(row);
         }
       });
-      donglePopup.style.display = 'block';
+      dongleSection.style.display = 'block';
     }
 
-    function closePopup() {
-      donglePopup.style.display = 'none';
-      thankYouCount = 0;  // Reset count on popup close (refresh will also clear it)
-    }
-
+    // Function to submit dongle for a specific subject.
     function submitDongle(subject) {
-      const inputId = 'input' + capitalize(subject);
-      const entered = document.getElementById(inputId).value.trim();
-      if (entered === validDongles[subject]) {
-        // Store in localStorage and as a cookie
+      const input = document.getElementById('input_' + subject);
+      const entered = input.value.trim();
+      if (entered === subjects[subject].valid) {
+        // Store in localStorage and as a cookie (cookie for persistence)
         localStorage.setItem('dongle_' + subject, entered);
-        document.cookie = 'dongle_' + subject + '=' + entered + '; path=/';
-        alert(capitalize(subject) + ' dongle accepted!');
-        document.getElementById('form' + capitalize(subject)).style.display = 'none';
+        document.cookie = 'dongle_' + subject + '=' + entered + '; path=/; max-age=' + (60*60*24*365);
+        alert(subjects[subject].display + ' dongle accepted!');
+        // Remove this row from the form.
+        input.parentElement.style.display = 'none';
       } else {
-        alert('Error: Wrong dongle for ' + subject);
+        alert('Error: Wrong dongle for ' + subjects[subject].display);
       }
     }
 
-    function capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    // Utility to get a dongle value from cookie or localStorage
-    function getDongle(subject) {
-      let val = localStorage.getItem('dongle_' + subject);
-      if (!val) {
-        val = getCookie('dongle_' + subject);
-      }
-      return val;
-    }
-
-    // Simple function to read a cookie value by name
+    // Helper function to read cookie by name.
     function getCookie(name) {
       const value = "; " + document.cookie;
       const parts = value.split("; " + name + "=");
       if (parts.length === 2) return parts.pop().split(";").shift();
+      return null;
     }
   </script>
 </body>
