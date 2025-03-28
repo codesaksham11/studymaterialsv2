@@ -5,7 +5,6 @@
   <title>Asmita (answers) - Class 10</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Reset and base styling (same as before) */
     body, h1, h2, p, div, input, button, a {
       margin: 0;
       padding: 0;
@@ -30,7 +29,6 @@
       color: #2a9d8f;
       margin-bottom: 10px;
     }
-    /* Container for the content (same as before) */
     .content {
       width: 100%;
       max-width: 800px;
@@ -39,7 +37,6 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    /* Subject list box (same as before) */
     .subject-list {
       margin: 20px 0;
     }
@@ -67,7 +64,6 @@
     .subject-link:hover {
       background: #2a9d8f;
     }
-    /* Thank You button (same as before) */
     .thank-you-btn {
       margin: 30px auto 10px auto;
       display: block;
@@ -83,7 +79,6 @@
     .thank-you-btn:hover {
       background: #ffbf69;
     }
-    /* Hidden dongle entry section (same as before) */
     .dongle-section {
       display: none;
       margin: 20px 0;
@@ -95,11 +90,15 @@
       color: #264653;
       margin-bottom: 15px;
     }
+    .dongle-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
     .dongle-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
       padding: 8px;
       border-bottom: 1px solid #eee;
     }
@@ -130,7 +129,6 @@
     .dongle-row button:hover {
       background: #3ab0a6;
     }
-    /* Back button (same as before) */
     .back-btn {
       display: inline-block;
       margin: 30px auto 10px auto;
@@ -147,18 +145,15 @@
     .back-btn:hover {
       background: #f29e74;
     }
-    /* Responsive adjustments (same as before) */
     @media (max-width: 480px) {
-      header h1 {
-        font-size: 2rem;
-      }
+      header h1 { font-size: 2rem; }
       .subject-link, .thank-you-btn, .back-btn {
         font-size: 1rem;
         padding: 12px 20px;
       }
       .dongle-row {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
       }
       .dongle-row input, .dongle-row button {
         width: 100%;
@@ -173,64 +168,50 @@
   </header>
 
   <div class="content">
-    <!-- Subjects List Section -->
     <div class="subject-list">
       <h2>Subjects</h2>
       <div class="subjects">
-        <!-- Corrected Links - Just the filenames -->
         <a href="asmitaanswers/english.html" class="subject-link">English</a>
-        <a href="nepali.html" class="subject-link">Nepali</a>
-        <a href="social.html" class="subject-link">Social</a>
-        <a href="math.html" class="subject-link">Math</a>
-        <a href="science.html" class="subject-link">Science</a>
-        <a href="optmath.html" class="subject-link">Opt. Math comp.</a>
-        <a href="population.html" class="subject-link">Population</a>
-        <a href="economics.html" class="subject-link">Economics</a>
-        <a href="account.html" class="subject-link">Account</a>
-        <a href="computer.html" class="subject-link">Computer</a>
-        <a href="education.html" class="subject-link">Education</a>
+        <a href="asmitaanswers/nepali.html" class="subject-link">Nepali</a>
+        <a href="asmitaanswers/social.html" class="subject-link">Social</a>
+        <a href="asmitaanswers/math.html" class="subject-link">Math</a>
+        <a href="asmitaanswers/science.html" class="subject-link">Science</a>
+        <a href="asmitaanswers/optmath.html" class="subject-link">Opt. Math comp.</a>
+        <a href="asmitaanswers/population.html" class="subject-link">Population</a>
+        <a href="asmitaanswers/economics.html" class="subject-link">Economics</a>
+        <a href="asmitaanswers/account.html" class="subject-link">Account</a>
+        <a href="asmitaanswers/computer.html" class="subject-link">Computer</a>
+        <a href="asmitaanswers/education.html" class="subject-link">Education</a>
       </div>
     </div>
 
-    <!-- Thank You Button (for Dongle Entry) -->
     <button id="thankYouBtn" class="thank-you-btn">Thank You</button>
 
-    <!-- Hidden Dongle Entry Section -->
     <div id="dongleSection" class="dongle-section">
       <h3>Enter Dongle for Each Subject</h3>
-      <div id="dongleContainer">
-        <!-- Rows will be inserted here for each subject if not already validated -->
-      </div>
+      <div id="dongleContainer" class="dongle-container"></div>
     </div>
 
-    <!-- Back Button -->
     <div style="text-align: center;">
-      <a href="../class10.html" class="back-btn">Back</a>  <!-- Corrected Back Button to go up one level -->
+      <a href="../class10.html" class="back-btn">Back</a>
     </div>
   </div>
 
   <script>
-    // JavaScript code (same as before - dongle logic)
     const subjects = {
-      english:   { display: "English", valid: "class10/asmita/english/abc" },
-      nepali:    { display: "Nepali", valid: "class10/asmita/nepali/def" },
-      social:    { display: "Social", valid: "class10/asmita/social/ghi" },
-      math:      { display: "Math", valid: "class10/asmita/math/jkl" },
-      science:   { display: "Science", valid: "class10/asmita/science/mno" },
-      optmath:   { display: "Opt. Math", valid: "class10/asmita/optmath/123" },
-      population:{ display: "Population", valid: "class10/asmita/population/456" },
-      economics: { display: "Economics", valid: "class10/asmita/economics/789" },
-      account:   { display: "Account", valid: "class10/asmita/account/101" },
-      computer:  { display: "Computer", valid: "class10/asmita/computer/102" },
-      education: { display: "Education", valid: "class10/asmita/education/103" }
+      english:   { display: "English", valid: "class10/asmita/51471298" },
+      nepali:    { display: "Nepali", valid: "class10/asmita/145116129" },
+      social:    { display: "Social", valid: "class10/asmita/191593129" },
+      math:      { display: "Math", valid: "class10/asmita/131208" },
+      science:   { display: "Science", valid: "class10/asmita/191394145" },
+      optmath:   { display: "Opt. Math", valid: "class10/asmita/151620131208" },
+      population:{ display: "Population", valid: "class10/asmita/1615152112091514" },
+      economics: { display: "Economics", valid: "class10/asmita/531514151391319" },
+      account:   { display: "Account", valid: "class10/asmita/13515211420" },
+      computer:  { display: "Computer", valid: "class10/asmita/3151316162120518" },
+      education: { display: "Education", valid: "class10/asmita/54211312091514" }
     };
 
-    // Build a unique storage key for each subject using the hierarchy (same as before)
-    function getStorageKey(subject) {
-      return "dongle_class10_asmitaanswers_" + subject;
-    }
-
-    // Thank You button click counter (same as before)
     let thankYouCount = 0;
     const thankYouBtn = document.getElementById('thankYouBtn');
     const dongleSection = document.getElementById('dongleSection');
@@ -243,15 +224,11 @@
       }
     });
 
-    // Show dongle entry rows for subjects that are not validated (same as before)
     function showDongleSection() {
       dongleContainer.innerHTML = "";
       Object.keys(subjects).forEach(key => {
-        const storageKey = getStorageKey(key);
-        // If a dongle is stored but does not match the current valid value, treat as not validated.
-        const stored = localStorage.getItem(storageKey) || getCookie(storageKey);
-        if (stored !== subjects[key].valid) {
-          // Create a row for dongle entry.
+        const cookieKey = `class10_asmita_${key}`;
+        if (getCookie(cookieKey) !== subjects[key].valid) {
           const row = document.createElement('div');
           row.className = 'dongle-row';
 
@@ -259,7 +236,7 @@
           label.textContent = subjects[key].display;
 
           const input = document.createElement('input');
-          input.type = 'text';
+          input.type = 'password';
           input.placeholder = 'Enter dongle';
           input.id = 'input_' + key;
 
@@ -276,24 +253,19 @@
       dongleSection.style.display = 'block';
     }
 
-    // Submit dongle for a subject (same as before)
     function submitDongle(subject) {
-      const storageKey = getStorageKey(subject);
+      const cookieKey = `class10_asmita_${subject}`;
       const input = document.getElementById('input_' + subject);
       const entered = input.value.trim();
       if (entered === subjects[subject].valid) {
-        // Save in localStorage and cookie (1 year expiry)
-        localStorage.setItem(storageKey, entered);
-        document.cookie = storageKey + '=' + entered + '; path=/; max-age=' + (60*60*24*365);
-        alert(subjects[subject].display + ' dongle accepted!');
-        // Hide the row
+        document.cookie = `${cookieKey}=${entered}; path=/; max-age=31536000`; // 1 year
+        alert(`${subjects[subject].display} dongle accepted!`);
         input.parentElement.style.display = 'none';
       } else {
-        alert('Error: Wrong dongle for ' + subjects[subject].display);
+        alert(`Error: Wrong dongle for ${subjects[subject].display}`);
       }
     }
 
-    // Helper function to read a cookie by name. (same as before)
     function getCookie(name) {
       const value = "; " + document.cookie;
       const parts = value.split("; " + name + "=");
