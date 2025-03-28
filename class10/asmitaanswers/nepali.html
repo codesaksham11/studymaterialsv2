@@ -1,30 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Asmita Answers - Nepali</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; }
-    nav { margin-bottom: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2a9d8f;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #e76f51;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #f29e74;
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5rem; }
+      .content { padding: 15px; }
+    }
   </style>
 </head>
 <body>
-  <nav>
-    <button onclick="location.href='../asmitaanswers.html'">Back to Asmita Answers</button>
-  </nav>
-  <h1>Nepali Premium Content</h1>
-  <p>This is the premium Nepali section.</p>
-  
+  <div class="content">
+    <h1>Nepali Premium Content</h1>
+    <p>This is the premium Nepali section.</p>
+    <a href="../asmitaanswers.html" class="back-btn">Back to Asmita Answers</a>
+  </div>
+
   <script>
-    const validNepali = 'class10/asmita/nepali/def';
-    
+    const validNepali = 'class10/asmita/145116129';
+    const cookieName = 'class10_asmita_nepali';
+
     function getCookie(name) {
       const value = "; " + document.cookie;
       const parts = value.split("; " + name + "=");
       if (parts.length === 2) return parts.pop().split(";").shift();
+      return null;
     }
-    
-    const stored = localStorage.getItem('dongle_nepali') || getCookie('dongle_nepali');
+
+    const stored = getCookie(cookieName);
     if (!stored || stored !== validNepali) {
       alert('Access Denied: Correct Nepali dongle required.');
       window.location.href = '../asmitaanswers.html';
