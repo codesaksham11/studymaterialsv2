@@ -79,56 +79,6 @@
     .thank-you-btn:hover {
       background: #ffbf69;
     }
-    .dongle-section {
-      display: none;
-      margin: 20px 0;
-      border-top: 1px solid #ddd;
-      padding-top: 20px;
-    }
-    .dongle-section h3 {
-      text-align: center;
-      color: #264653;
-      margin-bottom: 15px;
-    }
-    .dongle-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .dongle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px;
-      border-bottom: 1px solid #eee;
-    }
-    .dongle-row label {
-      flex: 1;
-      font-size: 1rem;
-      color: #333;
-    }
-    .dongle-row input {
-      flex: 2;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin: 0 10px;
-      font-size: 1rem;
-    }
-    .dongle-row button {
-      flex: 1;
-      background: #2a9d8f;
-      color: #fff;
-      border: none;
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .dongle-row button:hover {
-      background: #3ab0a6;
-    }
     .back-btn {
       display: inline-block;
       margin: 30px auto 10px auto;
@@ -151,14 +101,6 @@
         font-size: 1rem;
         padding: 12px 20px;
       }
-      .dongle-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .dongle-row input, .dongle-row button {
-        width: 100%;
-        margin: 5px 0;
-      }
     }
   </style>
 </head>
@@ -171,107 +113,23 @@
     <div class="subject-list">
       <h2>Subjects</h2>
       <div class="subjects">
-        <a href="asmitaanswers/english.html" class="subject-link">English</a>
-        <a href="asmitaanswers/nepali.html" class="subject-link">Nepali</a>
-        <a href="asmitaanswers/social.html" class="subject-link">Social</a>
-        <a href="asmitaanswers/math.html" class="subject-link">Math</a>
-        <a href="asmitaanswers/science.html" class="subject-link">Science</a>
-        <a href="asmitaanswers/optmath.html" class="subject-link">Opt. Math comp.</a>
-        <a href="asmitaanswers/population.html" class="subject-link">Population</a>
-        <a href="asmitaanswers/economics.html" class="subject-link">Economics</a>
-        <a href="asmitaanswers/account.html" class="subject-link">Account</a>
-        <a href="asmitaanswers/computer.html" class="subject-link">Computer</a>
-        <a href="asmitaanswers/education.html" class="subject-link">Education</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-english" class="subject-link">English</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-nepali" class="subject-link">Nepali</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-social" class="subject-link">Social</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-mathematics" class="subject-link">Math</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-science" class="subject-link">Science</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-optional-mathematics" class="subject-link">Opt. Math</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-computer-science" class="subject-link">Computer</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-office-practice-and-accountancy" class="subject-link">Account</a>
+        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-economics" class="subject-link">Economics</a>
       </div>
     </div>
 
-    <button id="thankYouBtn" class="thank-you-btn">Thank You</button>
-
-    <div id="dongleSection" class="dongle-section">
-      <h3>Enter Dongle for Each Subject</h3>
-      <div id="dongleContainer" class="dongle-container"></div>
-    </div>
+    <button class="thank-you-btn">Thank You</button>
 
     <div style="text-align: center;">
       <a href="../class10.html" class="back-btn">Back</a>
     </div>
   </div>
-
-  <script>
-    const subjects = {
-      english:   { display: "English", valid: "class10/asmita/51471298" },
-      nepali:    { display: "Nepali", valid: "class10/asmita/145116129" },
-      social:    { display: "Social", valid: "class10/asmita/191593129" },
-      math:      { display: "Math", valid: "class10/asmita/131208" },
-      science:   { display: "Science", valid: "class10/asmita/191394145" },
-      optmath:   { display: "Opt. Math", valid: "class10/asmita/151620131208" },
-      population:{ display: "Population", valid: "class10/asmita/1615152112091514" },
-      economics: { display: "Economics", valid: "class10/asmita/531514151391319" },
-      account:   { display: "Account", valid: "class10/asmita/13515211420" },
-      computer:  { display: "Computer", valid: "class10/asmita/3151316162120518" },
-      education: { display: "Education", valid: "class10/asmita/54211312091514" }
-    };
-
-    let thankYouCount = 0;
-    const thankYouBtn = document.getElementById('thankYouBtn');
-    const dongleSection = document.getElementById('dongleSection');
-    const dongleContainer = document.getElementById('dongleContainer');
-
-    thankYouBtn.addEventListener('click', () => {
-      thankYouCount++;
-      if (thankYouCount >= 5) {
-        showDongleSection();
-      }
-    });
-
-    function showDongleSection() {
-      dongleContainer.innerHTML = "";
-      Object.keys(subjects).forEach(key => {
-        const cookieKey = `class10_asmita_${key}`;
-        if (getCookie(cookieKey) !== subjects[key].valid) {
-          const row = document.createElement('div');
-          row.className = 'dongle-row';
-
-          const label = document.createElement('label');
-          label.textContent = subjects[key].display;
-
-          const input = document.createElement('input');
-          input.type = 'password';
-          input.placeholder = 'Enter dongle';
-          input.id = 'input_' + key;
-
-          const btn = document.createElement('button');
-          btn.textContent = 'Submit';
-          btn.onclick = () => submitDongle(key);
-
-          row.appendChild(label);
-          row.appendChild(input);
-          row.appendChild(btn);
-          dongleContainer.appendChild(row);
-        }
-      });
-      dongleSection.style.display = 'block';
-    }
-
-    function submitDongle(subject) {
-      const cookieKey = `class10_asmita_${subject}`;
-      const input = document.getElementById('input_' + subject);
-      const entered = input.value.trim();
-      if (entered === subjects[subject].valid) {
-        document.cookie = `${cookieKey}=${entered}; path=/; max-age=31536000`; // 1 year
-        alert(`${subjects[subject].display} dongle accepted!`);
-        input.parentElement.style.display = 'none';
-      } else {
-        alert(`Error: Wrong dongle for ${subjects[subject].display}`);
-      }
-    }
-
-    function getCookie(name) {
-      const value = "; " + document.cookie;
-      const parts = value.split("; " + name + "=");
-      if (parts.length === 2) return parts.pop().split(";").shift();
-      return null;
-    }
-  </script>
 </body>
 </html>
