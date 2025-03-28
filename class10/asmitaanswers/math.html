@@ -2,29 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Math Premium Content</title>
+  <title>Asmita Answers - Math</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      text-align: center; 
-      padding: 20px; 
-      background: #f7f9fc; 
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+      box-sizing: border-box;
     }
-    .back-btn { 
-      margin-top: 20px; 
-      display: inline-block; 
-      padding: 10px 20px; 
-      background: #e76f51; 
-      color: #fff; 
-      text-decoration: none; 
-      border-radius: 8px; 
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2a9d8f;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #e76f51;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #f29e74;
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5rem; }
+      .content { padding: 15px; }
     }
   </style>
 </head>
 <body>
-  <h1>Math Premium Content</h1>
-  <p>Welcome! Your valid dongle grants you access to this premium Math content.</p>
-  <a href="../asmitaanswers.html" class="back-btn">Back</a>
+  <div class="content">
+    <h1>Math Premium Content</h1>
+    <p>This is the premium Math section.</p>
+    <a href="../asmitaanswers.html" class="back-btn">Back to Asmita Answers</a>
+  </div>
+
+  <script>
+    const validMath = 'class10/asmita/131208';
+    const cookieName = 'class10_asmita_math';
+
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
+      return null;
+    }
+
+    const stored = getCookie(cookieName);
+    if (!stored || stored !== validMath) {
+      alert('Access Denied: Correct Math dongle required.');
+      window.location.href = '../asmitaanswers.html';
+    }
+  </script>
 </body>
 </html>
