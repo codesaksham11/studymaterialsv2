@@ -14,16 +14,14 @@
     }
     body {
       background: #f7f9fc;
+        body {
+      background: #f7f9fc;
       color: #333;
-      padding: 20px;
+      /* padding: 20px; */ /* Original line commented out or removed */
+      padding: 20px 0; /* APPLY padding only top/bottom (20px top/bottom, 0 left/right) */
       min-height: 100vh;
       position: relative;
-    }
-
-    /* Prevent body scroll when menu is open */
-    body.menu-open {
-        overflow: hidden;
-    }
+        }
 
     header {
       text-align: center;
