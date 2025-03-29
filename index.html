@@ -15,15 +15,20 @@
     body {
       background: #f7f9fc;
       color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       padding: 20px;
       min-height: 100vh;
+      position: relative;
     }
+
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+
     header {
       text-align: center;
       margin-bottom: 20px;
+      padding-top: 60px; /* Increased padding to avoid overlap with new menu button size */
     }
     header h1 {
       font-size: 2.5rem;
@@ -43,6 +48,7 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
+      margin: 0 auto;
     }
     .bullet-points {
       text-align: left;
@@ -67,6 +73,7 @@
       margin: 10px 0;
       font-size: 1rem;
       color: #333;
+      text-align: left;
     }
     /* Vertical option boxes */
     .options {
@@ -76,7 +83,7 @@
       gap: 10px;
     }
     .option-box {
-      background: #264653;
+      background: #264653; /* Dark teal */
       color: #fff;
       padding: 15px;
       border-radius: 8px;
@@ -87,7 +94,7 @@
       font-size: 1.1rem;
     }
     .option-box:hover {
-      background: #2a9d8f;
+      background: #2a9d8f; /* Lighter teal */
     }
     /* Additional texts */
     .info-text {
@@ -95,15 +102,101 @@
       font-size: 1rem;
       color: #555;
       line-height: 1.5;
+      text-align: center;
     }
     /* Version text at bottom */
     .version {
       margin-top: 30px;
       font-size: 0.8rem;
       color: #999;
+      text-align: center;
+      padding-bottom: 20px;
     }
+
+    /* --- UPDATED MENU STYLES --- */
+    #menu-toggle {
+        position: fixed; /* Keep it fixed */
+        top: 15px;
+        right: 15px;
+        width: 45px;  /* Slightly wider */
+        height: 40px; /* Height */
+        background-color: #2a9d8f; /* Using the brighter teal for more attention */
+        color: white;
+        border: none;
+        border-radius: 8px; /* Rounded corners for box */
+        font-size: 24px; /* Size of the hamburger icon */
+        line-height: 40px; /* Vertically center icon */
+        text-align: center;
+        cursor: pointer;
+        z-index: 1001;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        padding: 0;
+        font-weight: bold; /* Make icon slightly bolder */
+    }
+     #menu-toggle:hover {
+         background-color: #264653; /* Darker teal on hover */
+     }
+
+    #side-menu {
+        position: fixed;
+        top: 0;
+        right: -300px; /* Start off-screen */
+        width: 250px;
+        height: 100vh;
+        background-color: #333;
+        color: white;
+        padding: 70px 20px 20px 20px; /* More top padding */
+        box-shadow: -3px 0 8px rgba(0,0,0,0.3);
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #side-menu.active {
+        right: 0;
+    }
+
+    #side-menu a { /* Style for regular links */
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 10px 15px; /* Adjusted padding */
+        border-radius: 6px; /* Slightly rounded corners */
+        transition: background-color 0.2s;
+        display: block; /* Make link fill width */
+        border-bottom: 1px solid #555; /* Keep separators for non-highlighted */
+    }
+    #side-menu a:last-child {
+         border-bottom: none;
+     }
+
+    #side-menu a:not(.highlight-link):hover { /* Hover for regular links */
+        background-color: #555;
+    }
+
+    /* --- HIGHLIGHTED LINK STYLE --- */
+    #side-menu a.highlight-link {
+        background-color: #e76f51; /* Eye-catching but professional orange-red */
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: none; /* Remove separator line for this one */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow */
+    }
+    #side-menu a.highlight-link:hover {
+        background-color: #d85a3e; /* Slightly darker shade on hover */
+        box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    /* --- END NEW MENU STYLES --- */
+
+
     /* Responsive adjustments */
     @media (max-width: 480px) {
+      header {
+        padding-top: 55px; /* Adjust padding */
+      }
       header h1 {
         font-size: 2rem;
       }
@@ -111,17 +204,50 @@
         font-size: 1rem;
         padding: 12px;
       }
+      #menu-toggle {
+          top: 10px;
+          right: 10px;
+          width: 40px;
+          height: 35px;
+          line-height: 35px;
+          font-size: 20px;
+      }
+       #side-menu {
+           width: 200px;
+           right: -250px;
+           padding-top: 60px;
+       }
+        #side-menu a {
+            font-size: 1rem;
+            padding: 8px 10px;
+        }
     }
   </style>
 </head>
 <body>
+
+  <!-- Menu Toggle Button (Hamburger Icon) -->
+  <button id="menu-toggle" aria-label="Toggle menu">
+    ☰
+  </button>
+
+  <!-- Side Menu Panel -->
+  <div id="side-menu">
+    <!-- Highlighted Link -->
+    <a href="toppersnote.html" class="highlight-link">Toppers note</a>
+    <!-- Regular Links -->
+    <a href="ourteam.html">Our team</a>
+    <a href="privacy.html">Privacy policy</a>
+  </div>
+
+
+  <!-- Existing Content -->
   <header>
     <h1>Welcome to NEB HELP</h1>
     <p class="subheading">Do you feel like you write answers still don't get marks? Here may be the reasons:</p>
   </header>
-  
+
   <div class="content">
-    <!-- Bullet list -->
     <div class="bullet-points">
       <ul>
         <li>The answer you search on the internet may not match with the curriculum of Nepal.</li>
@@ -129,40 +255,58 @@
         <li>You didn't practice 10 set.</li>
       </ul>
     </div>
-    <!-- See more toggle -->
-    <div class="see-more" onclick="toggleMore()">See more...</div>
+    <div class="see-more" onclick="toggleMoreText()">See more...</div>
     <div id="moreText" class="hidden-text">
       <p>10 set are expensive, so every student may not have access to it. With the goal that every student passes this year, we provide you every question from each ten set in <strong>FREE</strong>.</p>
     </div>
-    
-    <!-- Vertical option boxes -->
+
     <div class="options">
       <a href="class10.html" class="option-box">Class 10 (SEE)</a>
       <a href="class8.html" class="option-box">Class 8 (BLE)</a>
       <a href="feedback.html" class="option-box">Feedback</a>
     </div>
-    
-    <!-- Instructional texts -->
+
     <div class="info-text">
-      <p>To see question set, select your grade &gt; then publication of ten set &gt; then subject.</p>
+      <p>To see question set, select your grade > then publication of ten set > then subject.</p>
       <p>If you think any publication is left, tell us via feedback.</p>
     </div>
   </div>
-  
-  <!-- Version info -->
+
   <div class="version">
     v.1.2.1 android/ios/windows
   </div>
-  
+
   <script>
-    function toggleMore() {
+    function toggleMoreText() {
       const moreText = document.getElementById('moreText');
+      const seeMoreLink = document.querySelector('.see-more');
       if (moreText.style.display === "block") {
         moreText.style.display = "none";
+        seeMoreLink.textContent = "See more...";
       } else {
         moreText.style.display = "block";
+        seeMoreLink.textContent = "See less...";
       }
     }
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const sideMenu = document.getElementById('side-menu');
+    const body = document.body;
+
+    menuToggle.addEventListener('click', function(event) {
+      sideMenu.classList.toggle('active');
+      body.classList.toggle('menu-open');
+      event.stopPropagation();
+    });
+
+    // Optional: Close menu if clicking outside
+    // document.addEventListener('click', function(event) {
+    //     if (sideMenu.classList.contains('active') && !sideMenu.contains(event.target) && event.target !== menuToggle) {
+    //         sideMenu.classList.remove('active');
+    //         body.classList.remove('menu-open');
+    //     }
+    // });
+
   </script>
 </body>
 </html>
