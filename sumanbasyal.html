@@ -5,231 +5,63 @@
     <title>Suman Basyal's Notes - NEB HELP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
-        /* --- Basic Reset & Defaults (Similar to toppersnote.html) --- */
+        /* --- CSS Styles (Keep as before) --- */
+        /* Basic Reset & Defaults */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f9fc;
-            color: #333;
-            line-height: 1.6;
-            padding-bottom: 80px;
-        }
-        .container {
-            max-width: 900px; /* Slightly wider for grid */
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            text-align: center;
-            color: #2a9d8f;
-            margin-bottom: 25px;
-        }
-        h1 { font-size: 2rem; }
-        h2 { font-size: 1.6rem; margin-top: 35px; padding-top: 20px; border-top: 1px solid #eee; }
-
-        /* --- Subject Links Section --- */
-        .subject-links {
-            padding: 15px;
-            background-color: #f0f4f8; /* Light background for section */
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        .subject-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
-            gap: 15px;
-        }
-        .subject-box {
-            background-color: #264653; /* Dark teal */
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: flex; /* For alignment if needed */
-            justify-content: center;
-            align-items: center;
-            min-height: 60px; /* Ensure consistent height */
-        }
-        .subject-box:hover {
-            background-color: #2a9d8f; /* Lighter teal on hover */
-            transform: translateY(-3px); /* Slight lift effect */
-        }
-
-        /* --- Dongle Entry Section --- */
-        .dongle-entry {
-            padding: 20px;
-            background-color: #fefae0; /* Light yellow background */
-            border: 1px solid #fae588;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        .dongle-toggle-btn {
-            background-color: #e76f51; /* Orange-red button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: block; /* Make it block level */
-            width: 100%; /* Full width */
-            margin-bottom: 15px; /* Space before form */
-        }
-        .dongle-toggle-btn:hover {
-            background-color: #d85a3e;
-        }
-        .dongle-form-container {
-            display: none; /* Hidden by default */
-            border-top: 1px dashed #ccc;
-            padding-top: 20px;
-        }
-        .dongle-subject-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .dongle-subject-item {
-            /* Styling for items if needed, currently handled by label */
-        }
-        .dongle-subject-item label {
-            display: block; /* Make label take full width */
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease, border-color 0.2s ease;
-        }
-        .dongle-subject-item input[type="radio"] {
-            display: none; /* Hide actual radio button */
-        }
-        .dongle-subject-item input[type="radio"]:checked + label {
-             background-color: #d1e7dd; /* Light green when selected */
-             border-color: #a3cfbb;
-             font-weight: bold;
-        }
-        .dongle-subject-item label:hover {
-            background-color: #f8f9fa;
-        }
-
-        .dongle-input-area {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
-            gap: 10px;
-            align-items: center;
-            justify-content: center; /* Center items */
-        }
-        .dongle-input-area label {
-            font-weight: bold;
-            margin-right: 5px; /* Space before input */
-        }
-        .dongle-input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            flex-grow: 1; /* Allow input to grow */
-            min-width: 150px; /* Minimum width */
-            /* type="password" handled in HTML */
-        }
-        .dongle-submit-btn {
-            background-color: #2a9d8f; /* Teal */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .dongle-submit-btn:hover {
-            background-color: #264653; /* Darker teal */
-        }
-
-        /* Helper class to hide unlocked subjects in dongle section */
-        .hidden-by-cookie {
-            display: none !important;
-        }
-
-        /* --- Audio Message Section --- */
-        .audio-message {
-            text-align: center;
-            margin: 30px 0;
-        }
-        .audio-play-button {
-            background-color: #1e88e5; /* Blue */
-            color: white;
-            border: none;
-            border-radius: 50%; /* Circular */
-            width: 60px;
-            height: 60px;
-            font-size: 1.8rem; /* Speaker icon size */
-            cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease; /* Bounce effect + color */
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-        }
-        .audio-play-button:hover {
-            background-color: #1565c0; /* Darker blue */
-        }
-        .audio-play-button:active {
-             transform: scale(0.9); /* Shrink effect on click */
-        }
-        .audio-player { /* Hide the default audio controls */
-            display: none;
-        }
-
-
-        /* --- Popups (Similar to toppersnote.html) --- */
+        body { font-family: Arial, sans-serif; background-color: #f7f9fc; color: #333; line-height: 1.6; padding-bottom: 80px; }
+        .container { max-width: 900px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        h1, h2 { text-align: center; color: #2a9d8f; margin-bottom: 25px; }
+        h1 { font-size: 2rem; } h2 { font-size: 1.6rem; margin-top: 35px; padding-top: 20px; border-top: 1px solid #eee; }
+        /* Subject Links */
+        .subject-links { padding: 15px; background-color: #f0f4f8; border-radius: 10px; margin-bottom: 30px; }
+        .subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
+        .subject-box { background-color: #264653; color: white; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 1rem; font-weight: bold; transition: background-color 0.3s ease, transform 0.2s ease; display: flex; justify-content: center; align-items: center; min-height: 60px; }
+        .subject-box:hover { background-color: #2a9d8f; transform: translateY(-3px); }
+        /* Dongle Entry */
+        .dongle-entry { padding: 20px; background-color: #fefae0; border: 1px solid #fae588; border-radius: 10px; margin-bottom: 30px; }
+        .dongle-toggle-btn { background-color: #e76f51; color: white; border: none; padding: 10px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; display: block; width: 100%; margin-bottom: 15px; }
+        .dongle-toggle-btn:hover { background-color: #d85a3e; }
+        .dongle-form-container { display: none; border-top: 1px dashed #ccc; padding-top: 20px; }
+        .dongle-subject-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .dongle-subject-item label { display: block; padding: 10px; background-color: #fff; border: 1px solid #ddd; border-radius: 6px; text-align: center; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; }
+        .dongle-subject-item input[type="radio"] { display: none; }
+        .dongle-subject-item input[type="radio"]:checked + label { background-color: #d1e7dd; border-color: #a3cfbb; font-weight: bold; }
+        .dongle-subject-item label:hover { background-color: #f8f9fa; }
+        .dongle-input-area { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
+        .dongle-input-area label { font-weight: bold; margin-right: 5px; }
+        .dongle-input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; flex-grow: 1; min-width: 150px; }
+        .dongle-submit-btn { background-color: #2a9d8f; color: white; border: none; padding: 10px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; }
+        .dongle-submit-btn:hover { background-color: #264653; }
+        .hidden-by-cookie { display: none !important; }
+        /* Audio Message */
+        .audio-message { text-align: center; margin: 30px 0; }
+        .audio-play-button { background-color: #1e88e5; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 1.8rem; cursor: pointer; transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease; display: inline-flex; justify-content: center; align-items: center; box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
+        .audio-play-button:hover { background-color: #1565c0; }
+        .audio-play-button:active { transform: scale(0.9); }
+        .audio-player { display: none; }
+        /* Popups */
         .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .popup-overlay.active { display: block; opacity: 1; }
         .popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background-color: white; padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); z-index: 1001; width: 90%; max-width: 400px; display: none; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; text-align: center; }
         .popup.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
         .popup p { font-size: 1.1rem; margin: 0; }
-        .popup.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; } /* Error specific style */
-
-
-        /* --- Back Button --- */
+        .popup.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        /* Back Button */
         .back-button-container { text-align: center; margin-top: 40px; }
         .back-btn { background-color: #6c757d; color: white; border: none; padding: 10px 25px; font-size: 1.1rem; cursor: pointer; border-radius: 8px; text-decoration: none; transition: background-color 0.3s ease; }
         .back-btn:hover { background-color: #5a6268; }
-
-
-        /* --- Responsive Adjustments --- */
-         @media (max-width: 480px) {
-            h1 { font-size: 1.6rem; }
-            h2 { font-size: 1.3rem; }
-            .subject-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
-            .subject-box { font-size: 0.9rem; min-height: 50px; padding: 10px; }
-            .dongle-subject-options { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; }
-            .dongle-toggle-btn, .dongle-submit-btn, .dongle-input { font-size: 0.95rem; padding: 8px 15px; }
-         }
+        /* Responsive */
+         @media (max-width: 480px) { h1 { font-size: 1.6rem; } h2 { font-size: 1.3rem; } .subject-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; } .subject-box { font-size: 0.9rem; min-height: 50px; padding: 10px; } .dongle-subject-options { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; } .dongle-toggle-btn, .dongle-submit-btn, .dongle-input { font-size: 0.95rem; padding: 8px 15px; } }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1>Suman Basyal's Notes</h1>
 
-        <!-- Section for Subject Links -->
         <section class="subject-links">
             <h2>Available Subjects</h2>
             <div class="subject-grid">
-                <!-- Links point to the subject pages within the sumanbasyal folder -->
+                <!-- Link paths are relative to this file's location -->
                 <a href="sumanbasyal/english.html" class="subject-box">English</a>
                 <a href="sumanbasyal/nepali.html" class="subject-box">Nepali</a>
                 <a href="sumanbasyal/science.html" class="subject-box">Science</a>
@@ -237,41 +69,30 @@
                 <a href="sumanbasyal/social.html" class="subject-box">Social</a>
                 <a href="sumanbasyal/account.html" class="subject-box">Account</a>
                 <a href="sumanbasyal/opt_math.html" class="subject-box">Opt. Math</a>
-                <!-- Add more subjects as needed -->
             </div>
              <p style="font-size: 0.9rem; text-align: center; margin-top: 15px; color: #555;">
-                Note: Clicking these links will take you to the notes page. Access requires entering the correct code below first.
+                Note: Enter the code below to enable access to the subject pages.
             </p>
         </section>
 
-        <!-- Section for Dongle/Code Entry -->
         <section class="dongle-entry">
             <h2>Unlock Subject Access</h2>
             <button id="dongle-toggle-btn" class="dongle-toggle-btn">Enter Code to Unlock</button>
-
             <div id="dongle-form-container" class="dongle-form-container">
                  <p style="text-align: center; margin-bottom: 15px; font-size: 0.95rem; color: #333;">Select the subject you have the code for:</p>
                 <form id="dongle-form">
                     <div id="dongle-subject-options" class="dongle-subject-options">
-                        <!-- Options will be populated by JavaScript -->
-                        <!-- Example structure (JS will create these):
-                        <div class="dongle-subject-item" data-subject-id="english">
-                            <input type="radio" id="dongle-english" name="dongle_subject" value="english" required>
-                            <label for="dongle-english">English</label>
-                        </div>
-                         -->
+                        <!-- Options dynamically populated by JS -->
                     </div>
-
                     <div class="dongle-input-area">
                         <label for="dongle-code">Enter Code:</label>
-                        <input type="password" id="dongle-code" class="dongle-input" required autocomplete="off" placeholder="******">
+                        <input type="password" id="dongle-code" class="dongle-input" required autocomplete="off" placeholder="e.g., basyal/131...">
                         <button type="submit" class="dongle-submit-btn">Submit Code</button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- Audio Message Section -->
         <section class="audio-message">
              <h2>A Message from Suman</h2>
              <button id="audio-play-button" class="audio-play-button" title="Play Message">🔊</button>
@@ -280,37 +101,30 @@
              </audio>
         </section>
 
-
-        <!-- Back Button -->
         <div class="back-button-container">
              <a href="toppersnote.html" class="back-btn">Back to Topper List</a>
         </div>
+    </div>
 
-    </div><!-- End Container -->
-
-    <!-- Popups (Hidden by default) -->
     <div id="popup-overlay" class="popup-overlay"></div>
     <div id="message-popup" class="popup">
         <p id="popup-message-text">Message</p>
     </div>
 
-
     <script>
         // --- Configuration ---
         const SUBJECTS = [
-            { id: 'english', name: 'English', code: 'SME123', cookieName: 'suman_english', page: 'sumanbasyal/english.html' },
-            { id: 'nepali', name: 'Nepali', code: 'SMN456', cookieName: 'suman_nepali', page: 'sumanbasyal/nepali.html' },
-            { id: 'science', name: 'Science', code: 'SMS789', cookieName: 'suman_science', page: 'sumanbasyal/science.html' },
-            { id: 'math', name: 'Math', code: 'SMM101', cookieName: 'suman_math', page: 'sumanbasyal/math.html' },
-            { id: 'social', name: 'Social', code: 'SMO112', cookieName: 'suman_social', page: 'sumanbasyal/social.html' },
-            { id: 'account', name: 'Account', code: 'SMA131', cookieName: 'suman_account', page: 'sumanbasyal/account.html' },
-            { id: 'opt_math', name: 'Opt. Math', code: 'SMP141', cookieName: 'suman_opt_math', page: 'sumanbasyal/opt_math.html' }
-            // --- IMPORTANT: Replace 'SMX...' codes with your actual unique codes ---
-            // --- NOTE: The user's idea 'suman/[numbers]' is complex for client-side validation ---
-            // --- Using simple unique strings like above is more practical here. ---
+            // --- UPDATED CODES ---
+            { id: 'english', name: 'English', code: 'basyal/5147129198', cookieName: 'suman_english', page: 'sumanbasyal/english.html' },
+            { id: 'nepali', name: 'Nepali', code: 'basyal/145161129', cookieName: 'suman_nepali', page: 'sumanbasyal/nepali.html' },
+            { id: 'science', name: 'Science', code: 'basyal/193951435', cookieName: 'suman_science', page: 'sumanbasyal/science.html' },
+            { id: 'math', name: 'Math', code: 'basyal/131208', cookieName: 'suman_math', page: 'sumanbasyal/math.html' },
+            { id: 'social', name: 'Social', code: 'basyal/191539112', cookieName: 'suman_social', page: 'sumanbasyal/social.html' },
+            { id: 'account', name: 'Account', code: 'basyal/13315211420', cookieName: 'suman_account', page: 'sumanbasyal/account.html' },
+            { id: 'opt_math', name: 'Opt. Math', code: 'basyal/151620131208', cookieName: 'suman_opt_math', page: 'sumanbasyal/opt_math.html' }
         ];
 
-        // --- DOM Element References ---
+        // --- DOM Element References (Same as before) ---
         const dongleToggleBtn = document.getElementById('dongle-toggle-btn');
         const dongleFormContainer = document.getElementById('dongle-form-container');
         const dongleSubjectOptionsDiv = document.getElementById('dongle-subject-options');
@@ -322,188 +136,22 @@
         const audioPlayButton = document.getElementById('audio-play-button');
         const audioPlayer = document.getElementById('suman-audio');
 
-        // --- Cookie Functions ---
-        function setCookie(name, value, days) {
-            let expires = "";
-            if (days) {
-                const date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            // Add SameSite=Lax and Secure attributes for better security (Secure requires HTTPS)
-            // document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax; Secure";
-            // For GitHub Pages (HTTP/S flexible), start without Secure:
-             document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
-        }
+        // --- Cookie Functions (Same as before) ---
+        function setCookie(name, value, days) { let expires = ""; if (days) { const date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax"; }
+        function getCookie(name) { const nameEQ = name + "="; const ca = document.cookie.split(';'); for (let i = 0; i < ca.length; i++) { let c = ca[i]; while (c.charAt(0) === ' ') c = c.substring(1, c.length); if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length); } return null; }
 
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
+        // --- Popup Functions (Same as before) ---
+        let popupTimeout; function showPopup(message, isError = false, duration = 2000) { clearTimeout(popupTimeout); popupMessageText.textContent = message; messagePopup.classList.toggle('error', isError); overlay.classList.add('active'); messagePopup.classList.add('active'); popupTimeout = setTimeout(() => { overlay.classList.remove('active'); messagePopup.classList.remove('active'); }, duration); }
 
-        // --- Popup Functions ---
-        let popupTimeout; // To manage hiding the popup
-        function showPopup(message, isError = false, duration = 2000) {
-            clearTimeout(popupTimeout); // Clear any existing timeout
-            popupMessageText.textContent = message;
-            messagePopup.classList.toggle('error', isError); // Add error class if needed
-            overlay.classList.add('active');
-            messagePopup.classList.add('active');
+        // --- Dongle Section Logic (Same as before, uses updated SUBJECTS) ---
+        function initializeDongleView() { dongleSubjectOptionsDiv.innerHTML = ''; let hasVisibleOptions = false; SUBJECTS.forEach(subject => { const isUnlocked = getCookie(subject.cookieName) === 'unlocked'; if (!isUnlocked) { hasVisibleOptions = true; const itemDiv = document.createElement('div'); itemDiv.classList.add('dongle-subject-item'); itemDiv.dataset.subjectId = subject.id; const input = document.createElement('input'); input.type = 'radio'; input.id = `dongle-${subject.id}`; input.name = 'dongle_subject'; input.value = subject.id; input.required = true; const label = document.createElement('label'); label.htmlFor = `dongle-${subject.id}`; label.textContent = subject.name; itemDiv.appendChild(input); itemDiv.appendChild(label); dongleSubjectOptionsDiv.appendChild(itemDiv); } }); if (!hasVisibleOptions) { dongleToggleBtn.textContent = "All Subjects Unlocked!"; dongleToggleBtn.disabled = true; dongleFormContainer.style.display = 'none'; } }
+        function handleDongleSubmit(event) { event.preventDefault(); const selectedRadio = document.querySelector('input[name="dongle_subject"]:checked'); const enteredCode = dongleCodeInput.value.trim(); if (!selectedRadio) { showPopup("Please select a subject.", true, 2000); return; } if (!enteredCode) { showPopup("Please enter the code.", true, 2000); return; } const selectedSubjectId = selectedRadio.value; const subject = SUBJECTS.find(s => s.id === selectedSubjectId); if (!subject) { showPopup("An error occurred. Please refresh.", true, 2000); return; } if (enteredCode === subject.code) { setCookie(subject.cookieName, 'unlocked', 365); showPopup(`${subject.name} unlocked successfully!`, false, 2000); const itemToRemove = dongleSubjectOptionsDiv.querySelector(`div[data-subject-id="${subject.id}"]`); if (itemToRemove) { itemToRemove.classList.add('hidden-by-cookie'); } dongleCodeInput.value = ''; selectedRadio.checked = false; if (dongleSubjectOptionsDiv.querySelectorAll('.dongle-subject-item:not(.hidden-by-cookie)').length === 0) { dongleToggleBtn.textContent = "All Subjects Unlocked!"; dongleToggleBtn.disabled = true; dongleFormContainer.style.display = 'none'; } } else { showPopup("Incorrect code. Please try again.", true, 2000); dongleCodeInput.value = ''; dongleCodeInput.focus(); } }
 
-            popupTimeout = setTimeout(() => {
-                overlay.classList.remove('active');
-                messagePopup.classList.remove('active');
-            }, duration);
-        }
+        // --- Audio Logic (Same as before) ---
+        audioPlayButton.addEventListener('click', () => { if (audioPlayer.paused) { audioPlayer.play(); audioPlayButton.textContent = '❚❚'; } else { audioPlayer.pause(); audioPlayer.currentTime = 0; audioPlayButton.textContent = '🔊'; } }); audioPlayer.addEventListener('ended', () => { audioPlayButton.textContent = '🔊'; });
 
-        // --- Dongle Section Logic ---
-        function initializeDongleView() {
-            dongleSubjectOptionsDiv.innerHTML = ''; // Clear existing options
-            let hasVisibleOptions = false;
-
-            SUBJECTS.forEach(subject => {
-                const isUnlocked = getCookie(subject.cookieName) === 'unlocked';
-                if (!isUnlocked) {
-                    hasVisibleOptions = true;
-                    const itemDiv = document.createElement('div');
-                    itemDiv.classList.add('dongle-subject-item');
-                    itemDiv.dataset.subjectId = subject.id; // Store id for later use
-
-                    const input = document.createElement('input');
-                    input.type = 'radio';
-                    input.id = `dongle-${subject.id}`;
-                    input.name = 'dongle_subject'; // Group radio buttons
-                    input.value = subject.id;
-                    input.required = true;
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `dongle-${subject.id}`;
-                    label.textContent = subject.name;
-
-                    itemDiv.appendChild(input);
-                    itemDiv.appendChild(label);
-                    dongleSubjectOptionsDiv.appendChild(itemDiv);
-                }
-            });
-
-            // If all subjects are unlocked, hide the entire entry section or show a message
-            if (!hasVisibleOptions) {
-                 dongleToggleBtn.textContent = "All Subjects Unlocked!";
-                 dongleToggleBtn.disabled = true;
-                 dongleFormContainer.style.display = 'none'; // Ensure form stays hidden
-            }
-        }
-
-        function handleDongleSubmit(event) {
-            event.preventDefault(); // Stop page reload
-
-            const selectedRadio = document.querySelector('input[name="dongle_subject"]:checked');
-            const enteredCode = dongleCodeInput.value.trim();
-
-            if (!selectedRadio) {
-                showPopup("Please select a subject.", true, 2000);
-                return;
-            }
-            if (!enteredCode) {
-                showPopup("Please enter the code.", true, 2000);
-                return;
-            }
-
-            const selectedSubjectId = selectedRadio.value;
-            const subject = SUBJECTS.find(s => s.id === selectedSubjectId);
-
-            if (!subject) {
-                 showPopup("An error occurred. Please refresh.", true, 2000); // Should not happen
-                 return;
-            }
-
-            // --- Code Validation ---
-            if (enteredCode === subject.code) {
-                // Correct Code
-                setCookie(subject.cookieName, 'unlocked', 365); // Set cookie for 1 year
-                showPopup(`${subject.name} unlocked successfully!`, false, 2000);
-
-                // Hide the option immediately and reset form
-                const itemToRemove = dongleSubjectOptionsDiv.querySelector(`div[data-subject-id="${subject.id}"]`);
-                if (itemToRemove) {
-                    itemToRemove.classList.add('hidden-by-cookie'); // Hide using CSS class
-                }
-                dongleCodeInput.value = ''; // Clear input
-                selectedRadio.checked = false; // Uncheck radio
-
-                // Check if any options are left, update button if needed
-                 if (dongleSubjectOptionsDiv.querySelectorAll('.dongle-subject-item:not(.hidden-by-cookie)').length === 0) {
-                    dongleToggleBtn.textContent = "All Subjects Unlocked!";
-                    dongleToggleBtn.disabled = true;
-                    dongleFormContainer.style.display = 'none';
-                }
-
-            } else {
-                // Incorrect Code
-                showPopup("Incorrect code. Please try again.", true, 2000);
-                dongleCodeInput.value = ''; // Clear input for retry
-                dongleCodeInput.focus(); // Focus back on input
-            }
-        }
-
-        // --- Audio Logic ---
-        audioPlayButton.addEventListener('click', () => {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                audioPlayButton.textContent = ' S'; // Change icon to indicate playing (e.g., pause symbol if using font icon)
-            } else {
-                audioPlayer.pause();
-                audioPlayer.currentTime = 0; // Optional: rewind to start on pause
-                audioPlayButton.textContent = '🔊'; // Change back to speaker
-            }
-        });
-         // Reset button icon when audio finishes
-         audioPlayer.addEventListener('ended', () => {
-            audioPlayButton.textContent = '🔊';
-         });
-
-
-        // --- Initial Setup & Event Listeners ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeDongleView(); // Populate and hide unlocked options on load
-
-            dongleToggleBtn.addEventListener('click', () => {
-                // Toggle visibility of the form container
-                const isVisible = dongleFormContainer.style.display === 'block';
-                dongleFormContainer.style.display = isVisible ? 'none' : 'block';
-                dongleToggleBtn.textContent = isVisible ? "Enter Code to Unlock" : "Hide Code Entry";
-            });
-
-            dongleForm.addEventListener('submit', handleDongleSubmit);
-
-            // Close popup if overlay is clicked (optional)
-            overlay.addEventListener('click', () => {
-                 clearTimeout(popupTimeout); // Prevent auto-close if manually closed
-                 overlay.classList.remove('active');
-                 messagePopup.classList.remove('active');
-             });
-        });
-
-         /*
-         --- Cloudflare & Page Protection Note ---
-         The cookie (e.g., 'suman_english=unlocked') is SET here by the browser.
-         For TRUE protection:
-         1. Configure Cloudflare Workers or Pages Functions.
-         2. On requests to protected pages (e.g., /sumanbasyal/english.html), the Worker/Function should:
-            a. Check the incoming request for the specific cookie (e.g., 'suman_english').
-            b. Verify the cookie value (e.g., is it 'unlocked'?).
-            c. If VALID: Allow the request to proceed and load the actual notes page.
-            d. If INVALID/MISSING: Redirect the user to an error page OR return a custom response (like your 'Error 101!' message). This prevents the actual notes content from ever reaching the user's browser without the valid cookie.
-         Implementing the actual check requires Cloudflare configuration, which is beyond this HTML/JS file. The links above (`<a>` tags) will currently lead directly to the pages; Cloudflare needs to intercept these requests.
-         The 'Error 101!' message appearing on the subject page itself (as you described) would typically mean Cloudflare *allowed* the page load, and then JS on *that* page checked the cookie again. This is less secure, as the page source might still be accessible. The ideal check is *before* the page loads via Cloudflare.
-         */
-
+        // --- Initial Setup & Event Listeners (Same as before) ---
+        document.addEventListener('DOMContentLoaded', () => { initializeDongleView(); dongleToggleBtn.addEventListener('click', () => { const isVisible = dongleFormContainer.style.display === 'block'; dongleFormContainer.style.display = isVisible ? 'none' : 'block'; dongleToggleBtn.textContent = isVisible ? "Enter Code to Unlock" : "Hide Code Entry"; }); dongleForm.addEventListener('submit', handleDongleSubmit); overlay.addEventListener('click', () => { clearTimeout(popupTimeout); overlay.classList.remove('active'); messagePopup.classList.remove('active'); }); });
     </script>
 
 </body>
