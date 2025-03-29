@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Note Viewer - NEB HELP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Link to a separate CSS file for the viewer styles -->
+    <link rel="stylesheet" href="css/viewer_style.css">
+    <style>
+        /* Basic styles directly here for simplicity, or move to viewer_style.css */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef; /* Slightly different background */
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Full viewport height */
+            overflow: hidden; /* Prevent body scroll */
+            color: #333;
+        }
+
+        .viewer-container {
+            flex-grow: 1; /* Takes available space */
+            display: flex;
+            flex-direction: column;
+            max-width: 1000px; /* Max width for notes */
+            width: 100%;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative; /* For absolute positioning of errors */
+        }
+
+        .viewer-header {
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            text-align: center;
+            position: relative; /* For back button positioning */
+        }
+         .viewer-header .back-button {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 1.5rem;
+            line-height: 35px;
+            cursor: pointer;
+            padding: 0;
+         }
+         .viewer-header .back-button:hover {
+             background: #5a6268;
+         }
+
+        .viewer-header h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #495057;
+        }
+
+        .image-display-area {
+            flex-grow: 1; /* Takes remaining vertical space */
+            overflow: hidden; /* Hide overflow, image will be contained */
+            position: relative; /* For swipe detection and loading indicator */
+            background-color: #f1f3f5; /* Background while image loads */
+            display: flex; /* Center image */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .note-image {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Scale image down to fit */
+            user-select: none; /* Prevent text selection */
+            -webkit-user-drag: none; /* Prevent image drag */
+             opacity: 1;
+             transition: opacity 0.3s ease-in-out; /* Fade effect */
+        }
+        .note-image.loading {
+            opacity: 0.5; /* Dim image while loading new one */
+        }
+
+         /* Loading Indicator */
+         .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #f3f3f3; /* Light grey */
+            border-top: 5px solid #4A7A9D; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            display: none; /* Hidden by default */
+            z-index: 10;
+         }
+         .loading-indicator.visible {
+            display: block;
+         }
+         @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+         }
+
+
+        .viewer-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .nav-button {
+            background-color: #4A7A9D; /* Blue */
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .nav-button:hover {
+            background-color: #3a607d; /* Darker blue */
+        }
+        .nav-button:disabled {
+            background-color: #adb5bd; /* Grey out disabled */
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        /* Error Message Overlay */
+        .error-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            z-index: 100;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+         .error-overlay.visible {
+             display: flex;
+         }
+        .error-message {
+            color: #dc3545; /* Red */
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .error-back-button {
+            /* Reuse nav button style */
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="viewer-container">
+        <div class="viewer-header">
+             <button class="back-button" title="Go Back" onclick="history.back()">←</button>
+             <h1 id="topic-title">Loading Topic...</h1>
+        </div>
+
+        <div id="image-display-area" class="image-display-area">
+            <div id="loading-indicator" class="loading-indicator"></div>
+            <img id="note-image" class="note-image" src="" alt="Note Page" draggable="false">
+        </div>
+
+        <div class="viewer-controls">
+            <button id="prev-button" class="nav-button">Prev</button>
+            <span id="page-indicator" class="page-indicator">Page - of -</span>
+            <button id="next-button" class="nav-button">Next</button>
+        </div>
+
+        <!-- Error Overlay -->
+        <div id="error-overlay" class="error-overlay">
+            <p id="error-message" class="error-message">Error</p>
+            <button class="error-back-button" onclick="history.back()">Go Back</button>
+        </div>
+    </div>
+
+    <!-- Link to a separate JS file for the viewer script -->
+    <script src="js/viewer_script.js"></script>
+    <script>
+        // --- Configuration (Move to viewer_script.js ideally) ---
+
+        // This structure maps topic IDs (from URL) to their image paths and page counts
+        // !!! THIS NEEDS TO BE FILLED WITH ALL YOUR TOPICS !!!
+        const TOPIC_DATA = {
+            // Suman Science Examples
+            'suman_science_scientific_study': { basePath: 'images/notes/suman/science/scientific_study/', pageCount: 10, cookieName: 'suman_science', title: "Scientific Study" },
+            'suman_science_classification_living': { basePath: 'images/notes/suman/science/classification_living/', pageCount: 15, cookieName: 'suman_science', title: "Classification of Living Beings"},
+            'suman_science_honey_bee': { basePath: 'images/notes/suman/science/honey_bee/', pageCount: 8, cookieName: 'suman_science', title: "Honey Bee"},
+            'suman_science_heredity': { basePath: 'images/notes/suman/science/heredity/', pageCount: 12, cookieName: 'suman_science', title: "Heredity"},
+            'suman_science_physiological_structure': { basePath: 'images/notes/suman/science/physiological_structure/', pageCount: 20, cookieName: 'suman_science', title: "Physiological Structure"},
+            'suman_science_nature_environment': { basePath: 'images/notes/suman/science/nature_environment/', pageCount: 14, cookieName: 'suman_science', title: "Nature & Environment"},
+            'suman_science_force_motion': { basePath: 'images/notes/suman/science/force_motion/', pageCount: 16, cookieName: 'suman_science', title: "Force & Motion"},
+            'suman_science_pressure': { basePath: 'images/notes/suman/science/pressure/', pageCount: 11, cookieName: 'suman_science', title: "Pressure"},
+            'suman_science_heat': { basePath: 'images/notes/suman/science/heat/', pageCount: 13, cookieName: 'suman_science', title: "Heat"},
+            'suman_science_wave': { basePath: 'images/notes/suman/science/wave/', pageCount: 9, cookieName: 'suman_science', title: "Wave"},
+            'suman_science_electricity_magnets': { basePath: 'images/notes/suman/science/electricity_magnets/', pageCount: 18, cookieName: 'suman_science', title: "Electricity & Magnets"},
+            'suman_science_universe': { basePath: 'images/notes/suman/science/universe/', pageCount: 10, cookieName: 'suman_science', title: "Universe"},
+            'suman_science_ict': { basePath: 'images/notes/suman/science/ict/', pageCount: 7, cookieName: 'suman_science', title: "ICT"},
+            'suman_science_classification_elements': { basePath: 'images/notes/suman/science/classification_elements/', pageCount: 14, cookieName: 'suman_science', title: "Classification of Elements"},
+            'suman_science_chemical_reaction': { basePath: 'images/notes/suman/science/chemical_reaction/', pageCount: 12, cookieName: 'suman_science', title: "Chemical Reaction"},
+            'suman_science_gases': { basePath: 'images/notes/suman/science/gases/', pageCount: 6, cookieName: 'suman_science', title: "Gases"},
+            'suman_science_metals': { basePath: 'images/notes/suman/science/metals/', pageCount: 10, cookieName: 'suman_science', title: "Metals"},
+            'suman_science_hydrocarbon': { basePath: 'images/notes/suman/science/hydrocarbon/', pageCount: 15, cookieName: 'suman_science', title: "Hydrocarbons"},
+            'suman_science_daily_chemicals': { basePath: 'images/notes/suman/science/daily_chemicals/', pageCount: 8, cookieName: 'suman_science', title: "Chemicals in Daily Life"},
+
+            // Kshitij Examples (Add later)
+            // 'kshitij_math_trigonometry': { basePath: 'images/notes/kshitij/math/trigonometry/', pageCount: 12, cookieName: 'kshitij_math', title: "Trigonometry" },
+
+            // Pranav Examples (Add later)
+            // 'pranav_english_grammar': { basePath: 'images/notes/pranav/english/grammar/', pageCount: 10, cookieName: 'pranav_english', title: "Grammar" },
+        };
+
+        // --- State Variables ---
+        let currentTopicData = null;
+        let currentPage = 1;
+        let totalPages = 1;
+        let imageBasePath = '';
+        let isLoading = false;
+
+        // --- DOM Elements ---
+        const topicTitleElement = document.getElementById('topic-title');
+        const imageDisplayArea = document.getElementById('image-display-area');
+        const noteImageElement = document.getElementById('note-image');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const pageIndicatorElement = document.getElementById('page-indicator');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const errorOverlay = document.getElementById('error-overlay');
+        const errorMessageElement = document.getElementById('error-message');
+
+        // --- Cookie Function (Simplified for viewer) ---
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // --- Error Handling ---
+        function showError(message) {
+            errorMessageElement.textContent = message;
+            errorOverlay.classList.add('visible');
+             // Hide main content potentially
+             document.querySelector('.viewer-container > *:not(.error-overlay)')?.forEach(el => el.style.visibility = 'hidden');
+        }
+
+        // --- Image Loading & Update ---
+        function loadImage(pageNumber) {
+            if (isLoading || !currentTopicData) return; // Prevent multiple loads
+
+            isLoading = true;
+            loadingIndicator.classList.add('visible');
+            noteImageElement.classList.add('loading'); // Dim current image
+
+            const imageUrl = `${imageBasePath}page_${pageNumber}.jpg`;
+            const tempImage = new Image(); // Preload image
+
+            tempImage.onload = () => {
+                noteImageElement.src = imageUrl;
+                currentPage = pageNumber;
+                updateControls();
+                isLoading = false;
+                 loadingIndicator.classList.remove('visible');
+                 noteImageElement.classList.remove('loading'); // Undim
+            };
+
+            tempImage.onerror = () => {
+                console.error("Error loading image:", imageUrl);
+                 showError(`Failed to load page ${pageNumber}. Please check the image path or try again later.`);
+                 isLoading = false;
+                 loadingIndicator.classList.remove('visible');
+                 noteImageElement.classList.remove('loading'); // Undim even on error
+            };
+
+            tempImage.src = imageUrl; // Start loading
+        }
+
+        function updateControls() {
+            pageIndicatorElement.textContent = `Page ${currentPage} of ${totalPages}`;
+            prevButton.disabled = currentPage <= 1;
+            nextButton.disabled = currentPage >= totalPages;
+        }
+
+        // --- Navigation ---
+        function goToNextPage() {
+            if (currentPage < totalPages) {
+                loadImage(currentPage + 1);
+            }
+        }
+
+        function goToPrevPage() {
+            if (currentPage > 1) {
+                loadImage(currentPage - 1);
+            }
+        }
+
+        // --- Swipe Detection ---
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        const swipeThreshold = 50; // Minimum pixels to be considered a swipe
+
+        imageDisplayArea.addEventListener('touchstart', (e) => {
+            // Check if touch is on image or controls to prevent interference
+             if (e.target === noteImageElement || e.target === imageDisplayArea) {
+                 touchStartX = e.changedTouches[0].screenX;
+                 touchStartY = e.changedTouches[0].screenY;
+            }
+        }, { passive: true }); // Use passive for better scroll performance if needed
+
+        imageDisplayArea.addEventListener('touchend', (e) => {
+             if (e.target === noteImageElement || e.target === imageDisplayArea) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }
+        });
+
+        function handleSwipe() {
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+
+            // Check if horizontal swipe is dominant and meets threshold
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+                if (deltaX < 0) {
+                    // Swipe Left -> Next Page
+                    goToNextPage();
+                } else {
+                    // Swipe Right -> Previous Page
+                    goToPrevPage();
+                }
+            }
+             // Reset coordinates for next swipe
+            touchStartX = 0;
+            touchStartY = 0;
+            touchEndX = 0;
+            touchEndY = 0;
+        }
+
+
+        // --- Initialization ---
+        function initializeViewer() {
+            // 1. Get Topic ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const topicId = urlParams.get('topic');
+
+            if (!topicId) {
+                showError("No topic specified.");
+                return;
+            }
+
+            // 2. Find Topic Data
+            currentTopicData = TOPIC_DATA[topicId];
+            if (!currentTopicData) {
+                showError(`Topic data not found for "${topicId}".`);
+                return;
+            }
+
+            // 3. **Secondary Security Check (Client-Side Fallback)**
+            const requiredCookie = currentTopicData.cookieName;
+            if (getCookie(requiredCookie) !== 'unlocked') {
+                 // You could show a more specific error or just the generic one
+                 // Optionally delay this message slightly like the 'Error 101' idea
+                 setTimeout(() => {
+                     showError(`Access Denied (Error 101). You need to unlock '${requiredCookie.replace('_', ' ')}' first.`);
+                 }, 50); // Short delay
+                 return; // Stop initialization
+            }
+
+
+            // 4. Setup Viewer Variables
+            totalPages = currentTopicData.pageCount;
+            imageBasePath = currentTopicData.basePath;
+            topicTitleElement.textContent = currentTopicData.title || topicId.replace(/_/g, ' '); // Use defined title or format ID
+
+            // 5. Load Initial Image
+            loadImage(1); // Start at page 1
+
+            // 6. Add Event Listeners for Buttons
+            prevButton.addEventListener('click', goToPrevPage);
+            nextButton.addEventListener('click', goToNextPage);
+
+             // Add keyboard navigation (optional)
+             document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    goToNextPage();
+                } else if (e.key === 'ArrowLeft') {
+                    goToPrevPage();
+                }
+             });
+
+        }
+
+        // --- Run Initialization ---
+        document.addEventListener('DOMContentLoaded', initializeViewer);
+
+    </script>
+</body>
+</html>
