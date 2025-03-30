@@ -1,207 +1,28 @@
-/* Additions/Changes for css/quiz_style.css */
+/* --- RESULTS FEEDBACK STYLING --- */
 
-/* ... (Basic Reset, body, quiz-container styles remain similar) ... */
-
-/* Header */
-.quiz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
-    position: sticky; /* Make header stick to top on scroll */
-    top: 0;
-    z-index: 10; /* Ensure it's above scrolling content */
-}
-.quiz-title {
-    font-size: 1.2rem;
-    color: #495057;
-    margin: 0;
-    flex-grow: 1; /* Allow title to take space */
-    text-align: center; /* Center title */
-}
-.timer {
-    color: #dc3545;
-    font-size: 1rem;
-    font-weight: bold;
-    flex-shrink: 0; /* Prevent shrinking */
-    min-width: 100px; /* Ensure space */
-    text-align: right;
-}
-
-/* Quiz Form & Question List */
-.quiz-form {
-    flex-grow: 1; /* Allow form to take available space */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* Prevent form itself from scrolling */
-}
-.question-list {
-    padding: 20px 15px; /* Padding for questions */
-    overflow-y: auto; /* ** Enable vertical scrolling for questions ** */
-    flex-grow: 1; /* Take available vertical space */
-}
-
-/* Subject Header */
-.subject-header {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #3a607d; /* Darker blue */
-    margin-top: 25px;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 2px solid #3a607d;
-}
-.question-list > *:first-child.subject-header {
-     margin-top: 5px; /* Reduce top margin for the very first header */
-}
-
-
-/* Individual Question Block */
-.question-block {
-    margin-bottom: 25px;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background-color: #fff; /* White background for each question */
-}
-.question-number {
-    font-weight: bold;
-    float: left; /* Position number to the left */
-    margin-right: 10px;
-    color: #6c757d;
-}
-.question-text {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: #212529;
-    overflow: hidden; /* Clear float */
-    padding-left: 25px; /* Indent question text */
-}
-
-/* Options Styling */
-.options {
-    margin-left: 25px; /* Indent options */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.option-label {
-    display: flex; /* Align radio button and text */
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-.option-label:hover {
-    background-color: #f8f9fa;
-}
-.option-label input[type="radio"] {
-    margin-right: 12px;
-    flex-shrink: 0;
-    /* Optional: Style radio buttons nicer if desired (browser support varies) */
-    accent-color: #4A7A9D;
-    width: 16px;
-    height: 16px;
-}
-.option-text {
-    flex-grow: 1;
-    font-size: 1rem;
-}
-
-/* Submit Area */
-.submit-area {
-    padding: 15px 20px;
-    border-top: 1px solid #dee2e6;
-    background-color: #f8f9fa;
-    text-align: center;
-}
-.submit-button {
-    background-color: #28a745; /* Green */
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.submit-button:hover {
-    background-color: #218838;
-}
-.submit-button:disabled { /* Style when quiz finished */
-    background-color: #adb5bd;
-    cursor: not-allowed;
-}
-
-
-/* --- RESULTS STYLING --- */
-
-/* Results Summary (Appears at top) */
-.results-summary {
-    padding: 20px;
-    border-bottom: 2px solid #2a9d8f;
-    background-color: #e6f5f3; /* Light teal background */
-    text-align: center;
-    display: none; /* Initially hidden */
-}
-.results-summary h2 {
-    color: #1a6a6e; /* Darker teal */
-    margin-bottom: 10px;
-    border-bottom: none; /* Remove default border */
-    margin-top: 0;
-    padding-top: 0;
-}
-.results-summary #results-score {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.results-summary #results-time {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 10px;
-}
-.results-summary #results-message {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    /* Color will be set by JS */
-}
-.results-actions {
-    margin-top: 15px;
-}
-/* Make back button distinct in results */
-.results-actions .back-button {
-     background-color: #6c757d;
-}
-.results-actions .back-button:hover {
-    background-color: #5a6268;
-}
-
-
-/* Feedback styling on options after submit */
-.quiz-results-mode .options { /* Add this class to form when showing results */
+/* Add this class to the question list or form when showing results */
+.results-mode .options {
     pointer-events: none; /* Disable clicking options after submit */
 }
-.quiz-results-mode .option-label {
+.results-mode .option-label {
     cursor: default;
     background-color: #fff; /* Reset hover effect */
-    opacity: 0.8; /* Slightly fade unselected */
+    opacity: 0.7; /* Slightly fade unselected/non-correct options */
     border-color: #ccc;
-    position: relative; /* For check/cross marks */
-    padding-left: 40px; /* Make space for icon */
-}
-.quiz-results-mode .option-label input[type="radio"] {
-    display: none; /* Hide radio button in results */
+    transition: opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    position: relative; /* Needed for potential pseudo-elements (icons) */
+    padding-left: 40px; /* Make space for an icon */
 }
 
-/* Add icons using ::before pseudo-elements */
-.quiz-results-mode .option-label::before {
+/* Hide the actual radio button visually in results mode */
+.results-mode .option-label input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    left: -9999px; /* Move off-screen */
+}
+
+/* General style for the icon placeholder */
+.results-mode .option-label::before {
     content: '';
     position: absolute;
     left: 10px;
@@ -212,57 +33,55 @@
     border-radius: 50%;
     border: 2px solid #ccc;
     background-color: #fff;
+    text-align: center;
+    font-weight: bold;
+    line-height: 18px; /* Adjust line height for centering content */
+    font-size: 14px;    /* Font size for check/cross */
+    color: white;      /* Text color for check/cross */
+    box-sizing: border-box;
 }
 
+
 /* Correct Answer Styling */
-.quiz-results-mode .option-label.correct-answer {
-    border-color: #28a745;
-    background-color: #e9f7ef;
-    opacity: 1;
-    font-weight: bold;
+.results-mode .option-label.correct-answer {
+    border-color: #28a745; /* Green border */
+    background-color: #e9f7ef; /* Light green background */
+    opacity: 1; /* Ensure correct answer is fully visible */
+    /* font-weight: bold; */ /* Optional: make text bold */
 }
-.quiz-results-mode .option-label.correct-answer::before {
+.results-mode .option-label.correct-answer::before {
     content: '\2714'; /* Check mark */
     background-color: #28a745;
     border-color: #28a745;
-    color: white;
-    font-size: 14px;
-    text-align: center;
-    line-height: 20px; /* Center check */
 }
 
-/* User's Incorrect Answer Styling */
-.quiz-results-mode .option-label.user-incorrect {
-    border-color: #dc3545;
-    background-color: #fce8eA;
-    opacity: 1;
+/* User's Incorrect Selection Styling */
+.results-mode .option-label.user-incorrect {
+    border-color: #dc3545; /* Red border */
+    background-color: #fce8eA; /* Light red background */
+    opacity: 1; /* Ensure user's incorrect choice is fully visible */
 }
-.quiz-results-mode .option-label.user-incorrect::before {
-    content: '\2718'; /* Cross mark */
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: white;
-    font-size: 14px;
-    text-align: center;
-    line-height: 20px;
+/* Add cross mark specifically if user was incorrect */
+.results-mode .option-label.user-incorrect.user-selected::before {
+     content: '\2718'; /* Cross mark */
+     background-color: #dc3545;
+     border-color: #dc3545;
 }
 
-/* User's Correct Answer Styling (already handled by .correct-answer) */
-/* Ensure user correct overrides general fade */
-.quiz-results-mode .option-label.user-correct.correct-answer {
+
+/* Ensure user's correct choice also gets full opacity and checkmark */
+.results-mode .option-label.user-correct.correct-answer {
      opacity: 1;
 }
+/* Style for user's correct choice indicator (might be redundant if correct-answer is styled) */
+.results-mode .option-label.user-correct.user-selected::before {
+    /* Checkmark is already applied by .correct-answer */
+}
 
-/* --- Error Overlay & Responsive (Keep from previous version) --- */
-.error-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.95); z-index: 100; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-.error-overlay.visible { display: flex; }
-.error-message { color: #dc3545; font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; }
-.error-back-button { background-color: #dc3545; color: white; border: none; padding: 8px 18px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; }
 
-@media (max-width: 600px) { /* Adjust responsive styles as needed */
-    .quiz-form { padding: 0; }
-    .question-list { padding: 15px 10px; }
-    .question-text { font-size: 1rem; }
-    .option-label { padding: 8px 10px; }
-    .option-text { font-size: 0.95rem; }
+/* --- Ensure Results Summary is Positioned Well --- */
+/* (Make sure your existing .results-summary styles work) */
+.results-summary {
+    /* Existing styles like padding, background, border-bottom etc. */
+     margin-bottom: 20px; /* Add some space between summary and questions */
 }
