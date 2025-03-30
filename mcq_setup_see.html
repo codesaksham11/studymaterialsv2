@@ -1,34 +1,287 @@
-// Create this file: js/mcq_data_see.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SEE MCQ Quiz Setup - NEB HELP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        /* --- Basic Reset & Defaults --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8; /* Light blue-grey background */
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align card to top */
+            min-height: 100vh;
+        }
+        .setup-container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px 30px;
+            margin-top: 20px; /* Space from top */
+        }
+        h1 {
+            text-align: center;
+            color: #2a9d8f; /* Teal */
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        h2 {
+            font-size: 1.2rem;
+            color: #3a607d; /* Darker blue */
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
 
-// Placeholder data for SEE MCQs
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+        .form-group input[type="number"]:focus {
+            border-color: #2a9d8f; /* Highlight on focus */
+            outline: none;
+        }
+        .input-hint {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 5px;
+        }
 
-const MCQ_DATA_SEE = {
-    'science': [
-        // Add ~10-20 Science Questions Here
-        { id: 'see_sci_001', q: "Unit of Force?", o: ["Joule", "Watt", "Newton", "Pascal"], a: 2 },
-        { id: 'see_sci_002', q: "Powerhouse of the cell?", o: ["Nucleus", "Ribosome", "Mitochondria", "Lysosome"], a: 2 },
-        { id: 'see_sci_003', q: "Chemical symbol for Gold?", o: ["Go", "Gd", "Ag", "Au"], a: 3 },
-        { id: 'see_sci_004', q: "Which planet is known as the Red Planet?", o: ["Jupiter", "Mars", "Venus", "Saturn"], a: 1 },
-        { id: 'see_sci_005', q: "What gas do plants absorb from the atmosphere?", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"], a: 2 },
-        { id: 'see_sci_006', q: "Sound waves travel fastest through?", o: ["Air", "Water", "Steel", "Vacuum"], a: 2 },
-        { id: 'see_sci_007', q: "What is the hardest natural substance?", o: ["Gold", "Iron", "Diamond", "Quartz"], a: 2 },
-        { id: 'see_sci_008', q: "How many bones are in the adult human body?", o: ["206", "216", "196", "256"], a: 0 },
-        { id: 'see_sci_009', q: "What causes tides?", o: ["Sun's gravity", "Moon's gravity", "Earth's rotation", "Wind"], a: 1 },
-        { id: 'see_sci_010', q: "What is the main component of natural gas?", o: ["Ethane", "Propane", "Butane", "Methane"], a: 3 },
-        // Add more placeholders...
-    ],
-    'social': [
-        // Add ~10-20 Social Studies Questions Here
-        { id: 'see_soc_001', q: "First president of Nepal?", o: ["Ram Baran Yadav", "BP Koirala", "Prachanda", "KP Oli"], a: 0 },
-        { id: 'see_soc_002', q: "Which is the highest peak in the world?", o: ["K2", "Kangchenjunga", "Mt. Everest", "Lhotse"], a: 2 },
-        { id: 'see_soc_003', q: "When did Nepal become a republic?", o: ["2062 BS", "2063 BS", "2064 BS", "2065 BS"], a: 3 }, // Jestha 15, 2065 BS
-        { id: 'see_soc_004', q: "Lumbini, the birthplace of Buddha, is in which country?", o: ["India", "China", "Nepal", "Bhutan"], a: 2 },
-        { id: 'see_soc_005', q: "What is the currency of Nepal?", o: ["Rupee", "Taka", "Dollar", "Yen"], a: 0 },
-        { id: 'see_soc_006', q: "Which organization has the motto 'For Humanity'?", o: ["UN", "WHO", "Red Cross", "Amnesty International"], a: 2 },
-        { id: 'see_soc_007', q: "Which river is considered the holiest in Hinduism?", o: ["Yamuna", "Ganges", "Brahmaputra", "Indus"], a: 1 },
-        { id: 'see_soc_008', q: "How many members are there in the SAARC?", o: ["7", "8", "9", "10"], a: 1 },
-        { id: 'see_soc_009', q: "What does 'Democracy' mean?", o: ["Rule by King", "Rule by People", "Rule by Army", "Rule by Rich"], a: 1 },
-        { id: 'see_soc_010', q: "Where is the headquarter of the United Nations (UN)?", o: ["Geneva", "Paris", "London", "New York"], a: 3 },
-        // Add more placeholders...
-    ]
-};
+        /* Subject Selection Checkboxes */
+        .subject-selection {
+            display: flex;
+            gap: 20px; /* Space between checkboxes */
+            flex-wrap: wrap; /* Allow wrapping */
+        }
+        .subject-selection label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal; /* Override bold label */
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+        .subject-selection input[type="checkbox"] {
+            margin-right: 8px;
+            width: 18px; /* Custom size */
+            height: 18px;
+            accent-color: #2a9d8f; /* Color the checkbox */
+        }
+         .subject-selection label:has(input:checked) { /* Style label when checked */
+             background-color: #e0f2f7; /* Light teal */
+             border-color: #b3e0ed;
+         }
+         .subject-selection label:hover {
+              background-color: #f8f9fa;
+         }
+
+        /* Premium Notice */
+        .premium-notice {
+            font-size: 0.9rem;
+            text-align: center;
+            margin: 25px 0 15px 0;
+            padding: 10px;
+            background-color: #fff9e6; /* Light yellow */
+            border: 1px solid #ffeebb;
+            border-radius: 6px;
+            color: #5e553c;
+        }
+        .premium-notice a {
+            color: #0056b3;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .premium-notice a:hover {
+             text-decoration: underline;
+        }
+
+        /* Start Button */
+        .start-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #e76f51; /* Orange-red */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-top: 20px;
+        }
+        .start-button:hover {
+            background-color: #d85a3e; /* Darker shade */
+        }
+        .start-button:active {
+            transform: scale(0.98); /* Click effect */
+        }
+
+        /* Back Button */
+        .back-button-container { text-align: center; margin-top: 30px; }
+        .back-btn { background-color: #6c757d; color: white; border: none; padding: 8px 20px; font-size: 1rem; cursor: pointer; border-radius: 6px; text-decoration: none; transition: background-color 0.3s ease; }
+        .back-btn:hover { background-color: #5a6268; }
+
+        /* Popup for Validation Errors */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .popup-overlay.active { display: block; opacity: 1; }
+        .popup { position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 20px 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); z-index: 1001; display: none; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; text-align: center; font-size: 1rem; font-weight: bold;}
+        .popup.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <h1>SEE MCQ Practice Setup</h1>
+
+        <form id="mcq-setup-form">
+            <h2>Configure Your Quiz</h2>
+
+            <div class="form-group">
+                <label for="question-count">Number of Questions:</label>
+                <input type="number" id="question-count" name="question_count" min="10" max="100" placeholder="Enter 10 to 100" required>
+                <p class="input-hint">Choose between 10 and 100 questions.</p>
+            </div>
+
+            <div class="form-group">
+                <label for="time-limit">Time Limit (minutes):</label>
+                <input type="number" id="time-limit" name="time_limit" min="1" max="180" placeholder="Enter 1 to 180" required>
+                <p class="input-hint">Set a timer from 1 minute up to 3 hours.</p>
+            </div>
+
+            <div class="form-group">
+                <label>Select Subject(s):</label>
+                <div class="subject-selection">
+                    <label>
+                        <input type="checkbox" name="subject" value="science"> Science
+                    </label>
+                    <label>
+                        <input type="checkbox" name="subject" value="social"> Social Studies
+                    </label>
+                    <!-- "Both" is handled implicitly if both are checked -->
+                </div>
+                 <p class="input-hint">Check one or both subjects.</p>
+            </div>
+
+             <div class="premium-notice">
+                MCQ Access is a premium feature (Requires Code) - Cost: Rs. 10.<br>
+                Need the code? Please see <a href="toppersnote.html#payment-section" target="_blank" title="Opens payment info in new tab">Payment Information</a>.
+                <!-- Adjust link if payment info moves -->
+            </div>
+
+
+            <button type="submit" class="start-button">Start Quiz!</button>
+        </form>
+
+         <!-- Back Button -->
+        <div class="back-button-container">
+             <!-- Link back to main index or wherever appropriate -->
+             <a href="index.html" class="back-btn">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Popup for Validation -->
+    <div id="popup-overlay" class="popup-overlay"></div>
+    <div id="message-popup" class="popup">
+        <p id="popup-message-text">Validation Message</p>
+    </div>
+
+    <script>
+        const setupForm = document.getElementById('mcq-setup-form');
+        const questionCountInput = document.getElementById('question-count');
+        const timeLimitInput = document.getElementById('time-limit');
+        const subjectCheckboxes = document.querySelectorAll('input[name="subject"]');
+        const overlay = document.getElementById('popup-overlay');
+        const messagePopup = document.getElementById('message-popup');
+        const popupMessageText = document.getElementById('popup-message-text');
+        let popupTimeout;
+
+        // --- Popup Function ---
+        function showValidationPopup(message, duration = 2000) {
+            clearTimeout(popupTimeout);
+            popupMessageText.textContent = message;
+            overlay.classList.add('active');
+            messagePopup.classList.add('active');
+
+            popupTimeout = setTimeout(() => {
+                overlay.classList.remove('active');
+                messagePopup.classList.remove('active');
+            }, duration);
+        }
+
+        // --- Form Submission Logic ---
+        setupForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            // --- Validation ---
+            const qCount = parseInt(questionCountInput.value, 10);
+            const tLimit = parseInt(timeLimitInput.value, 10);
+            const selectedSubjects = Array.from(subjectCheckboxes)
+                                         .filter(cb => cb.checked)
+                                         .map(cb => cb.value);
+
+            if (isNaN(qCount) || qCount < 10 || qCount > 100) {
+                showValidationPopup("Please enter a question count between 10 and 100.");
+                questionCountInput.focus();
+                return;
+            }
+
+            if (isNaN(tLimit) || tLimit < 1 || tLimit > 180) {
+                showValidationPopup("Please enter a time limit between 1 and 180 minutes.");
+                timeLimitInput.focus();
+                return;
+            }
+
+            if (selectedSubjects.length === 0) {
+                 showValidationPopup("Please select at least one subject (Science or Social Studies).");
+                 return;
+            }
+
+            // --- Construct URL for Quiz Page ---
+            const params = new URLSearchParams();
+            params.append('exam', 'see'); // Identify the exam type
+            params.append('count', qCount);
+            params.append('time', tLimit);
+            params.append('subjects', selectedSubjects.join(',')); // Comma-separated list
+
+            // Redirect to the SEE quiz page
+            // Assumes mcq_quiz_see.html is in the same directory or adjust path
+            window.location.href = `mcq_quiz_see.html?${params.toString()}`;
+
+        });
+
+         // --- Close popup if overlay is clicked (optional) ---
+        overlay.addEventListener('click', () => {
+             clearTimeout(popupTimeout);
+             overlay.classList.remove('active');
+             messagePopup.classList.remove('active');
+         });
+
+    </script>
+</body>
+</html>
