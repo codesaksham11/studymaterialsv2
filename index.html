@@ -1,310 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NEB HELP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <style>
-    /* Base reset and font */
-    body, h1, h2, h3, p, ul, li, button, a {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      background: #f7f9fc;
+    <meta charset="UTF-8">
+    <title>NEB HELP - Your Guide to Success</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome (Optional, but adds nice icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- Base Reset & Global Styles --- */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2a9d8f; /* Teal */
+            --secondary-color: #264653; /* Dark Blue/Teal */
+            --accent-color: #e76f51; /* Orange-Red */
+            --light-bg: #f8f9fa; /* Lighter Grey */
+            --white-bg: #ffffff;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --menu-bg: #343a40; /* Darker grey for menu */
+            --menu-text: #f8f9fa;
+            --menu-hover: #495057;
+        }
+
         body {
-      background: #f7f9fc;
-      color: #333;
-      /* padding: 20px; */ /* Original line commented out or removed */
-      padding: 20px 0; /* APPLY padding only top/bottom (20px top/bottom, 0 left/right) */
-      min-height: 100vh;
-      position: relative;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* Prevent content jumping when menu opens/closes */
+             /* overflow-x: hidden; */ /* Replaced by container below */
         }
 
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-      padding-top: 60px; /* Increased padding to avoid overlap with new menu button size */
-    }
-    header h1 {
-      font-size: 2.5rem;
-      color: #2a9d8f;
-      margin-bottom: 10px;
-    }
-    header p.subheading {
-      font-size: 1.2rem;
-      color: #555;
-    }
-    /* Content area */
-    .content {
-      width: 100%;
-      max-width: 600px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      margin: 0 auto;
-    }
-    .bullet-points {
-      text-align: left;
-      margin: 20px 0;
-      font-size: 1rem;
-      color: #444;
-    }
-    .bullet-points ul {
-      list-style-type: disc;
-      margin-left: 20px;
-    }
-    .see-more {
-      color: #e76f51;
-      font-size: 1rem;
-      cursor: pointer;
-      text-decoration: underline;
-      margin-top: 10px;
-      display: inline-block;
-    }
-    .hidden-text {
-      display: none;
-      margin: 10px 0;
-      font-size: 1rem;
-      color: #333;
-      text-align: left;
-    }
-    /* Vertical option boxes */
-    .options {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .option-box {
-      background: #264653; /* Dark teal */
-      color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.3s;
-      text-decoration: none;
-      font-size: 1.1rem;
-    }
-    .option-box:hover {
-      background: #2a9d8f; /* Lighter teal */
-    }
-    /* Additional texts */
-    .info-text {
-      margin-top: 20px;
-      font-size: 1rem;
-      color: #555;
-      line-height: 1.5;
-      text-align: center;
-    }
-    /* Version text at bottom */
-    .version {
-      margin-top: 30px;
-      font-size: 0.8rem;
-      color: #999;
-      text-align: center;
-      padding-bottom: 20px;
-    }
-
-    /* --- UPDATED MENU STYLES --- */
-    #menu-toggle {
-        position: fixed; /* Keep it fixed */
-        top: 15px;
-        right: 15px;
-        width: 45px;  /* Slightly wider */
-        height: 40px; /* Height */
-        background-color: #2a9d8f; /* Using the brighter teal for more attention */
-        color: white;
-        border: none;
-        border-radius: 8px; /* Rounded corners for box */
-        font-size: 24px; /* Size of the hamburger icon */
-        line-height: 40px; /* Vertically center icon */
-        text-align: center;
-        cursor: pointer;
-        z-index: 1001;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        padding: 0;
-        font-weight: bold; /* Make icon slightly bolder */
-    }
-     #menu-toggle:hover {
-         background-color: #264653; /* Darker teal on hover */
-     }
-
-    #side-menu {
-        position: fixed;
-        top: 0;
-        right: -300px; /* Start off-screen */
-        width: 250px;
-        height: 100vh;
-        background-color: #333;
-        color: white;
-        padding: 70px 20px 20px 20px; /* More top padding */
-        box-shadow: -3px 0 8px rgba(0,0,0,0.3);
-        z-index: 1000;
-        transition: right 0.3s ease-in-out;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    #side-menu.active {
-        right: 0;
-    }
-
-    #side-menu a { /* Style for regular links */
-        color: white;
-        text-decoration: none;
-        font-size: 1.1rem;
-        padding: 10px 15px; /* Adjusted padding */
-        border-radius: 6px; /* Slightly rounded corners */
-        transition: background-color 0.2s;
-        display: block; /* Make link fill width */
-        border-bottom: 1px solid #555; /* Keep separators for non-highlighted */
-    }
-    #side-menu a:last-child {
-         border-bottom: none;
-     }
-
-    #side-menu a:not(.highlight-link):hover { /* Hover for regular links */
-        background-color: #555;
-    }
-
-    /* --- HIGHLIGHTED LINK STYLE --- */
-    #side-menu a.highlight-link {
-        background-color: #e76f51; /* Eye-catching but professional orange-red */
-        color: white;
-        font-weight: bold;
-        text-align: center;
-        border-bottom: none; /* Remove separator line for this one */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow */
-    }
-    #side-menu a.highlight-link:hover {
-        background-color: #d85a3e; /* Slightly darker shade on hover */
-        box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-    }
-    /* --- END NEW MENU STYLES --- */
+        .container {
+             width: 100%;
+             max-width: 1140px; /* Max width for large screens */
+             margin: 0 auto;
+             padding: 0 15px; /* Padding for smaller screens */
+             flex-grow: 1; /* Allows footer to stick to bottom */
+             display: flex;
+             flex-direction: column;
+        }
 
 
-    /* Responsive adjustments */
-    @media (max-width: 480px) {
-      header {
-        padding-top: 55px; /* Adjust padding */
-      }
-      header h1 {
-        font-size: 2rem;
-      }
-      .option-box {
-        font-size: 1rem;
-        padding: 12px;
-      }
-      #menu-toggle {
-          top: 10px;
-          right: 10px;
-          width: 40px;
-          height: 35px;
-          line-height: 35px;
-          font-size: 20px;
-      }
-       #side-menu {
-           width: 200px;
-           right: -250px;
-           padding-top: 60px;
-       }
-        #side-menu a {
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 80px 0 40px 0; /* More top padding for menu button, more bottom spacing */
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        header p.subheading {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            max-width: 650px;
+            margin: 0 auto; /* Center subheading */
+        }
+
+        /* --- Content Area --- */
+        .content-wrapper {
+             /* Center the content box horizontally */
+             display: flex;
+             justify-content: center;
+             width: 100%;
+             padding-bottom: 40px; /* Space before footer */
+        }
+
+        .content {
+            width: 100%;
+            max-width: 650px; /* Slightly wider for better text flow */
+            background: var(--white-bg);
+            padding: 30px; /* More padding */
+            border-radius: 16px; /* Softer corners */
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08); /* Softer shadow */
+            text-align: center;
+            border: 1px solid #e9ecef; /* Subtle border */
+        }
+
+        /* --- Bullet Points & See More --- */
+        .bullet-points {
+            text-align: left;
+            margin: 25px 0;
             font-size: 1rem;
-            padding: 8px 10px;
+            color: var(--dark-text);
         }
-    }
-  </style>
+
+        .bullet-points ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+
+        .bullet-points li {
+            padding-left: 25px; /* Space for custom bullet */
+            position: relative;
+            margin-bottom: 12px; /* Space between items */
+        }
+
+        .bullet-points li::before {
+             content: "\f00c"; /* Font Awesome check icon */
+            /* content: "✔"; Use this if not using Font Awesome */
+            font-family: 'Font Awesome 6 Free'; /* Specify Font Awesome */
+            font-weight: 900; /* Required for solid icons */
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 2px; /* Adjust vertical alignment */
+            font-size: 0.9em;
+        }
+
+        .see-more {
+            color: var(--accent-color);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+            margin-top: 15px;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+
+        .see-more:hover {
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .hidden-text {
+            display: none;
+            margin: 15px 0;
+            font-size: 1rem;
+            color: var(--dark-text);
+            text-align: left;
+            background-color: #f8f9fa; /* Slight background highlight */
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* --- Option Boxes (Buttons) --- */
+        .options {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* More space */
+        }
+
+        .option-box {
+            background: linear-gradient(135deg, var(--primary-color), #218a7f); /* Subtle gradient */
+            color: #fff;
+            padding: 18px 25px; /* Generous padding */
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth transition for multiple properties */
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 600;
+            display: block; /* Make link fill width */
+            box-shadow: 0 4px 10px rgba(42, 157, 143, 0.3); /* Color-matched shadow */
+            border: none; /* Remove default border */
+        }
+        .option-box i { /* Style for potential icons */
+             margin-right: 8px;
+         }
+
+        .option-box:hover {
+            background: linear-gradient(135deg, var(--secondary-color), #1d3a45); /* Darker gradient */
+            transform: translateY(-3px); /* Lift effect */
+            box-shadow: 0 6px 15px rgba(38, 70, 83, 0.4);
+        }
+
+        .option-box:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(38, 70, 83, 0.3);
+        }
+
+        /* Specific color for Feedback button */
+        .option-box.feedback {
+            background: linear-gradient(135deg, var(--accent-color), #d85a3e);
+            box-shadow: 0 4px 10px rgba(231, 111, 81, 0.3);
+        }
+        .option-box.feedback:hover {
+            background: linear-gradient(135deg, #c24a30, #a63e26);
+             box-shadow: 0 6px 15px rgba(231, 111, 81, 0.4);
+         }
+        .option-box.feedback:active {
+            box-shadow: 0 3px 8px rgba(231, 111, 81, 0.3);
+        }
+
+        /* --- Info Text --- */
+        .info-text {
+            margin-top: 30px;
+            font-size: 0.95rem;
+            color: var(--light-text);
+            line-height: 1.6;
+            text-align: center;
+        }
+        .info-text p {
+            margin-bottom: 10px;
+        }
+
+        /* --- Footer (Version Text) --- */
+        footer {
+            margin-top: auto; /* Pushes footer to bottom */
+            padding: 25px 0;
+            font-size: 0.85rem;
+            color: #adb5bd; /* Lighter grey */
+            text-align: center;
+            background-color: var(--white-bg); /* Optional: give footer a background */
+            border-top: 1px solid #e9ecef; /* Separator line */
+            width: 100%; /* Ensure full width */
+        }
+
+        /* --- Menu Button --- */
+        #menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%; /* Circular button */
+            font-size: 24px;
+            line-height: 50px; /* Center icon vertically */
+            text-align: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex; /* Center icon perfectly */
+            align-items: center;
+            justify-content: center;
+        }
+
+        #menu-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05); /* Slight grow effect */
+        }
+
+        /* --- Side Menu Panel --- */
+        #side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Start off-screen */
+            width: 280px; /* Slightly wider */
+            height: 100vh;
+            background-color: var(--menu-bg);
+            color: var(--menu-text);
+            padding: 80px 25px 25px 25px; /* More top padding, more side padding */
+            box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: right 0.35s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smoother transition */
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Spacing between links */
+            overflow-y: auto; /* Add scroll if menu gets too long */
+        }
+
+        #side-menu.active {
+            right: 0;
+        }
+
+        #side-menu a {
+            color: var(--menu-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 12px 18px; /* More padding */
+            border-radius: 8px; /* Rounded corners */
+            transition: background-color 0.2s ease, color 0.2s ease;
+            display: block;
+            font-weight: 600;
+            border-bottom: 1px solid var(--menu-hover); /* Subtle separator */
+        }
+
+        #side-menu a:last-child {
+            border-bottom: none;
+        }
+
+        #side-menu a:not(.highlight-link):hover {
+            background-color: var(--menu-hover);
+            color: var(--white-bg); /* Brighter text on hover */
+        }
+         #side-menu a i { /* Style for potential icons in menu */
+             margin-right: 10px;
+             width: 20px; /* Align text */
+             text-align: center;
+         }
+
+        /* --- Highlighted Link Style --- */
+        #side-menu a.highlight-link {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #side-menu a.highlight-link:hover {
+            background-color: #d85a3e;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.4rem;
+            }
+            header p.subheading {
+                font-size: 1.1rem;
+            }
+            .content {
+                padding: 25px;
+            }
+            #menu-toggle {
+                width: 45px;
+                height: 45px;
+                line-height: 45px; /* Adjust line height */
+                 font-size: 20px;
+                 top: 15px;
+                 right: 15px;
+            }
+            #side-menu {
+                width: 250px;
+                right: -260px; /* Adjust off-screen position */
+                padding-top: 70px;
+            }
+             #side-menu a {
+                 font-size: 1rem;
+                 padding: 10px 15px;
+             }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                 /* Remove body padding if container handles it */
+             }
+            .container {
+                padding: 0 10px; /* Less horizontal padding on very small screens */
+            }
+            header {
+                padding: 70px 0 30px 0;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            header p.subheading {
+                font-size: 1rem;
+            }
+            .content {
+                padding: 20px;
+                border-radius: 12px; /* Slightly smaller radius */
+            }
+            .option-box {
+                font-size: 1.05rem;
+                padding: 15px 20px;
+            }
+            .bullet-points li {
+                padding-left: 22px; /* Adjust bullet spacing */
+            }
+            footer {
+                padding: 20px 0;
+                font-size: 0.8rem;
+            }
+        }
+
+    </style>
 </head>
 <body>
 
-  <!-- Menu Toggle Button (Hamburger Icon) -->
-  <button id="menu-toggle" aria-label="Toggle menu">
-    ☰
-  </button>
+    <!-- Menu Toggle Button -->
+    <button id="menu-toggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i> <!-- Font Awesome Hamburger Icon -->
+        <!-- Or use the text symbol if not using Font Awesome: ☰ -->
+    </button>
 
-  <!-- Side Menu Panel -->
-  <div id="side-menu">
-    <!-- Highlighted Link -->
-    <a href="toppersnote.html" class="highlight-link">Toppers note</a>
-    <!-- Regular Links -->
-    <a href="ourteam.html">Our team</a>
-    <a href="privacy.html">Privacy policy</a>
-  </div>
-
-
-  <!-- Existing Content -->
-  <header>
-    <h1>Welcome to NEB HELP</h1>
-    <p class="subheading">Do you feel like you write answers still don't get marks? Here may be the reasons:</p>
-  </header>
-
-  <div class="content">
-    <div class="bullet-points">
-      <ul>
-        <li>The answer you search on the internet may not match with the curriculum of Nepal.</li>
-        <li>You write, but it doesn't contain the words teachers seek in answers.</li>
-        <li>You didn't practice 10 set.</li>
-      </ul>
-    </div>
-    <div class="see-more" onclick="toggleMoreText()">See more...</div>
-    <div id="moreText" class="hidden-text">
-      <p>10 set are expensive, so every student may not have access to it. With the goal that every student passes this year, we provide you every question from each ten set in <strong>FREE</strong>.</p>
+    <!-- Side Menu Panel -->
+    <div id="side-menu">
+        <!-- Added Font Awesome Icons for visual aid -->
+        <a href="toppersnote.html" class="highlight-link"><i class="fas fa-star"></i> Toppers Note</a>
+        <a href="mcq.html"><i class="fas fa-check-square"></i> MCQ Practice</a> <!-- Added MCQ Link -->
+        <a href="ourteam.html"><i class="fas fa-users"></i> Our Team</a>
+        <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
     </div>
 
-    <div class="options">
-      <a href="class10.html" class="option-box">Class 10 (SEE)</a>
-      <a href="class8.html" class="option-box">Class 8 (BLE)</a>
-      <a href="feedback.html" class="option-box">Feedback</a>
-    </div>
+    <!-- Main Content Container -->
+    <div class="container">
+        <header>
+            <h1>Welcome to NEB HELP</h1>
+            <p class="subheading">Struggling to get the marks you deserve? Your answers might need a local touch.</p>
+        </header>
 
-    <div class="info-text">
-      <p>To see question set, select your grade > then publication of ten set > then subject.</p>
-      <p>If you think any publication is left, tell us via feedback.</p>
-    </div>
-  </div>
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="bullet-points">
+                    <p style="font-weight: 600; margin-bottom: 10px;">Common pitfalls:</p> <!-- Added a small heading -->
+                    <ul>
+                        <li>Internet answers might not align with Nepal's curriculum.</li>
+                        <li>Missing keywords that examiners look for.</li>
+                        <li>Lack of practice with relevant question sets (like 10 Sets).</li>
+                    </ul>
+                </div>
+                <div class="see-more" onclick="toggleMoreText()">Why 10 Sets matter...</div>
+                <div id="moreText" class="hidden-text">
+                    <p>10 Sets can be costly. We believe every student deserves access to quality practice material. That's why we provide questions from various 10 Sets completely <strong>FREE</strong> to help everyone succeed!</p>
+                </div>
 
-  <div class="version">
-    v.1.2.1 android/ios/windows
-  </div>
+                <div class="options">
+                    <!-- Added optional Font Awesome icons -->
+                    <a href="class10.html" class="option-box"><i class="fas fa-graduation-cap"></i> Class 10 (SEE)</a>
+                    <a href="class8.html" class="option-box"><i class="fas fa-book-reader"></i> Class 8 (BLE)</a>
+                    <a href="feedback.html" class="option-box feedback"><i class="fas fa-comments"></i> Give Feedback</a> <!-- Added class for specific styling -->
+                </div>
 
-  <script>
-    function toggleMoreText() {
-      const moreText = document.getElementById('moreText');
-      const seeMoreLink = document.querySelector('.see-more');
-      if (moreText.style.display === "block") {
-        moreText.style.display = "none";
-        seeMoreLink.textContent = "See more...";
-      } else {
-        moreText.style.display = "block";
-        seeMoreLink.textContent = "See less...";
-      }
-    }
+                <div class="info-text">
+                    <p>Navigate easily: Select Grade ➔ Publication ➔ Subject to find question sets.</p>
+                    <p>Missing a publication? Let us know via Feedback!</p>
+                </div>
+            </div>
+        </div>
 
-    const menuToggle = document.getElementById('menu-toggle');
-    const sideMenu = document.getElementById('side-menu');
-    const body = document.body;
+        <footer>
+            <div class="version">
+                v.1.2.1 android/ios/windows - Enhanced Edition
+            </div>
+        </footer>
+    </div> <!-- End .container -->
 
-    menuToggle.addEventListener('click', function(event) {
-      sideMenu.classList.toggle('active');
-      body.classList.toggle('menu-open');
-      event.stopPropagation();
-    });
+    <script>
+        function toggleMoreText() {
+            const moreText = document.getElementById('moreText');
+            const seeMoreLink = document.querySelector('.see-more');
+            if (moreText.style.display === "block") {
+                moreText.style.display = "none";
+                seeMoreLink.textContent = "Why 10 Sets matter...";
+            } else {
+                moreText.style.display = "block";
+                seeMoreLink.textContent = "See less...";
+            }
+        }
 
-    // Optional: Close menu if clicking outside
-    // document.addEventListener('click', function(event) {
-    //     if (sideMenu.classList.contains('active') && !sideMenu.contains(event.target) && event.target !== menuToggle) {
-    //         sideMenu.classList.remove('active');
-    //         body.classList.remove('menu-open');
-    //     }
-    // });
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideMenu = document.getElementById('side-menu');
+        // No need for body class toggle if not adjusting body styles
 
-  </script>
+        menuToggle.addEventListener('click', function(event) {
+            sideMenu.classList.toggle('active');
+            event.stopPropagation(); // Prevent click from immediately closing menu if logic below is uncommented
+        });
+
+        // Optional: Close menu if clicking outside the menu itself
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = sideMenu.contains(event.target);
+            const isClickOnToggleButton = menuToggle.contains(event.target);
+
+            if (!isClickInsideMenu && !isClickOnToggleButton && sideMenu.classList.contains('active')) {
+                sideMenu.classList.remove('active');
+            }
+        });
+
+    </script>
 </body>
 </html>
