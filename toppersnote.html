@@ -28,7 +28,7 @@
 
         /* --- Topper Card Styles --- */
         .topper-options { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .topper-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; transition: box-shadow 0.3s ease, transform 0.2s ease; position: relative; }
+        .topper-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; transition: box-shadow 0.3s ease, transform 0.2s ease; position: relative; } /* Needed for pointer popup */
         .topper-card:hover { box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1); transform: translateY(-3px); }
         .topper-main-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .topper-name-gpa { flex-grow: 1; }
@@ -38,7 +38,7 @@
         .topper-name-gpa .gpa { font-size: 1rem; color: var(--light-text); font-weight: 600; display: block; }
         .topper-details { font-size: 0.95rem; color: var(--dark-text); margin-bottom: 10px; }
         .topper-details strong { color: var(--primary-color); font-weight: 700; }
-        .info-icon { font-size: 1.6rem; color: var(--primary-color); cursor: pointer; padding: 5px 8px; margin-left: 10px; font-weight: bold; border-radius: 50%; transition: background-color 0.2s ease, color 0.2s ease; line-height: 1; }
+        .info-icon { font-size: 1.6rem; color: var(--primary-color); cursor: pointer; padding: 5px 8px; margin-left: 10px; font-weight: bold; border-radius: 50%; transition: background-color 0.2s ease, color 0.2s ease; line-height: 1; display: inline-block; /* Ensures proper positioning */ }
         .info-icon:hover { background-color: rgba(42, 157, 143, 0.1); }
 
         /* --- Payment Button & Bundle Offer --- */
@@ -81,9 +81,9 @@
         .back-btn:hover { background-color: var(--dark-text); }
 
         /* --- Pointer Popup (One-Time Hint) --- */
-        .pointer-popup { position: absolute; background-color: var(--secondary-color); color: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); z-index: 10; display: none; /* Hidden by default */ font-size: 0.9rem; line-height: 1.4; max-width: 180px; text-align: center; }
-        .pointer-popup::after { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border-width: 7px; border-style: solid; border-color: transparent transparent var(--secondary-color) transparent; }
-        .pointer-popup-close { position: absolute; top: -5px; right: -5px; background-color: var(--accent-color); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 18px; text-align: center; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .pointer-popup { position: absolute; background-color: var(--secondary-color); color: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); z-index: 10; display: none; /* Hidden by default */ font-size: 0.9rem; line-height: 1.4; max-width: 180px; text-align: center; /* Positioning will be done mostly by JS now */ pointer-events: none; /* Prevent it from interfering with clicks on icon below */ }
+        .pointer-popup::after { content: ''; position: absolute; bottom: 100%; /* Arrow pointing up */ left: 50%; transform: translateX(-50%); border-width: 7px; border-style: solid; border-color: transparent transparent var(--secondary-color) transparent; }
+        .pointer-popup-close { position: absolute; top: -5px; right: -5px; background-color: var(--accent-color); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 18px; text-align: center; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); pointer-events: all; /* Allow clicking the close button */ }
 
         /* --- Responsive Adjustments --- */
         @media (max-width: 480px) {
@@ -122,7 +122,7 @@
                     Class 10 | Experienced with New Curriculum<br>
                     Price: <strong>Rs. 45</strong> per subject
                 </div>
-                 <!-- Pointer Popup - positioned absolutely inside this card -->
+                 <!-- Pointer Popup - positioned absolutely relative to card -->
                  <div id="pointer-popup" class="pointer-popup">
                      Click the '<i class="fas fa-info-circle"></i>' icon for details about the topper!
                      <button class="pointer-popup-close" aria-label="Dismiss hint">×</button>
@@ -201,16 +201,16 @@
                         <li><i class="fab fa-whatsapp"></i> WhatsApp: <strong>9824406202</strong></li>
                     </ul>
                 </li>
-                <li>Make the payment (we will provide details) and get your unique subject code(s) from us.</li>
-                <li>Click the name of the student whose notes you purchased (on the main Topper Notes page).</li>
-                <li>On their page, scroll down to find the "Enter Code" section.</li>
-                <li>Input the code we gave you.</li>
-                <li>Select the subject you paid for.</li>
-                <li>Enjoy studying with the topper notes!</li>
+                <li>Make the payment (we will provide payment details via email/WhatsApp) and get your unique subject code(s) from us after confirming payment.</li>
+                <li>Return to this page and click the name of the student whose notes you purchased (e.g., "Suman Basyal").</li>
+                <li>On their dedicated notes page, scroll down until you find the "Enter Code to Access Notes" section.</li>
+                <li>Input the specific subject code we gave you for that student.</li>
+                <li>Select the subject name corresponding to the code you entered.</li>
+                <li>Click the "Access Notes" button. Enjoy studying with the topper notes!</li>
             </ol>
-            <p><em>(Dear students, we know you'd love the notes for free, but we compensate the toppers for their hard work. This small charge helps us make more quality notes available. We promise no single note bundle will exceed Rs. 100. Your education is our priority!)</em></p>
-            <p>Thank you for your understanding!</p>
-            <!-- Add more content here if needed to test scrolling -->
+            <p><em>(Dear students, we understand you might prefer free resources. However, creating and verifying high-quality notes takes significant effort from the toppers. This small charge compensates them fairly and allows us to continue providing valuable study materials. We've kept the bundle prices extremely affordable, ensuring no single student's complete set exceeds Rs. 100. Your education success is our main goal!)</em></p>
+            <p>Thank you for supporting the toppers and NEB HELP!</p>
+            <!-- Added more detail to the instructions -->
         </div>
     </div>
 
@@ -226,170 +226,207 @@
     </div>
 
     <script>
-        // --- DOM Elements ---
-        const overlay = document.getElementById('popup-overlay');
-        const paymentPopup = document.getElementById('payment-popup');
-        const topperInfoPopup = document.getElementById('topper-info-popup');
-        const allPopups = document.querySelectorAll('.popup');
-        const infoIcons = document.querySelectorAll('.info-icon');
-        const paymentBtn = document.getElementById('how-to-pay-btn');
-        const closeBtns = document.querySelectorAll('.popup-close-btn');
-        const pointerPopup = document.getElementById('pointer-popup');
-        const pointerPopupCloseBtn = pointerPopup?.querySelector('.pointer-popup-close'); // Added safety check
-        const firstInfoIcon = document.querySelector('#first-topper-card .info-icon');
-
-        // --- Topper Information Data (Keep your existing data here) ---
+        // --- Topper Information Data (Keep this data structure) ---
         const topperDetails = {
              suman: {
                 name: "Suman Basyal (3.83 GPA)",
-                info: `<p>Suman is a top student from his class and town. He took the SEE exam in 2079, right after the new curriculum started, so he knows the new topics well.</p>
-                       <p>He dreams of becoming a professor and enjoys helping others learn. His notes include study material, examples, memory tricks (mnemonics), and clear explanations.</p>
-                       <p>Suman also taught tuition to 50 students from the 2080 batch, and all scored A+! These notes use methods that help modern students understand easily.</p>
-                       <p><strong>Good News:</strong> Suman is part of our team! If you choose his notes, you can contact him directly to ask questions.</p>`
+                info: `<p>Suman achieved an outstanding 3.83 GPA and was a top student in his class and town. He completed his SEE in 2079 BS, navigating the newly implemented curriculum effectively. His notes reflect a deep understanding of the current syllabus.</p>
+                       <p>Aspiring to become a professor, Suman has a passion for teaching and helping peers succeed. His notes are meticulously crafted, featuring study materials, practical examples, memory aids (mnemonics), and crystal-clear explanations designed for easy comprehension.</p>
+                       <p>Notably, Suman provided tuition to around 50 students from the 2080 BS SEE batch, all of whom remarkably scored A+! His teaching methods, embedded in these notes, are proven effective for modern learners.</p>
+                       <p><strong>Direct Support:</strong> As Suman is an active part of our NEB HELP team, choosing his notes gives you the unique advantage of being able to contact him directly for clarifications or questions related to the notes.</p>`
             },
             kshitij: {
                 name: "Kshitij Chapagain (3.7 GPA)",
-                info: `<p>Kshitij is a topper from Mahilwar, Lumbini. He is currently studying MBBS (medicine) at USCMS.</p>
-                       <p>Think of these as the "notes of a future doctor"! They are well-organized and clear, reflecting the study habits needed for demanding fields.</p>`
+                info: `<p>Kshitij, a high-achiever from Mahilwar, Lumbini, secured a strong 3.7 GPA in his SEE. He is currently pursuing an MBBS degree at USCMS (Universal College of Medical Sciences).</p>
+                       <p>These notes can be considered the "notes of a future doctor." They are characterized by meticulous organization, clarity, and precision – reflecting the rigorous study habits essential for demanding academic fields like medicine.</p>
+                       <p>If you appreciate structured and concise study material, Kshitij's notes are an excellent choice.</p>`
             },
             pranav: {
                 name: "Pranav Khanal (3.67 GPA)",
-                info: `<p>Pranav is excellent in Math and Science, scoring A+ in both subjects. These notes are especially strong for these subjects.</p>
-                       <p>His overall GPA is slightly lower because he finds descriptive subjects like Nepali and Social Studies more challenging (scored B+ in both).</p>
-                       <p>If Math and Science are your focus, Pranav's notes offer great insights and methods.</p>`
+                info: `<p>Pranav demonstrates exceptional strength in quantitative subjects, securing A+ grades in both Compulsory Mathematics and Science. His overall GPA is a very respectable 3.67.</p>
+                       <p>While excelling in logical subjects, Pranav found descriptive subjects like Nepali and Social Studies slightly more challenging, achieving B+ in them. This honesty highlights where his notes are likely strongest.</p>
+                       <p>If you are looking to specifically boost your understanding and performance in Math and Science, Pranav's notes, filled with his insights and problem-solving approaches, offer significant value.</p>`
             }
         };
 
-        // --- Popup Management Functions ---
-        function openPopup(popupElement) {
-            if (!popupElement) return;
-            overlay.classList.add('active');
-            popupElement.classList.add('active');
-            // Scroll content to top when opening
-            const scrollableContent = popupElement.querySelector('.popup-content-scrollable');
-            if (scrollableContent) {
-                scrollableContent.scrollTop = 0;
-            }
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closePopups() {
-            overlay.classList.remove('active');
-            allPopups.forEach(popup => popup.classList.remove('active'));
-            document.body.style.overflow = '';
-        }
-
-        function showTopperInfo(topperKey) {
-            const details = topperDetails[topperKey];
-            if (!details) return;
-
-            // Target the specific elements within the topper info popup
-            const nameElement = topperInfoPopup.querySelector('#topper-info-name');
-            const contentElement = topperInfoPopup.querySelector('#topper-info-content');
-
-            if (nameElement) nameElement.textContent = details.name;
-            if (contentElement) contentElement.innerHTML = details.info;
-
-            openPopup(topperInfoPopup); // Open the generic topper info popup
-        }
-
-        // --- Pointer Popup Logic ---
-        function showPointerPopup() {
-            if (!pointerPopup || !firstInfoIcon) return;
-
-            const iconRect = firstInfoIcon.getBoundingClientRect();
-            // Position relative to viewport initially might be easier
-            // Let CSS handle absolute positioning relative to the card
-
-            pointerPopup.style.top = `${iconRect.bottom + window.scrollY + 10}px`; // Below icon + gap
-            pointerPopup.style.left = `${iconRect.left + window.scrollX + (iconRect.width / 2) - (pointerPopup.offsetWidth / 2)}px`; // Centered below icon
-            // **Revert to CSS positioning** - The absolute positioning in CSS relative to the card is better. JS positioning here is tricky with scroll.
-            // Let's try CSS positioning only. We just need to make it display block.
-             const iconParentCard = firstInfoIcon.closest('.topper-card');
-             const iconTopRelToCard = firstInfoIcon.offsetTop;
-             const iconLeftRelToCard = firstInfoIcon.offsetLeft;
-             const iconHeight = firstInfoIcon.offsetHeight;
-             const iconWidth = firstInfoIcon.offsetWidth;
-
-             // Position below the icon, centered horizontally relative to icon within the card
-             pointerPopup.style.top = `${iconTopRelToCard + iconHeight + 10}px`; // 10px gap below icon
-             pointerPopup.style.left = `${iconLeftRelToCard + (iconWidth / 2) - (pointerPopup.offsetWidth / 2)}px`; // Centered under icon
-
-
-            pointerPopup.style.display = 'block';
-        }
-
-        // --- Event Listeners ---
-
-        // Open "How to Get Notes" Popup - ALWAYS works
-        if(paymentBtn) {
-            paymentBtn.addEventListener('click', () => {
-                openPopup(paymentPopup);
-            });
-        }
-
-        // Open Topper Info Popup - ALWAYS works for each icon
-        infoIcons.forEach(icon => {
-            icon.addEventListener('click', (e) => {
-                const topperKey = e.currentTarget.getAttribute('data-topper');
-                showTopperInfo(topperKey);
-                // Hide pointer popup if user clicks the icon it's pointing to
-                if (pointerPopup && pointerPopup.style.display === 'block') {
-                    pointerPopup.style.display = 'none';
-                }
-            });
-        });
-
-        // Close Popups using Close Buttons or Overlay Click
-        closeBtns.forEach(btn => {
-            btn.addEventListener('click', closePopups);
-        });
-        if(overlay) {
-            overlay.addEventListener('click', closePopups);
-        }
-
-        // Pointer Popup Close Button
-        if (pointerPopupCloseBtn) {
-            pointerPopupCloseBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent card click if needed
-                pointerPopup.style.display = 'none';
-            });
-        }
-
-        // --- Run on Page Load ---
+        // --- Wait for the DOM to be fully loaded before running scripts ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Logic for the ONE-TIME pointer popup only
-            const visitedKey = 'topperNotesPointerShown'; // Use a specific key
+
+            // --- DOM Element Selection ---
+            const overlay = document.getElementById('popup-overlay');
+            const paymentPopup = document.getElementById('payment-popup');
+            const topperInfoPopup = document.getElementById('topper-info-popup');
+            const allPopups = document.querySelectorAll('.popup');
+            const infoIcons = document.querySelectorAll('.info-icon');
+            const paymentBtn = document.getElementById('how-to-pay-btn');
+            const closeBtns = document.querySelectorAll('.popup-close-btn');
+            const pointerPopup = document.getElementById('pointer-popup');
+            const pointerPopupCloseBtn = pointerPopup?.querySelector('.pointer-popup-close'); // Safety check
+            const firstTopperCard = document.getElementById('first-topper-card'); // Get the card itself
+            const firstInfoIcon = firstTopperCard?.querySelector('.info-icon'); // Icon inside the first card
+
+
+            // --- Basic Check for Elements ---
+            if (!overlay || !paymentPopup || !topperInfoPopup || allPopups.length === 0 || infoIcons.length === 0 || !paymentBtn || closeBtns.length === 0) {
+                console.error("Error: One or more essential popup elements or buttons could not be found. Check IDs and classes.");
+                // Optionally display a user-friendly message on the page
+                // document.body.insertAdjacentHTML('afterbegin', '<p style="color: red; text-align: center; padding: 10px; background: #ffe0e0;">Error: Page functionality might be limited. Could not find all elements.</p>');
+                // return; // Stop script execution if critical elements are missing
+            }
+
+
+            // --- Popup Management Functions ---
+            function openPopup(popupElement) {
+                if (!popupElement || !overlay) return; // Check elements exist
+                // console.log("Opening popup:", popupElement.id); // Debugging log
+                overlay.classList.add('active');
+                popupElement.classList.add('active');
+                // Scroll content to top when opening
+                const scrollableContent = popupElement.querySelector('.popup-content-scrollable');
+                if (scrollableContent) {
+                    scrollableContent.scrollTop = 0;
+                }
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            }
+
+            function closePopups() {
+                // console.log("Closing popups"); // Debugging log
+                if (overlay) overlay.classList.remove('active');
+                allPopups.forEach(popup => popup.classList.remove('active'));
+                document.body.style.overflow = ''; // Restore background scroll
+            }
+
+            function showTopperInfo(topperKey) {
+                const details = topperDetails[topperKey];
+                if (!details || !topperInfoPopup) {
+                     console.error("Could not find details for topper key:", topperKey, "or topper info popup element.");
+                     return;
+                }
+                // console.log("Showing info for:", topperKey); // Debugging log
+
+                // Target the specific elements within the topper info popup
+                const nameElement = topperInfoPopup.querySelector('#topper-info-name');
+                const contentElement = topperInfoPopup.querySelector('#topper-info-content');
+
+                if (nameElement) nameElement.textContent = details.name;
+                else console.error("Could not find #topper-info-name element inside popup.");
+
+                if (contentElement) contentElement.innerHTML = details.info;
+                else console.error("Could not find #topper-info-content element inside popup.");
+
+
+                openPopup(topperInfoPopup); // Open the generic topper info popup
+            }
+
+            // --- Event Listener Attachments ---
+
+            // Open "How to Get Notes" Popup
+            if (paymentBtn) {
+                paymentBtn.addEventListener('click', () => {
+                    // console.log("Payment button clicked"); // Debugging log
+                    openPopup(paymentPopup);
+                });
+            } else {
+                 console.error("Payment button (#how-to-pay-btn) not found.");
+            }
+
+            // Open Topper Info Popup for each icon
+            infoIcons.forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    const topperKey = e.currentTarget.getAttribute('data-topper');
+                    // console.log("Info icon clicked for:", topperKey); // Debugging log
+                    if (topperKey) {
+                        showTopperInfo(topperKey);
+                        // Hide pointer popup if user clicks the icon it's pointing to
+                        if (pointerPopup && pointerPopup.style.display === 'block') {
+                            pointerPopup.style.display = 'none';
+                        }
+                    } else {
+                         console.error("Info icon clicked, but 'data-topper' attribute is missing or empty.");
+                    }
+                });
+            });
+
+            // Close Popups using Close Buttons
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', closePopups);
+            });
+
+            // Close Popups using Overlay Click
+            if (overlay) {
+                overlay.addEventListener('click', closePopups);
+            }
+
+            // --- Pointer Popup Logic ---
+            const visitedKey = 'topperNotesPointerShown_v1'; // Use a specific key, maybe version it if you change behavior
             const hasSeenPointer = localStorage.getItem(visitedKey);
 
-            if (!hasSeenPointer && pointerPopup && firstInfoIcon) { // Check elements exist
-                 // Use setTimeout for layout stability
-                 setTimeout(() => {
-                    // Recalculate offsetWidth *inside* timeout after display is potentially set
-                    const iconParentCard = firstInfoIcon.closest('.topper-card');
-                     const iconTopRelToCard = firstInfoIcon.offsetTop;
-                     const iconLeftRelToCard = firstInfoIcon.offsetLeft;
-                     const iconHeight = firstInfoIcon.offsetHeight;
-                     const iconWidth = firstInfoIcon.offsetWidth;
+            if (!hasSeenPointer && pointerPopup && firstInfoIcon && firstTopperCard) { // Check all required elements exist
+                // Use setTimeout to ensure layout is stable after page load
+                setTimeout(() => {
+                    try {
+                        // Make it visible *before* getting offsetWidth and calculating position
+                        pointerPopup.style.display = 'block';
+                        const popupWidth = pointerPopup.offsetWidth;
+                        const popupHeight = pointerPopup.offsetHeight; // Not strictly needed for this positioning
 
-                     pointerPopup.style.display = 'block'; // Make it visible *before* getting offsetWidth
-                     const popupWidth = pointerPopup.offsetWidth; // Get width AFTER display: block
+                        // Get position of the icon *relative to its positioned parent (the card)*
+                        const iconTopRelToCard = firstInfoIcon.offsetTop;
+                        const iconLeftRelToCard = firstInfoIcon.offsetLeft;
+                        const iconHeight = firstInfoIcon.offsetHeight;
+                        const iconWidth = firstInfoIcon.offsetWidth;
 
-                     // Position below the icon, centered horizontally relative to icon within the card
-                     pointerPopup.style.top = `${iconTopRelToCard + iconHeight + 10}px`; // 10px gap below icon
-                     pointerPopup.style.left = `${iconLeftRelToCard + (iconWidth / 2) - (popupWidth / 2)}px`; // Centered under icon
+                        // Position popup's top edge just below the icon + a gap
+                        pointerPopup.style.top = `${iconTopRelToCard + iconHeight + 10}px`; // 10px gap below icon
 
+                        // Position popup's left edge so it's centered under the icon
+                        // Calculation: Icon's left edge + half icon width - half popup width
+                        pointerPopup.style.left = `${iconLeftRelToCard + (iconWidth / 2) - (popupWidth / 2)}px`;
 
-                 }, 500); // 500ms delay
-                localStorage.setItem(visitedKey, 'true');
+                        // console.log("Showing pointer popup"); // Debugging log
+
+                        // Add listener for its close button *only if* the popup is shown
+                        if (pointerPopupCloseBtn) {
+                            pointerPopupCloseBtn.addEventListener('click', (e) => {
+                                e.stopPropagation(); // Prevent triggering other clicks
+                                pointerPopup.style.display = 'none';
+                                // console.log("Pointer popup closed by button"); // Debugging log
+                                localStorage.setItem(visitedKey, 'true'); // Also mark as seen when closed manually
+                            }, { once: true }); // Remove listener after first click
+                        } else {
+                            console.error("Pointer popup close button not found.");
+                        }
+
+                        // Optionally: Hide after a few seconds if not dismissed
+                        /*
+                        setTimeout(() => {
+                            if (pointerPopup.style.display === 'block') {
+                                pointerPopup.style.display = 'none';
+                                localStorage.setItem(visitedKey, 'true'); // Mark as seen if timed out
+                                console.log("Pointer popup timed out"); // Debugging log
+                            }
+                        }, 7000); // Hide after 7 seconds
+                        */
+
+                         // Mark as seen immediately after showing attempt
+                         localStorage.setItem(visitedKey, 'true');
+
+                    } catch (error) {
+                        console.error("Error displaying or positioning pointer popup:", error);
+                        if(pointerPopup) pointerPopup.style.display = 'none'; // Hide if error occurs
+                    }
+
+                }, 500); // 500ms delay to allow rendering
+            } else {
+                 // console.log("Pointer popup conditions not met (already seen or elements missing).");
+                 if (!hasSeenPointer) {
+                    if(!pointerPopup) console.log("Pointer hint check: pointerPopup element missing.");
+                    if(!firstInfoIcon) console.log("Pointer hint check: firstInfoIcon element missing.");
+                    if(!firstTopperCard) console.log("Pointer hint check: firstTopperCard element missing.");
+                 }
             }
 
-             // Check if topperDetails is populated (basic check)
-             if (typeof topperDetails === 'undefined' || Object.keys(topperDetails).length === 0) {
-                 console.error("Topper details data is missing or empty!");
-             }
-        });
-
+        }); // End of DOMContentLoaded
     </script>
 
 </body>
