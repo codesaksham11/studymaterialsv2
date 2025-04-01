@@ -1,136 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Class 10 Sets</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Basic reset and font */
-    body, h1, h2, p, ul, li, button, a {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      background: #f7f9fc;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      color: #2a9d8f;
-      margin-bottom: 10px;
-    }
-    header p.subheading {
-      font-size: 1.2rem;
-      color: #555;
-    }
-    /* Content container */
-    .content {
-      width: 100%;
-      max-width: 700px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    /* Section headings */
-    .section-heading {
-      font-size: 1.8rem;
-      color: #264653;
-      margin: 20px 0 10px;
-      text-align: center;
-    }
-    /* Option boxes styling */
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .option-box {
-      background: #264653;
-      color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.3s;
-      font-size: 1.1rem;
-    }
-    .option-box:hover {
-      background: #2a9d8f;
-    }
-    /* Back button styling */
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      background: #e9c46a;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 1rem;
-    }
-    .back-btn:hover {
-      background: #f4a261;
-    }
-    /* Responsive adjustments */
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      .option-box {
-        font-size: 1rem;
-        padding: 12px;
-      }
-      .back-btn {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Class 10 Study Materials - NEB HELP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- Base Reset & Global Styles --- */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2a9d8f; /* Teal */
+            --secondary-color: #264653; /* Dark Blue/Teal */
+            --accent-color: #e76f51; /* Orange-Red */
+            --highlight-color: #e9c46a; /* Yellow Ochre */
+            --light-bg: #f8f9fa;
+            --white-bg: #ffffff;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+             width: 100%;
+             max-width: 960px; /* Wider container for more content */
+             margin: 0 auto;
+             padding: 0 15px;
+             flex-grow: 1;
+             display: flex;
+             flex-direction: column;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 60px 0 30px 0; /* Adjusted padding */
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.6rem; /* Slightly adjusted */
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p.subheading {
+            font-size: 1.15rem;
+            color: var(--light-text);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+         /* --- Content Area --- */
+        .content-wrapper {
+             display: flex;
+             justify-content: center;
+             width: 100%;
+             padding-bottom: 40px;
+        }
+
+        .content {
+            width: 100%;
+            background: var(--white-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+        }
+
+        /* --- Publication List --- */
+        .publication-list {
+            margin-bottom: 30px;
+            display: grid;
+            /* Create 2 columns on medium screens, 1 on small */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px; /* Space between cards */
+        }
+
+        /* --- Publication Card --- */
+        .publication-card {
+            background-color: #f8f9fa; /* Light background for card */
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content */
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .publication-card:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .publication-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+         .publication-card h2 i { /* Icon for publication */
+             margin-right: 8px;
+             color: var(--primary-color);
+         }
+
+        .publication-actions {
+            display: flex;
+            gap: 10px; /* Space between Q/A buttons */
+            width: 100%; /* Make buttons take available width */
+            justify-content: center; /* Center buttons horizontally */
+        }
+
+        .action-btn {
+            flex-grow: 1; /* Allow buttons to grow */
+            max-width: 150px; /* Limit button max width */
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent; /* Placeholder for border style */
+            display: flex; /* Align icon and text */
+            align-items: center;
+            justify-content: center;
+        }
+         .action-btn i {
+             margin-right: 6px;
+         }
+
+        /* Style for Questions Button */
+        .action-btn.questions {
+            background-color: var(--secondary-color);
+            color: var(--white-bg);
+            border-color: var(--secondary-color);
+        }
+        .action-btn.questions:hover {
+            background-color: #1d3a45; /* Darker shade */
+            border-color: #1d3a45;
+            transform: translateY(-2px);
+        }
+
+        /* Style for Answers Button */
+        .action-btn.answers {
+            background-color: var(--white-bg);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .action-btn.answers:hover {
+            background-color: var(--primary-color);
+            color: var(--white-bg);
+            transform: translateY(-2px);
+        }
+
+        /* --- Special Actions (Request Dongle) --- */
+        .special-actions {
+            text-align: center;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef; /* Separator */
+        }
+
+        .special-action-btn {
+            display: inline-block; /* Or block if full width */
+            background: linear-gradient(135deg, var(--accent-color), #d85a3e);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(231, 111, 81, 0.3);
+            border: none;
+        }
+        .special-action-btn i {
+            margin-right: 8px;
+        }
+
+        .special-action-btn:hover {
+            background: linear-gradient(135deg, #c24a30, #a63e26);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.4);
+        }
+
+        /* --- Back Button --- */
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-btn {
+            display: inline-block;
+            background-color: var(--light-text);
+            color: var(--white-bg);
+            padding: 10px 22px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .back-btn i {
+             margin-right: 6px;
+         }
+
+        .back-btn:hover {
+            background-color: var(--dark-text);
+        }
+
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+            header h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            header {
+                padding: 50px 0 20px 0;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            header p.subheading {
+                font-size: 1rem;
+            }
+            .content {
+                padding: 20px;
+            }
+            .publication-list {
+                 /* Already handles 1 column due to minmax */
+                 gap: 15px;
+            }
+            .publication-card {
+                 padding: 15px;
+             }
+            .publication-card h2 {
+                 font-size: 1.3rem;
+                 margin-bottom: 12px;
+             }
+            .publication-actions {
+                 /* Keep side-by-side if possible, browser wrapping handles overflow */
+                 /* Or force column: flex-direction: column; */
+             }
+            .action-btn {
+                 font-size: 0.9rem;
+                 padding: 8px 10px;
+                 max-width: none; /* Let them take half width */
+             }
+            .special-action-btn {
+                 font-size: 1rem;
+                 padding: 10px 20px;
+             }
+            .back-btn {
+                font-size: 0.95rem;
+                padding: 9px 18px;
+            }
+        }
+
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Class 10 Sets</h1>
-    <p class="subheading">Each Publication with Questions and Answers</p>
-  </header>
-  
-  <div class="content">
-    <!-- Publication (Questions) Section -->
-    <div class="section-heading">Publication (Questions)</div>
-    <div class="options">
-      <a href="class10/asmitaquestions.html" class="option-box">Asmita</a>
-      <a href="class10/neemaquestions.html" class="option-box">Neema</a>
-      <a href="class10/abcdquestions.html" class="option-box">Abcd</a>
-    </div>
-    
-    <!-- Publication (Answers) Section -->
-    <div class="section-heading">Publication (Answers)</div>
-    <div class="options">
-      <a href="class10/asmitaanswers.html" class="option-box">Asmita</a>
-      <a href="class10/neemaanswers.html" class="option-box">Neema</a>
-      <a href="class10/abcdanswers.html" class="option-box">Abcd</a>
-      <a href="requestdongle.html" class="option-box">Request Dongle</a>
-    </div>
-    
-    <!-- Back Button -->
-    <div style="text-align: center;">
-      <a href="index.html" class="back-btn">Back</a>
-    </div>
-  </div>
+
+    <!-- Include Header/Menu Snippet if you have one -->
+    <!-- Or just the content for this specific page -->
+
+    <div class="container">
+        <header>
+            <h1>Class 10 Materials</h1>
+            <p class="subheading">Select a publication to view its questions or verified answers.</p>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="content">
+
+                <!-- Publication Selection -->
+                <div class="publication-list">
+                    <!-- Asmita Card -->
+                    <div class="publication-card">
+                        <h2><i class="fas fa-book-open"></i> Asmita</h2>
+                        <div class="publication-actions">
+                            <a href="class10/asmitaquestions.html" class="action-btn questions"><i class="fas fa-question-circle"></i> Questions</a>
+                            <a href="class10/asmitaanswers.html" class="action-btn answers"><i class="fas fa-check-circle"></i> Answers</a>
+                        </div>
+                    </div>
+
+                    <!-- Neema Card -->
+                    <div class="publication-card">
+                        <h2><i class="fas fa-book-open"></i> Neema</h2>
+                        <div class="publication-actions">
+                            <a href="class10/neemaquestions.html" class="action-btn questions"><i class="fas fa-question-circle"></i> Questions</a>
+                            <a href="class10/neemaanswers.html" class="action-btn answers"><i class="fas fa-check-circle"></i> Answers</a>
+                        </div>
+                    </div>
+
+                    <!-- Abcd Card -->
+                    <div class="publication-card">
+                        <h2><i class="fas fa-book-open"></i> Abcd</h2>
+                        <div class="publication-actions">
+                            <a href="class10/abcdquestions.html" class="action-btn questions"><i class="fas fa-question-circle"></i> Questions</a>
+                            <a href="class10/abcdanswers.html" class="action-btn answers"><i class="fas fa-check-circle"></i> Answers</a>
+                        </div>
+                    </div>
+
+                    <!-- Add more publication cards here as needed -->
+
+                </div>
+
+                <!-- Special Actions Section -->
+                <div class="special-actions">
+                    <a href="requestdongle.html" class="special-action-btn">
+                        <i class="fas fa-usb"></i> Request Dongle (Offline Access?)
+                    </a>
+                     <!-- Added context text -->
+                </div>
+
+                <!-- Navigation Section -->
+                <div class="navigation">
+                    <a href="index.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+
+            </div> <!-- End .content -->
+        </div> <!-- End .content-wrapper -->
+
+    </div> <!-- End .container -->
+
+    <!-- Include Footer Snippet if you have one -->
+
+    <!-- Add JS if needed, e.g., for menu toggle if header is included -->
+
 </body>
 </html>
