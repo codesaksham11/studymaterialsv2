@@ -5,396 +5,85 @@
     <title>Topper Notes - NEB HELP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <!-- Google Fonts (Optional but recommended for consistency) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome (Optional but nice for icons) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* Basic Reset & Defaults */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --- Base Styles --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #2a9d8f; --secondary-color: #264653; --accent-color: #e76f51;
+            --light-bg: #f7f9fc; --white-bg: #ffffff; --dark-text: #343a40; --light-text: #6c757d;
+            --card-bg: #f0f4f8; --card-border: #dce6f0;
         }
+        body { font-family: 'Nunito', sans-serif; background-color: var(--light-bg); color: var(--dark-text); line-height: 1.6; padding-bottom: 80px; }
+        .container { max-width: 800px; margin: 30px auto; padding: 25px; background-color: var(--white-bg); border-radius: 16px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); }
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+        h1 { text-align: center; color: var(--primary-color); font-size: 2.4rem; margin-bottom: 35px; }
 
-        :root { /* Added color variables for consistency */
-            --primary-color: #2a9d8f;
-            --secondary-color: #264653;
-            --accent-color: #e76f51;
-            --highlight-color: #e9c46a;
-            --light-bg: #f7f9fc;
-            --white-bg: #ffffff;
-            --dark-text: #343a40;
-            --light-text: #6c757d;
-            --card-bg: #f0f4f8;
-            --card-border: #dce6f0;
-        }
+        /* --- Topper Card Styles --- */
+        .topper-options { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .topper-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; transition: box-shadow 0.3s ease, transform 0.2s ease; position: relative; }
+        .topper-card:hover { box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1); transform: translateY(-3px); }
+        .topper-main-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .topper-name-gpa { flex-grow: 1; }
+        .topper-name-gpa a { text-decoration: none; color: inherit; }
+        .topper-name-gpa a:hover h3 { color: var(--primary-color); }
+        .topper-name-gpa h3 { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 4px; display: inline-block; transition: color 0.2s ease; font-weight: 700; }
+        .topper-name-gpa .gpa { font-size: 1rem; color: var(--light-text); font-weight: 600; display: block; }
+        .topper-details { font-size: 0.95rem; color: var(--dark-text); margin-bottom: 10px; }
+        .topper-details strong { color: var(--primary-color); font-weight: 700; }
+        .info-icon { font-size: 1.6rem; color: var(--primary-color); cursor: pointer; padding: 5px 8px; margin-left: 10px; font-weight: bold; border-radius: 50%; transition: background-color 0.2s ease, color 0.2s ease; line-height: 1; }
+        .info-icon:hover { background-color: rgba(42, 157, 143, 0.1); }
 
-        body {
-            /* font-family: Arial, sans-serif; */ /* Replaced with Google Font */
-            font-family: 'Nunito', sans-serif;
-            background-color: var(--light-bg);
-            color: var(--dark-text);
-            line-height: 1.6;
-            padding-bottom: 80px; /* Space for back button */
-        }
+        /* --- Payment Button & Bundle Offer --- */
+        .payment-section { text-align: center; margin: 40px 0; }
+        .payment-button { background: linear-gradient(135deg, var(--accent-color), #d85a3e); color: white; border: none; padding: 14px 30px; font-size: 1.2rem; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(231, 111, 81, 0.3); }
+        .payment-button:hover { background: linear-gradient(135deg, #c24a30, #a63e26); transform: translateY(-3px); box-shadow: 0 6px 15px rgba(231, 111, 81, 0.4); }
+        .payment-button:active { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(231, 111, 81, 0.3); }
+        .bundle-offer { background-color: #e6fffa; border: 1px solid #a3f7e8; border-radius: 12px; padding: 25px; margin-top: 20px; text-align: center; }
+        .bundle-offer h3 { font-size: 1.5rem; color: var(--secondary-color); margin-bottom: 20px; }
+        .bundle-item { margin-bottom: 12px; font-size: 1rem; color: var(--dark-text); }
+        .bundle-item strong { color: var(--secondary-color); }
+        .bundle-price { font-weight: 700; color: var(--accent-color); }
+        .offer-deadline { margin-top: 20px; font-size: 0.95rem; font-weight: 700; color: var(--accent-color); }
 
-        .container {
-            max-width: 800px;
-            margin: 30px auto; /* Added top margin */
-            padding: 25px; /* Slightly increased padding */
-            background-color: var(--white-bg);
-            border-radius: 16px; /* Softer radius */
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Softer shadow */
-        }
+        /* --- Popup Overlay & Base Styles --- */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.65); z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .popup-overlay.active { display: block; opacity: 1; }
+        .popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background-color: white; padding: 0; /* Padding handled by inner divs now */ border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); z-index: 1001; width: 90%; max-width: 550px; display: none; /* Changed to none */ opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; max-height: 85vh; display: flex; flex-direction: column; }
+        .popup.active { display: flex; /* Use flex */ opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-        h1, h2, h3 { /* Apply Poppins to headings */
-             font-family: 'Poppins', sans-serif;
-        }
+        /* --- Popup Header (Title + Close Button) --- */
+        .popup-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px 15px 25px; /* Padding for header */ border-bottom: 1px solid #eee; /* Separator */ flex-shrink: 0; }
+        .popup-header h3 { color: var(--primary-color); margin: 0; font-size: 1.6rem; flex-grow: 1; padding-right: 20px; /* Space for close */ text-align: left; }
+        .popup-close-btn { font-size: 2.2rem; font-weight: bold; color: #aaa; background: none; border: none; cursor: pointer; line-height: 1; padding: 5px; flex-shrink: 0; }
+        .popup-close-btn:hover { color: var(--dark-text); }
 
-        h1 {
-            text-align: center;
-            color: var(--primary-color);
-            font-size: 2.4rem; /* Adjusted size */
-            margin-bottom: 35px;
-        }
-        /* h2 is not currently used, keeping styles minimal */
-        h2 {
-            text-align: center;
-            color: var(--secondary-color);
-            margin: 40px 0 20px 0;
-            font-size: 1.8rem;
-        }
-
-        /* --- Topper Options Section --- */
-        .topper-options {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .topper-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px; /* Consistent radius */
-            padding: 20px; /* Increased padding */
-            display: flex;
-            flex-direction: column;
-            transition: box-shadow 0.3s ease, transform 0.2s ease; /* Added transform */
-            position: relative; /* Needed for pointer popup absolute positioning */
-        }
-        .topper-card:hover {
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
-            transform: translateY(-3px); /* Slight lift on hover */
-        }
-
-        .topper-main-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px; /* Increased spacing */
-        }
-
-        .topper-name-gpa {
-             flex-grow: 1;
-        }
-
-        .topper-name-gpa a {
-            text-decoration: none;
-            color: inherit;
-        }
-         .topper-name-gpa a:hover h3 {
-            color: var(--primary-color);
-         }
-
-        .topper-name-gpa h3 {
-            font-size: 1.4rem; /* Slightly larger */
-            color: var(--secondary-color);
-            margin-bottom: 4px;
-            display: inline-block;
-            transition: color 0.2s ease;
-            font-weight: 700; /* Bolder name */
-        }
-        .topper-name-gpa .gpa {
-            font-size: 1rem;
-            color: var(--light-text); /* Softer color */
-            font-weight: 600; /* Semibold */
-            display: block;
-        }
-
-        .topper-details {
-            font-size: 0.95rem;
-            color: var(--dark-text);
-            margin-bottom: 10px;
-        }
-        .topper-details strong {
-            color: var(--primary-color); /* Use primary teal for price */
-            font-weight: 700;
-        }
-
-        .info-icon {
-            font-size: 1.6rem; /* Slightly larger icon */
-            color: var(--primary-color);
-            cursor: pointer;
-            padding: 5px 8px; /* More clickable area */
-            margin-left: 10px;
-            font-weight: bold;
-            border-radius: 50%; /* Make background round on hover/focus */
-            transition: background-color 0.2s ease, color 0.2s ease;
-            line-height: 1; /* Prevent extra space */
-            /* Using Font Awesome icon instead of text 'i' */
-        }
-        .info-icon:hover {
-            background-color: rgba(42, 157, 143, 0.1); /* Light teal background */
-        }
-
-        /* --- How to Pay Section --- */
-        .payment-section {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .payment-button {
-            background: linear-gradient(135deg, var(--accent-color), #d85a3e); /* Gradient */
-            color: white;
-            border: none;
-            padding: 14px 30px; /* More prominent button */
-            font-size: 1.2rem;
-            font-weight: 700; /* Bolder */
-            border-radius: 10px; /* Softer radius */
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(231, 111, 81, 0.3);
-        }
-        .payment-button:hover {
-            background: linear-gradient(135deg, #c24a30, #a63e26);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.4);
-        }
-        .payment-button:active {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 8px rgba(231, 111, 81, 0.3);
-        }
-
-        /* --- Bundle Offer Section --- */
-        .bundle-offer {
-            background-color: #e6fffa; /* Lighter teal background */
-            border: 1px solid #a3f7e8; /* Teal border */
-            border-radius: 12px; /* Consistent radius */
-            padding: 25px; /* More padding */
-            margin-top: 20px;
-            text-align: center;
-        }
-        .bundle-offer h3 {
-             font-size: 1.5rem; /* Larger heading */
-             color: var(--secondary-color); /* Darker teal heading */
-             margin-bottom: 20px;
-        }
-         .bundle-item {
-             margin-bottom: 12px; /* More space */
-             font-size: 1rem;
-             color: var(--dark-text);
-         }
-         .bundle-item strong {
-             color: var(--secondary-color); /* Topper name */
-         }
-         .bundle-price {
-            font-weight: 700; /* Bolder price */
-            color: var(--accent-color);
-         }
-         .offer-deadline {
-            margin-top: 20px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--accent-color);
-         }
-
-        /* --- Popups --- */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.65); /* Slightly darker overlay */
-            z-index: 1000;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .popup-overlay.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background-color: white;
-            padding: 25px 30px 30px 30px; /* Adjusted padding */
-            border-radius: 12px; /* Consistent radius */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
-            z-index: 1001;
-            width: 90%;
-            max-width: 550px; /* Slightly wider */
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            /* Max height for scrollable content */
-            max-height: 85vh; /* Limit overall popup height */
-            display: flex; /* Use flexbox for layout */
-            flex-direction: column; /* Stack title, content, close btn */
-        }
-        .popup.active {
-            display: flex; /* Keep display:flex */
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .popup-header { /* Container for title and close button */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-shrink: 0; /* Prevent header from shrinking */
-        }
-
-        .popup h3 { /* Popup title */
-            color: var(--primary-color);
-            margin: 0; /* Reset margin */
-            font-size: 1.6rem; /* Adjusted size */
-            flex-grow: 1; /* Allow title to take space */
-            padding-right: 30px; /* Space for close button */
-             text-align: left; /* Align left */
-        }
-
-        .popup-close-btn {
-            /* position: absolute; top: 10px; right: 15px; - Removed absolute positioning */
-            font-size: 2.2rem; /* Larger close icon */
-            font-weight: bold;
-            color: #aaa;
-            background: none;
-            border: none;
-            cursor: pointer;
-            line-height: 1;
-            padding: 5px; /* Clickable area */
-             flex-shrink: 0; /* Prevent button from shrinking */
-        }
-        .popup-close-btn:hover {
-            color: var(--dark-text);
-        }
-
-        .popup-content-scrollable { /* NEW: Container for scrollable content */
-            overflow-y: auto; /* Enable vertical scroll */
-            flex-grow: 1; /* Allow content to take available space */
-            /* Add some padding inside the scrollable area if needed */
-             padding-right: 10px; /* Space for scrollbar */
-             margin-right: -10px; /* Compensate for padding */
-        }
-
-        /* Adjust styling for elements INSIDE the scrollable area */
-        .popup-content-scrollable p {
-            margin-bottom: 12px; /* Spacing between paragraphs */
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-        .popup-content-scrollable ol {
-            margin-left: 5px; /* Adjusted indent */
-            margin-bottom: 15px;
-            padding-left: 20px; /* Space for numbers */
-        }
-        .popup-content-scrollable ol li {
-             margin-bottom: 10px; /* Space between steps */
-             font-size: 1rem;
-        }
-        .popup-content-scrollable ul {
-            list-style-type: none;
-            margin-top: 8px;
-            margin-left: 10px;
-            padding-left: 0;
-        }
-        .popup-content-scrollable p strong,
-        .popup-content-scrollable ul strong {
-            color: var(--secondary-color);
-            font-weight: 700;
-        }
+        /* --- Scrollable Popup Content --- */
+        .popup-content-scrollable { overflow-y: auto; flex-grow: 1; padding: 20px 25px 25px 25px; /* Padding for content */ }
+        .popup-content-scrollable p { margin-bottom: 12px; font-size: 1rem; line-height: 1.7; }
+        .popup-content-scrollable ol { margin-left: 5px; margin-bottom: 15px; padding-left: 20px; }
+        .popup-content-scrollable ol li { margin-bottom: 10px; font-size: 1rem; }
+        .popup-content-scrollable ul { list-style-type: none; margin-top: 8px; margin-left: 10px; padding-left: 0; }
+        .popup-content-scrollable ul li { margin-bottom: 5px; } /* Spacing for contact items */
+        .popup-content-scrollable p strong, .popup-content-scrollable ul strong { color: var(--secondary-color); font-weight: 700; }
 
         /* --- Back Button --- */
-        .back-button-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .back-btn {
-            background-color: var(--light-text); /* Consistent grey */
-            color: white;
-            border: none;
-            padding: 12px 28px; /* Slightly larger */
-            font-size: 1.1rem;
-            font-weight: 600; /* Semibold */
-            cursor: pointer;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-            display: inline-flex; /* Align icon and text */
-            align-items: center;
-        }
-        .back-btn i { /* Style for potential icon */
-            margin-right: 8px;
-        }
-        .back-btn:hover {
-            background-color: var(--dark-text);
-        }
+        .back-button-container { text-align: center; margin-top: 40px; }
+        .back-btn { background-color: var(--light-text); color: white; border: none; padding: 12px 28px; font-size: 1.1rem; font-weight: 600; cursor: pointer; border-radius: 8px; text-decoration: none; transition: background-color 0.3s ease; display: inline-flex; align-items: center; }
+        .back-btn i { margin-right: 8px; }
+        .back-btn:hover { background-color: var(--dark-text); }
 
-        /* --- NEW: Pointer Popup --- */
-        .pointer-popup {
-            position: absolute; /* Position relative to the parent (.topper-card) */
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            z-index: 10; /* Above card, below main popups */
-            display: none; /* Hidden by default */
-            font-size: 0.9rem;
-            line-height: 1.4;
-            max-width: 180px; /* Limit width */
-            text-align: center;
-        }
-        /* Simple arrow using border */
-        .pointer-popup::after {
-            content: '';
-            position: absolute;
-            bottom: 100%; /* Position arrow at the top */
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 7px;
-            border-style: solid;
-            border-color: transparent transparent var(--secondary-color) transparent; /* Pointing down */
-        }
-        .pointer-popup-close {
-             position: absolute;
-             top: -5px;
-             right: -5px;
-             background-color: var(--accent-color);
-             color: white;
-             border: none;
-             border-radius: 50%;
-             width: 20px;
-             height: 20px;
-             font-size: 12px;
-             font-weight: bold;
-             line-height: 18px;
-             text-align: center;
-             cursor: pointer;
-             box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-         }
-
+        /* --- Pointer Popup (One-Time Hint) --- */
+        .pointer-popup { position: absolute; background-color: var(--secondary-color); color: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); z-index: 10; display: none; /* Hidden by default */ font-size: 0.9rem; line-height: 1.4; max-width: 180px; text-align: center; }
+        .pointer-popup::after { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border-width: 7px; border-style: solid; border-color: transparent transparent var(--secondary-color) transparent; }
+        .pointer-popup-close { position: absolute; top: -5px; right: -5px; background-color: var(--accent-color); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 18px; text-align: center; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
 
         /* --- Responsive Adjustments --- */
         @media (max-width: 480px) {
@@ -404,10 +93,11 @@
             .info-icon { font-size: 1.4rem; }
             .payment-button { font-size: 1.1rem; padding: 12px 25px;}
             .bundle-offer h3 { font-size: 1.3rem; }
-            .popup { padding: 20px 20px 25px 20px; max-width: 90%; }
-            .popup h3 { font-size: 1.4rem; }
-            .popup-content-scrollable p,
-            .popup-content-scrollable ol li { font-size: 0.95rem; }
+            .popup { max-width: 95%; } /* Slightly wider on small screens */
+            .popup-header { padding: 15px 20px 10px 20px; }
+            .popup-header h3 { font-size: 1.4rem; }
+            .popup-content-scrollable { padding: 15px 20px 20px 20px; }
+            .popup-content-scrollable p, .popup-content-scrollable ol li { font-size: 0.95rem; }
             .pointer-popup { font-size: 0.85rem; max-width: 150px; }
         }
 
@@ -416,17 +106,16 @@
 <body>
 
     <div class="container">
-        <h1>Unlock Top Scores with Topper Notes</h1>
+        <h1><i class="fas fa-star" style="color: #f4a261;"></i> Unlock Top Scores with Topper Notes</h1>
 
         <section class="topper-options">
             <!-- Topper 1: Suman Basyal -->
-            <div class="topper-card" id="first-topper-card"> <!-- Added ID -->
+            <div class="topper-card" id="first-topper-card">
                 <div class="topper-main-info">
                     <div class="topper-name-gpa">
                         <a href="sumanbasyal.html" title="View Suman's Notes"><h3>Suman Basyal</h3></a>
                         <span class="gpa">3.83 GPA</span>
                     </div>
-                    <!-- Using Font Awesome icon -->
                     <span class="info-icon" data-topper="suman" title="More about Suman"><i class="fas fa-info-circle"></i></span>
                 </div>
                 <div class="topper-details">
@@ -486,7 +175,7 @@
             <div class="bundle-item">
                 <strong>Pranav Khanal</strong> (3.67 GPA) - All Subjects: <span class="bundle-price">Rs. 69</span>
             </div>
-            <p class="offer-deadline"><i class="fas fa-clock"></i> Offer ends soon!</p> <!-- Changed text -->
+            <p class="offer-deadline"><i class="fas fa-clock"></i> Limited Time Offer!</p>
         </section>
 
         <div class="back-button-container">
@@ -500,11 +189,10 @@
     <!-- Payment Info Popup -->
     <div id="payment-popup" class="popup">
         <div class="popup-header">
-            <h3 id="payment-popup-title"><i class="fas fa-info-circle"></i> How to Get Your Notes</h3>
-            <button class="popup-close-btn" aria-label="Close payment info" data-popup-id="payment-popup">×</button>
+            <h3><i class="fas fa-info-circle"></i> How to Get Your Notes</h3>
+            <button class="popup-close-btn" aria-label="Close payment info">×</button>
         </div>
-        <!-- Scrollable content area -->
-        <div class="popup-content-scrollable">
+        <div class="popup-content-scrollable"> <!-- Scrollable content -->
             <p>Follow these easy steps:</p>
             <ol>
                 <li>Contact us via Email or WhatsApp to tell us which notes you want:
@@ -520,8 +208,9 @@
                 <li>Select the subject you paid for.</li>
                 <li>Enjoy studying with the topper notes!</li>
             </ol>
-            <p><em>(Dear students, we know you'd love the notes for free, but we have to pay the toppers for their hard work. This small charge helps us make more quality notes available. We promise no single note bundle will exceed Rs. 100. Your education is our priority!)</em></p>
+            <p><em>(Dear students, we know you'd love the notes for free, but we compensate the toppers for their hard work. This small charge helps us make more quality notes available. We promise no single note bundle will exceed Rs. 100. Your education is our priority!)</em></p>
             <p>Thank you for your understanding!</p>
+            <!-- Add more content here if needed to test scrolling -->
         </div>
     </div>
 
@@ -529,10 +218,9 @@
     <div id="topper-info-popup" class="popup">
         <div class="popup-header">
              <h3 id="topper-info-name">Topper Details</h3>
-             <button class="popup-close-btn" aria-label="Close topper info" data-popup-id="topper-info-popup">×</button>
+             <button class="popup-close-btn" aria-label="Close topper info">×</button>
         </div>
-         <!-- Scrollable content area -->
-         <div id="topper-info-content" class="popup-content-scrollable">
+         <div id="topper-info-content" class="popup-content-scrollable"> <!-- Scrollable content -->
              <p>Loading details...</p>
          </div>
     </div>
@@ -546,19 +234,13 @@
         const infoIcons = document.querySelectorAll('.info-icon');
         const paymentBtn = document.getElementById('how-to-pay-btn');
         const closeBtns = document.querySelectorAll('.popup-close-btn');
-
-        // New elements for pointer popup
         const pointerPopup = document.getElementById('pointer-popup');
-        const pointerPopupCloseBtn = pointerPopup.querySelector('.pointer-popup-close');
-        const firstInfoIcon = document.querySelector('#first-topper-card .info-icon'); // Target specific icon
+        const pointerPopupCloseBtn = pointerPopup?.querySelector('.pointer-popup-close'); // Added safety check
+        const firstInfoIcon = document.querySelector('#first-topper-card .info-icon');
 
-        // --- Topper Information Data ---
+        // --- Topper Information Data (Keep your existing data here) ---
         const topperDetails = {
-             suman: { /* ... (keep existing data) ... */ },
-             kshitij: { /* ... (keep existing data) ... */ },
-             pranav: { /* ... (keep existing data) ... */ }
-             // ** Keep your existing topperDetails object here **
-            suman: {
+             suman: {
                 name: "Suman Basyal (3.83 GPA)",
                 info: `<p>Suman is a top student from his class and town. He took the SEE exam in 2079, right after the new curriculum started, so he knows the new topics well.</p>
                        <p>He dreams of becoming a professor and enjoys helping others learn. His notes include study material, examples, memory tricks (mnemonics), and clear explanations.</p>
@@ -578,12 +260,16 @@
             }
         };
 
-
         // --- Popup Management Functions ---
         function openPopup(popupElement) {
             if (!popupElement) return;
             overlay.classList.add('active');
             popupElement.classList.add('active');
+            // Scroll content to top when opening
+            const scrollableContent = popupElement.querySelector('.popup-content-scrollable');
+            if (scrollableContent) {
+                scrollableContent.scrollTop = 0;
+            }
             document.body.style.overflow = 'hidden';
         }
 
@@ -597,70 +283,111 @@
             const details = topperDetails[topperKey];
             if (!details) return;
 
-            document.getElementById('topper-info-name').textContent = details.name;
-            document.getElementById('topper-info-content').innerHTML = details.info; // Make sure this div exists
+            // Target the specific elements within the topper info popup
+            const nameElement = topperInfoPopup.querySelector('#topper-info-name');
+            const contentElement = topperInfoPopup.querySelector('#topper-info-content');
 
-            openPopup(topperInfoPopup);
+            if (nameElement) nameElement.textContent = details.name;
+            if (contentElement) contentElement.innerHTML = details.info;
+
+            openPopup(topperInfoPopup); // Open the generic topper info popup
         }
 
         // --- Pointer Popup Logic ---
         function showPointerPopup() {
-            if (!pointerPopup || !firstInfoIcon) return; // Safety check
+            if (!pointerPopup || !firstInfoIcon) return;
 
-            // Calculate position relative to the icon
             const iconRect = firstInfoIcon.getBoundingClientRect();
-            const cardRect = firstInfoIcon.closest('.topper-card').getBoundingClientRect();
+            // Position relative to viewport initially might be easier
+            // Let CSS handle absolute positioning relative to the card
 
-            // Position popup below the icon, centered horizontally relative to icon
-            // Adjust offsets as needed based on final styling
-            const topOffset = iconRect.height + 15; // Below icon + gap + arrow height
-            const leftOffset = (iconRect.width / 2) - (pointerPopup.offsetWidth / 2);
+            pointerPopup.style.top = `${iconRect.bottom + window.scrollY + 10}px`; // Below icon + gap
+            pointerPopup.style.left = `${iconRect.left + window.scrollX + (iconRect.width / 2) - (pointerPopup.offsetWidth / 2)}px`; // Centered below icon
+            // **Revert to CSS positioning** - The absolute positioning in CSS relative to the card is better. JS positioning here is tricky with scroll.
+            // Let's try CSS positioning only. We just need to make it display block.
+             const iconParentCard = firstInfoIcon.closest('.topper-card');
+             const iconTopRelToCard = firstInfoIcon.offsetTop;
+             const iconLeftRelToCard = firstInfoIcon.offsetLeft;
+             const iconHeight = firstInfoIcon.offsetHeight;
+             const iconWidth = firstInfoIcon.offsetWidth;
 
-            pointerPopup.style.top = `${firstInfoIcon.offsetTop + topOffset}px`;
-            pointerPopup.style.left = `${firstInfoIcon.offsetLeft + leftOffset}px`;
+             // Position below the icon, centered horizontally relative to icon within the card
+             pointerPopup.style.top = `${iconTopRelToCard + iconHeight + 10}px`; // 10px gap below icon
+             pointerPopup.style.left = `${iconLeftRelToCard + (iconWidth / 2) - (pointerPopup.offsetWidth / 2)}px`; // Centered under icon
+
 
             pointerPopup.style.display = 'block';
         }
 
         // --- Event Listeners ---
-        paymentBtn.addEventListener('click', () => {
-            openPopup(paymentPopup);
-        });
 
+        // Open "How to Get Notes" Popup - ALWAYS works
+        if(paymentBtn) {
+            paymentBtn.addEventListener('click', () => {
+                openPopup(paymentPopup);
+            });
+        }
+
+        // Open Topper Info Popup - ALWAYS works for each icon
         infoIcons.forEach(icon => {
             icon.addEventListener('click', (e) => {
                 const topperKey = e.currentTarget.getAttribute('data-topper');
                 showTopperInfo(topperKey);
-                // Optionally hide pointer popup if it's still visible when info is clicked
-                if (pointerPopup.style.display === 'block') {
+                // Hide pointer popup if user clicks the icon it's pointing to
+                if (pointerPopup && pointerPopup.style.display === 'block') {
                     pointerPopup.style.display = 'none';
                 }
             });
         });
 
+        // Close Popups using Close Buttons or Overlay Click
         closeBtns.forEach(btn => {
             btn.addEventListener('click', closePopups);
         });
-
-        overlay.addEventListener('click', closePopups);
+        if(overlay) {
+            overlay.addEventListener('click', closePopups);
+        }
 
         // Pointer Popup Close Button
         if (pointerPopupCloseBtn) {
-            pointerPopupCloseBtn.addEventListener('click', () => {
+            pointerPopupCloseBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent card click if needed
                 pointerPopup.style.display = 'none';
             });
         }
 
         // --- Run on Page Load ---
         document.addEventListener('DOMContentLoaded', () => {
-            const visitedKey = 'topperNotesFirstVisitDone';
-            const hasVisited = localStorage.getItem(visitedKey);
+            // Logic for the ONE-TIME pointer popup only
+            const visitedKey = 'topperNotesPointerShown'; // Use a specific key
+            const hasSeenPointer = localStorage.getItem(visitedKey);
 
-            if (!hasVisited) {
-                // Use setTimeout to ensure layout is stable before calculating position
-                setTimeout(showPointerPopup, 500); // Delay 500ms
+            if (!hasSeenPointer && pointerPopup && firstInfoIcon) { // Check elements exist
+                 // Use setTimeout for layout stability
+                 setTimeout(() => {
+                    // Recalculate offsetWidth *inside* timeout after display is potentially set
+                    const iconParentCard = firstInfoIcon.closest('.topper-card');
+                     const iconTopRelToCard = firstInfoIcon.offsetTop;
+                     const iconLeftRelToCard = firstInfoIcon.offsetLeft;
+                     const iconHeight = firstInfoIcon.offsetHeight;
+                     const iconWidth = firstInfoIcon.offsetWidth;
+
+                     pointerPopup.style.display = 'block'; // Make it visible *before* getting offsetWidth
+                     const popupWidth = pointerPopup.offsetWidth; // Get width AFTER display: block
+
+                     // Position below the icon, centered horizontally relative to icon within the card
+                     pointerPopup.style.top = `${iconTopRelToCard + iconHeight + 10}px`; // 10px gap below icon
+                     pointerPopup.style.left = `${iconLeftRelToCard + (iconWidth / 2) - (popupWidth / 2)}px`; // Centered under icon
+
+
+                 }, 500); // 500ms delay
                 localStorage.setItem(visitedKey, 'true');
             }
+
+             // Check if topperDetails is populated (basic check)
+             if (typeof topperDetails === 'undefined' || Object.keys(topperDetails).length === 0) {
+                 console.error("Topper details data is missing or empty!");
+             }
         });
 
     </script>
