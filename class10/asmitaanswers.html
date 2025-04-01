@@ -1,135 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Asmita (answers) - Class 10</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body, h1, h2, p, div, input, button, a {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      background: #f7f9fc;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      min-height: 100vh;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      color: #2a9d8f;
-      margin-bottom: 10px;
-    }
-    .content {
-      width: 100%;
-      max-width: 800px;
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .subject-list {
-      margin: 20px 0;
-    }
-    .subject-list h2 {
-      font-size: 2rem;
-      color: #264653;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .subjects {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .subject-link {
-      background: #264653;
-      color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.3s;
-      font-size: 1.1rem;
-    }
-    .subject-link:hover {
-      background: #2a9d8f;
-    }
-    .thank-you-btn {
-      margin: 30px auto 10px auto;
-      display: block;
-      background: #ff9f1c;
-      color: #fff;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .thank-you-btn:hover {
-      background: #ffbf69;
-    }
-    .back-btn {
-      display: inline-block;
-      margin: 30px auto 10px auto;
-      background: #e76f51;
-      color: #fff;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 1rem;
-    }
-    .back-btn:hover {
-      background: #f29e74;
-    }
-    @media (max-width: 480px) {
-      header h1 { font-size: 2rem; }
-      .subject-link, .thank-you-btn, .back-btn {
-        font-size: 1rem;
-        padding: 12px 20px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Asmita Answers - Class 10 | NEB HELP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- Base Reset & Global Styles --- */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2a9d8f; /* Teal */
+            --secondary-color: #264653; /* Dark Blue/Teal */
+            --accent-color: #e76f51; /* Orange-Red */
+            --light-bg: #f8f9fa;
+            --white-bg: #ffffff;
+            --dark-text: #343a40;
+            --light-text: #6c757d;
+            --menu-bg: #343a40; /* Sidebar background */
+            --menu-text: #f8f9fa;
+            --menu-hover: #495057;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+             /* Prevents content shift when menu opens */
+             /* overflow-x: hidden;  -- Handled by container */
+        }
+
+        .container {
+             width: 100%;
+             max-width: 960px; /* Consistent width */
+             margin: 0 auto;
+             padding: 0 15px;
+             flex-grow: 1;
+             display: flex;
+             flex-direction: column;
+             padding-top: 80px; /* Space for fixed menu button */
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 30px; /* Consistent spacing */
+        }
+
+        header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.4rem; /* Slightly smaller for subpage */
+            color: var(--secondary-color); /* Darker color for subpage title */
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        header h1 .publication-name {
+            color: var(--primary-color); /* Highlight publication name */
+            font-weight: 700;
+        }
+
+        header p.subheading {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Content Area --- */
+        .content-wrapper {
+             display: flex;
+             justify-content: center;
+             width: 100%;
+             padding-bottom: 40px;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 700px; /* Suitable width for a list */
+            background: var(--white-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+        }
+
+        /* --- Subject List --- */
+        .subject-list {
+             margin-bottom: 30px; /* Space before nav */
+        }
+
+        .subject-list h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 25px; /* More space below heading */
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color); /* Underline heading */
+            display: inline-block; /* Allow border to fit content */
+            position: relative; /* For centering */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+         .subject-list h2 i {
+             margin-right: 10px;
+             color: var(--primary-color);
+         }
+
+        .subjects {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between links */
+        }
+
+        .subject-link {
+            background: var(--white-bg); /* Lighter background */
+            color: var(--secondary-color); /* Darker text */
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: left; /* Align text left */
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex; /* Use flexbox for icon alignment */
+            align-items: center;
+            border: 1px solid #dee2e6; /* Subtle border */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .subject-link i {
+            margin-right: 12px; /* Space after icon */
+            color: var(--primary-color); /* Icon color */
+            width: 20px; /* Fixed width for alignment */
+            text-align: center;
+        }
+
+        .subject-link:hover {
+            background: var(--primary-color);
+            color: var(--white-bg);
+            border-color: var(--primary-color);
+            transform: translateX(5px); /* Slight move effect */
+            box-shadow: 0 4px 10px rgba(42, 157, 143, 0.2);
+        }
+         .subject-link:hover i {
+             color: var(--white-bg); /* Change icon color on hover */
+         }
+
+        /* External link indicator (Optional but good UX) */
+        .subject-link::after {
+            content: "\f35d"; /* Font Awesome external link icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-left: auto; /* Push icon to the right */
+            font-size: 0.9em;
+            color: var(--light-text);
+            opacity: 0.7;
+            transition: color 0.3s ease;
+        }
+        .subject-link:hover::after {
+             color: var(--white-bg);
+             opacity: 1;
+         }
+
+
+        /* --- Navigation (Back Button) --- */
+        .navigation {
+            text-align: center;
+            margin-top: 15px; /* Reduced margin as Thank You removed */
+        }
+        .back-btn {
+            display: inline-block;
+            background-color: var(--light-text);
+            color: var(--white-bg);
+            padding: 10px 22px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .back-btn i {
+             margin-right: 6px;
+         }
+        .back-btn:hover {
+            background-color: var(--dark-text);
+        }
+
+        /* --- Menu Button --- */
+        #menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            line-height: 50px; /* Center icon vertically */
+            text-align: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #menu-toggle:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        /* --- Side Menu Panel --- */
+        #side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--menu-bg);
+            color: var(--menu-text);
+            padding: 80px 25px 25px 25px;
+            box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: right 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+        }
+        #side-menu.active {
+            right: 0;
+        }
+        #side-menu a {
+            color: var(--menu-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 12px 18px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            display: block;
+            font-weight: 600;
+            border-bottom: 1px solid var(--menu-hover);
+        }
+        #side-menu a:last-child {
+            border-bottom: none;
+        }
+        #side-menu a:not(.highlight-link):hover {
+            background-color: var(--menu-hover);
+            color: var(--white-bg);
+        }
+         #side-menu a i {
+             margin-right: 10px;
+             width: 20px;
+             text-align: center;
+         }
+        /* Highlighted Link Style */
+        #side-menu a.highlight-link {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        #side-menu a.highlight-link:hover {
+            background-color: #d85a3e;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .container {
+                padding-top: 70px; /* Adjust for potentially smaller menu button */
+            }
+            header h1 {
+                font-size: 2.1rem;
+            }
+            .content {
+                padding: 25px;
+            }
+             #menu-toggle {
+                width: 45px;
+                height: 45px;
+                line-height: 45px;
+                font-size: 20px;
+                top: 15px;
+                right: 15px;
+            }
+            #side-menu {
+                width: 250px;
+                right: -260px;
+                padding-top: 70px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 60px 10px 0 10px; /* Adjust top padding */
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+             header p.subheading {
+                font-size: 1rem;
+            }
+            .content {
+                padding: 20px 15px; /* Less horizontal padding */
+            }
+            .subject-list h2 {
+                 font-size: 1.6rem;
+                 margin-bottom: 20px;
+             }
+            .subject-link {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+             .back-btn {
+                font-size: 0.95rem;
+                padding: 9px 18px;
+            }
+        }
+
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Asmita (answers)</h1>
-  </header>
 
-  <div class="content">
-    <div class="subject-list">
-      <h2>Subjects</h2>
-      <div class="subjects">
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-english" class="subject-link">English</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-nepali" class="subject-link">Nepali</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-social" class="subject-link">Social</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-mathematics" class="subject-link">Math</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-science" class="subject-link">Science</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-optional-mathematics" class="subject-link">Opt. Math</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-computer-science" class="subject-link">Computer</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-office-practice-and-accountancy" class="subject-link">Account</a>
-        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-economics" class="subject-link">Economics</a>
-      </div>
+    <!-- Menu Toggle Button -->
+    <button id="menu-toggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Side Menu Panel -->
+    <div id="side-menu">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a> <!-- Added Home Link -->
+        <a href="../toppersnote.html" class="highlight-link"><i class="fas fa-star"></i> Toppers Note</a> <!-- Assuming this remains highlighted -->
+        <a href="../mcq.html"><i class="fas fa-check-square"></i> MCQ Practice</a>
+        <a href="../ourteam.html"><i class="fas fa-users"></i> Our Team</a>
+        <a href="../privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
     </div>
 
-    <button class="thank-you-btn">Thank You</button>
 
-    <div style="text-align: center;">
-      <a href="../class10.html" class="back-btn">Back</a>
-    </div>
-  </div>
+    <!-- Main Content Container -->
+    <div class="container">
+        <header>
+            <h1><span class="publication-name">Asmita</span> - Class 10 Answers</h1>
+            <p class="subheading">Select a subject below to view the official answers on the Asmita Publication website.</p>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="subject-list">
+                    <h2><i class="fas fa-list-ul"></i> Available Subjects</h2>
+                    <div class="subjects">
+                        <!-- Added target="_blank" for external links & icons -->
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-english" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-language"></i> English
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-nepali" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-book"></i> Nepali
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-social" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-users"></i> Social Studies
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-mathematics" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-calculator"></i> Mathematics (Comp.)
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-science" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-flask"></i> Science
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-optional-mathematics" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-square-root-alt"></i> Opt. Math
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-computer-science" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-laptop-code"></i> Computer Science
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-office-practice-and-accountancy" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-file-invoice-dollar"></i> Accountancy (OPA)
+                        </a>
+                        <a href="https://books.asmitapublication.com/qr-scan/see-question-bank-economics" class="subject-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-chart-line"></i> Economics
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Removed the Thank You button -->
+
+                <!-- Back Navigation -->
+                <div class="navigation">
+                    <a href="../class10.html" class="back-btn">
+                        <i class="fas fa-chevron-left"></i> Back to Publications
+                    </a>
+                </div>
+            </div> <!-- End .content -->
+        </div> <!-- End .content-wrapper -->
+
+    </div> <!-- End .container -->
+
+    <!-- Footer Snippet (Optional) -->
+    <!--
+    <footer>
+        <div class="version">v.1.2.1</div>
+    </footer>
+    -->
+
+    <script>
+        // --- Sidebar Menu Toggle Script ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideMenu = document.getElementById('side-menu');
+
+        menuToggle.addEventListener('click', function(event) {
+            sideMenu.classList.toggle('active');
+            event.stopPropagation();
+        });
+
+        // Close menu if clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = sideMenu.contains(event.target);
+            const isClickOnToggleButton = menuToggle.contains(event.target);
+
+            if (!isClickInsideMenu && !isClickOnToggleButton && sideMenu.classList.contains('active')) {
+                sideMenu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
