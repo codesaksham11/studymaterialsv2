@@ -69,13 +69,12 @@
         .topper-main-info {
             display: flex;
             justify-content: space-between;
-            align-items: center; /* Align items vertically */
+            align-items: center;
             margin-bottom: 5px;
         }
 
         .topper-name-gpa {
              flex-grow: 1; /* Takes available space */
-             margin-right: 10px; /* Add some space between name/gpa and icon */
         }
 
         .topper-name-gpa a { /* Style for the clickable name link */
@@ -109,29 +108,14 @@
             color: #1a6a6e;
         }
 
-        /* --- Distinct Info Icon Button --- */
-        .info-icon {
-            display: inline-flex; /* Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
-            width: 30px; /* Fixed width */
-            height: 30px; /* Fixed height */
-            font-size: 1.2rem; /* Adjust icon size if needed */
-            font-weight: bold;
-            color: #2a9d8f; /* Icon color */
-            background-color: #e0f2f7; /* Light background */
-            border-radius: 50%; /* Make it circular */
+        .info-icon { /* Styling for the 'i' icon */
+            font-size: 1.5rem;
+            color: #2a9d8f;
             cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-            flex-shrink: 0; /* Prevent icon from shrinking */
-            line-height: 1; /* Ensure text doesn't affect height */
-            text-align: center;
+            padding: 5px;
+            margin-left: 10px;
+            font-weight: bold;
         }
-        .info-icon:hover {
-            background-color: #b3e0ed; /* Darker background on hover */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Add shadow on hover */
-        }
-
 
         /* --- How to Pay Section --- */
         .payment-section {
@@ -221,9 +205,6 @@
             display: none;
             opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
-            /* --- ADDED FOR SCROLL --- */
-            max-height: 85vh; /* Limit height to 85% of viewport height */
-            overflow-y: auto; /* Add vertical scrollbar ONLY if content exceeds max-height */
         }
         .popup.active { /* Show popup */
             display: block;
@@ -262,7 +243,7 @@
         }
 
         .popup-close-btn { /* Styling for the 'X' close button */
-            position: absolute; /* Changed to absolute for positioning within the popup */
+            position: absolute;
             top: 10px;
             right: 15px;
             font-size: 2rem;
@@ -272,10 +253,6 @@
             border: none;
             cursor: pointer;
             line-height: 1;
-            z-index: 1002; /* Ensure it's above popup content */
-             /* Sticky positioning might be better if popup scrolls */
-             /* position: sticky; */ /* Alternatively use sticky if absolute causes issues with scrolling */
-             /* top: 10px; */
         }
         .popup-close-btn:hover {
             color: #333;
@@ -307,10 +284,9 @@
             h1 { font-size: 1.8rem; }
             .topper-name-gpa h3 { font-size: 1.1rem; }
             .payment-button { font-size: 1rem; padding: 10px 20px;}
-            .popup { padding: 20px; padding-top: 45px; /* Add top padding to avoid overlap with close btn */ }
+            .popup { padding: 20px; }
             .popup h3 { font-size: 1.3rem; }
             .popup p, .popup ol li { font-size: 0.95rem; }
-            .info-icon { width: 28px; height: 28px; font-size: 1.1rem;} /* Slightly smaller icon on mobile */
         }
 
     </style>
@@ -318,8 +294,7 @@
 <body>
 
     <div class="container">
-        <!-- Added Star Icon -->
-        <h1>⭐ Unlock Top Scores with Topper Notes</h1>
+        <h1>Unlock Top Scores with Topper Notes</h1>
 
         <!-- Individual Topper Subject Options -->
         <section class="topper-options">
@@ -333,7 +308,6 @@
                         </a>
                         <span class="gpa">3.83 GPA</span>
                     </div>
-                    <!-- Updated Info Icon -->
                     <span class="info-icon" data-topper="suman" title="More about Suman">ⓘ</span>
                 </div>
                 <div class="topper-details">
@@ -351,7 +325,6 @@
                         </a>
                          <span class="gpa">3.7 GPA</span>
                     </div>
-                    <!-- Updated Info Icon -->
                     <span class="info-icon" data-topper="kshitij" title="More about Kshitij">ⓘ</span>
                 </div>
                 <div class="topper-details">
@@ -369,7 +342,6 @@
                         </a>
                         <span class="gpa">3.67 GPA</span>
                     </div>
-                    <!-- Updated Info Icon -->
                      <span class="info-icon" data-topper="pranav" title="More about Pranav">ⓘ</span>
                 </div>
                  <div class="topper-details">
@@ -382,14 +354,12 @@
 
         <!-- How to Pay / Get Notes Button -->
         <section class="payment-section">
-             <!-- Added Cart Icon -->
-            <button id="how-to-pay-btn" class="payment-button">🛒 How to Get Notes?</button>
+            <button id="how-to-pay-btn" class="payment-button">How to Get Notes?</button>
         </section>
 
         <!-- Pre-Order / Bundle Offer Section -->
         <section class="bundle-offer">
-            <!-- Added Gift Icon -->
-            <h3>🎁 Special Offer: Get All Subjects Together!</h3>
+            <h3>Special Offer: Get All Subjects Together!</h3>
             <div class="bundle-item">
                 <strong>Suman Basyal</strong> (3.83 GPA) - All Subjects Note: <span class="bundle-price">Rs. 100</span>
             </div>
@@ -414,7 +384,6 @@
 
     <!-- Payment Info Popup (Contains the steps) -->
     <div id="payment-popup" class="popup">
-        <!-- Adjusted close button position slightly if needed for scroll -->
         <button class="popup-close-btn" aria-label="Close payment info">×</button>
         <h3>How to Get Your Notes</h3>
         <p>Follow these easy steps:</p>
@@ -431,11 +400,6 @@
             <li>Input the code we gave you.</li>
             <li>Select the subject you paid for.</li>
             <li>Enjoy studying with the topper notes!</li>
-            <li><em>(Example Step 7 just to make popup taller for scroll testing)</em> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-            <li><em>(Example Step 8 just to make popup taller for scroll testing)</em> Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-            <li><em>(Example Step 9 just to make popup taller for scroll testing)</em> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-            <li><em>(Example Step 10 just to make popup taller for scroll testing)</em> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</li>
-
         </ol>
         <p><em>(Dear students, we know you'd love the notes for free, but we have to pay the toppers to get the notes. So by charging small amount we get the money to make more notes available, however we promise you that no notes price will be higher than rs 100 even if we have to suffer loss. your education is our top priority)</em></p>
     </div>
@@ -488,11 +452,15 @@
             overlay.classList.add('active'); // Show dark overlay
             popupElement.classList.add('active'); // Show the specific popup
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
         function closePopups() {
             overlay.classList.remove('active'); // Hide overlay
             allPopups.forEach(popup => popup.classList.remove('active')); // Hide all popups
             document.body.style.overflow = ''; // Allow background scrolling again
-            // --- Function to show specific topper info ---
+        }
+
+        // --- Function to show specific topper info ---
         function showTopperInfo(topperKey) {
             const details = topperDetails[topperKey]; // Get data from topperDetails object
             if (!details) return; // Exit if no details found
@@ -502,7 +470,9 @@
             document.getElementById('topper-info-content').innerHTML = details.info;
 
             openPopup(topperInfoPopup); // Open the updated popup
-            // --- Event Listeners ---
+        }
+
+        // --- Event Listeners ---
         // Open payment popup when "How to Get Notes?" button is clicked
         paymentBtn.addEventListener('click', () => {
             openPopup(paymentPopup);
@@ -512,7 +482,7 @@
         infoIcons.forEach(icon => {
             icon.addEventListener('click', () => {
                 const topperKey = icon.getAttribute('data-topper'); // Get which topper (suman, kshitij, pranav)
-                                  showTopperInfo(topperKey);
+                showTopperInfo(topperKey);
             });
         });
 
