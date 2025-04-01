@@ -3,102 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <title>Topper Notes - NEB HELP</title>
+    <!-- Robust viewport tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
-        /* --- Base Styles --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary-color: #2a9d8f; --secondary-color: #264653; --accent-color: #e76f51;
-            --light-bg: #f7f9fc; --white-bg: #ffffff; --dark-text: #343a40; --light-text: #6c757d;
-            --card-bg: #f0f4f8; --card-border: #dce6f0;
+        /* Basic Reset & Defaults */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body { font-family: 'Nunito', sans-serif; background-color: var(--light-bg); color: var(--dark-text); line-height: 1.6; padding-bottom: 80px; }
-        .container { max-width: 800px; margin: 30px auto; padding: 25px; background-color: var(--white-bg); border-radius: 16px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); }
-        h1, h2, h3 { font-family: 'Poppins', sans-serif; }
-        h1 { text-align: center; color: var(--primary-color); font-size: 2.4rem; margin-bottom: 35px; }
 
-        /* --- Topper Card Styles --- */
-        .topper-options { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .topper-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; transition: box-shadow 0.3s ease, transform 0.2s ease; position: relative; } /* Needed for pointer popup */
-        .topper-card:hover { box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1); transform: translateY(-3px); }
-        .topper-main-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .topper-name-gpa { flex-grow: 1; }
-        .topper-name-gpa a { text-decoration: none; color: inherit; }
-        .topper-name-gpa a:hover h3 { color: var(--primary-color); }
-        .topper-name-gpa h3 { font-size: 1.4rem; color: var(--secondary-color); margin-bottom: 4px; display: inline-block; transition: color 0.2s ease; font-weight: 700; }
-        .topper-name-gpa .gpa { font-size: 1rem; color: var(--light-text); font-weight: 600; display: block; }
-        .topper-details { font-size: 0.95rem; color: var(--dark-text); margin-bottom: 10px; }
-        .topper-details strong { color: var(--primary-color); font-weight: 700; }
-        .info-icon { font-size: 1.6rem; color: var(--primary-color); cursor: pointer; padding: 5px 8px; margin-left: 10px; font-weight: bold; border-radius: 50%; transition: background-color 0.2s ease, color 0.2s ease; line-height: 1; display: inline-block; /* Ensures proper positioning */ }
-        .info-icon:hover { background-color: rgba(42, 157, 143, 0.1); }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc; /* Light background */
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 80px; /* Space for back button */
+        }
 
-        /* --- Payment Button & Bundle Offer --- */
-        .payment-section { text-align: center; margin: 40px 0; }
-        .payment-button { background: linear-gradient(135deg, var(--accent-color), #d85a3e); color: white; border: none; padding: 14px 30px; font-size: 1.2rem; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(231, 111, 81, 0.3); }
-        .payment-button:hover { background: linear-gradient(135deg, #c24a30, #a63e26); transform: translateY(-3px); box-shadow: 0 6px 15px rgba(231, 111, 81, 0.4); }
-        .payment-button:active { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(231, 111, 81, 0.3); }
-        .bundle-offer { background-color: #e6fffa; border: 1px solid #a3f7e8; border-radius: 12px; padding: 25px; margin-top: 20px; text-align: center; }
-        .bundle-offer h3 { font-size: 1.5rem; color: var(--secondary-color); margin-bottom: 20px; }
-        .bundle-item { margin-bottom: 12px; font-size: 1rem; color: var(--dark-text); }
-        .bundle-item strong { color: var(--secondary-color); }
-        .bundle-price { font-weight: 700; color: var(--accent-color); }
-        .offer-deadline { margin-top: 20px; font-size: 0.95rem; font-weight: 700; color: var(--accent-color); }
+        .container {
+            max-width: 800px; /* Wider container for more content */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* White content card */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-        /* --- Popup Overlay & Base Styles --- */
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.65); z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .popup-overlay.active { display: block; opacity: 1; }
-        .popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background-color: white; padding: 0; /* Padding handled by inner divs now */ border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); z-index: 1001; width: 90%; max-width: 550px; display: none; /* Changed to none */ opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; max-height: 85vh; display: flex; flex-direction: column; }
-        .popup.active { display: flex; /* Use flex */ opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        h1, h2 {
+            text-align: center;
+            color: #2a9d8f; /* Main teal color */
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+        }
+        h2 { /* This h2 is not currently used, but kept for potential future sections */
+            font-size: 1.8rem;
+            margin-top: 40px;
+            border-top: 1px solid #eee; /* Separator */
+            padding-top: 30px;
+        }
 
-        /* --- Popup Header (Title + Close Button) --- */
-        .popup-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px 15px 25px; /* Padding for header */ border-bottom: 1px solid #eee; /* Separator */ flex-shrink: 0; }
-        .popup-header h3 { color: var(--primary-color); margin: 0; font-size: 1.6rem; flex-grow: 1; padding-right: 20px; /* Space for close */ text-align: left; }
-        .popup-close-btn { font-size: 2.2rem; font-weight: bold; color: #aaa; background: none; border: none; cursor: pointer; line-height: 1; padding: 5px; flex-shrink: 0; }
-        .popup-close-btn:hover { color: var(--dark-text); }
+        /* --- Topper Options Section --- */
+        .topper-options {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column layout */
+            gap: 20px; /* Space between cards */
+        }
 
-        /* --- Scrollable Popup Content --- */
-        .popup-content-scrollable { overflow-y: auto; flex-grow: 1; padding: 20px 25px 25px 25px; /* Padding for content */ }
-        .popup-content-scrollable p { margin-bottom: 12px; font-size: 1rem; line-height: 1.7; }
-        .popup-content-scrollable ol { margin-left: 5px; margin-bottom: 15px; padding-left: 20px; }
-        .popup-content-scrollable ol li { margin-bottom: 10px; font-size: 1rem; }
-        .popup-content-scrollable ul { list-style-type: none; margin-top: 8px; margin-left: 10px; padding-left: 0; }
-        .popup-content-scrollable ul li { margin-bottom: 5px; } /* Spacing for contact items */
-        .popup-content-scrollable p strong, .popup-content-scrollable ul strong { color: var(--secondary-color); font-weight: 700; }
+        .topper-card {
+            background-color: #f0f4f8; /* Slightly off-white card */
+            border: 1px solid #dce6f0;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s ease;
+        }
+        .topper-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .topper-main-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Align items vertically */
+            margin-bottom: 5px;
+        }
+
+        .topper-name-gpa {
+             flex-grow: 1; /* Takes available space */
+             margin-right: 10px; /* Add some space between name/gpa and icon */
+        }
+
+        .topper-name-gpa a { /* Style for the clickable name link */
+            text-decoration: none;
+            color: inherit;
+        }
+         .topper-name-gpa a:hover h3 { /* Optional hover effect on name */
+            color: #2a9d8f;
+         }
+
+        .topper-name-gpa h3 { /* Styling for the topper's name */
+            font-size: 1.3rem;
+            color: #264653;
+            margin-bottom: 3px;
+            display: inline-block;
+             transition: color 0.2s ease;
+        }
+        .topper-name-gpa .gpa { /* Styling for the GPA */
+            font-size: 1rem;
+            color: #555;
+            font-weight: bold;
+            display: block;
+        }
+
+        .topper-details { /* Styling for the secondary details (class, price) */
+            font-size: 0.95rem;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .topper-details strong { /* Make price stand out */
+            color: #1a6a6e;
+        }
+
+        /* --- Distinct Info Icon Button --- */
+        .info-icon {
+            display: inline-flex; /* Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            width: 30px; /* Fixed width */
+            height: 30px; /* Fixed height */
+            font-size: 1.2rem; /* Adjust icon size if needed */
+            font-weight: bold;
+            color: #2a9d8f; /* Icon color */
+            background-color: #e0f2f7; /* Light background */
+            border-radius: 50%; /* Make it circular */
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            line-height: 1; /* Ensure text doesn't affect height */
+            text-align: center;
+        }
+        .info-icon:hover {
+            background-color: #b3e0ed; /* Darker background on hover */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Add shadow on hover */
+        }
+
+
+        /* --- How to Pay Section --- */
+        .payment-section {
+            text-align: center;
+            margin: 40px 0; /* Space above and below */
+        }
+
+        .payment-button { /* Styling for the main call-to-action button */
+            background-color: #e76f51;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .payment-button:hover {
+            background-color: #d85a3e;
+        }
+
+        /* --- Bundle Offer Section --- */
+        .bundle-offer {
+            background-color: #e0f2f7; /* Light teal background */
+            border: 1px solid #b3e0ed;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .bundle-offer h3 {
+             font-size: 1.4rem;
+             color: #1a6a6e;
+             margin-bottom: 15px;
+        }
+         .bundle-item {
+             margin-bottom: 10px;
+             font-size: 1rem;
+             color: #333;
+         }
+         .bundle-item strong { /* Highlight topper name in bundle */
+             color: #005662;
+         }
+         .bundle-price { /* Highlight bundle price */
+            font-weight: bold;
+            color: #e76f51;
+         }
+         .offer-deadline { /* Styling for the deadline text */
+            margin-top: 15px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #d85a3e;
+         }
+
+        /* --- Popups --- */
+        .popup-overlay { /* Dark background behind popups */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .popup-overlay.active { /* Show overlay */
+            display: block;
+            opacity: 1;
+        }
+
+        .popup { /* Base style for all popups */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9); /* Start slightly smaller for animation */
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            width: 90%; /* Responsive width */
+            max-width: 500px; /* Limit max width */
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            /* --- ADDED FOR SCROLL --- */
+            max-height: 85vh; /* Limit height to 85% of viewport height */
+            overflow-y: auto; /* Add vertical scrollbar ONLY if content exceeds max-height */
+        }
+        .popup.active { /* Show popup */
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1); /* Animate to full size */
+        }
+
+        .popup h3 { /* Popup title styling */
+            color: #2a9d8f;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .popup p { /* Paragraph styling inside popup */
+            margin-bottom: 10px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .popup ol { /* Styling for ordered list (steps) inside popup */
+            margin-left: 20px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        .popup ol li {
+             margin-bottom: 8px;
+             font-size: 1rem;
+        }
+        .popup ul { /* Styling for unordered list (contacts) inside the steps */
+            list-style-type: none; /* Remove default bullets */
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+        .popup p strong, .popup ul strong { /* Highlight important text in popups */
+            color: #264653;
+        }
+
+        .popup-close-btn { /* Styling for the 'X' close button */
+            position: absolute; /* Changed to absolute for positioning within the popup */
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aaa;
+            background: none;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 1002; /* Ensure it's above popup content */
+             /* Sticky positioning might be better if popup scrolls */
+             /* position: sticky; */ /* Alternatively use sticky if absolute causes issues with scrolling */
+             /* top: 10px; */
+        }
+        .popup-close-btn:hover {
+            color: #333;
+        }
 
         /* --- Back Button --- */
-        .back-button-container { text-align: center; margin-top: 40px; }
-        .back-btn { background-color: var(--light-text); color: white; border: none; padding: 12px 28px; font-size: 1.1rem; font-weight: 600; cursor: pointer; border-radius: 8px; text-decoration: none; transition: background-color 0.3s ease; display: inline-flex; align-items: center; }
-        .back-btn i { margin-right: 8px; }
-        .back-btn:hover { background-color: var(--dark-text); }
+        .back-button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .back-btn {
+            background-color: #6c757d; /* Neutral grey */
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none; /* Remove underline from link */
+            transition: background-color 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
 
-        /* --- Pointer Popup (One-Time Hint) --- */
-        .pointer-popup { position: absolute; background-color: var(--secondary-color); color: white; padding: 10px 15px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); z-index: 10; display: none; /* Hidden by default */ font-size: 0.9rem; line-height: 1.4; max-width: 180px; text-align: center; /* Positioning will be done mostly by JS now */ pointer-events: none; /* Prevent it from interfering with clicks on icon below */ }
-        .pointer-popup::after { content: ''; position: absolute; bottom: 100%; /* Arrow pointing up */ left: 50%; transform: translateX(-50%); border-width: 7px; border-style: solid; border-color: transparent transparent var(--secondary-color) transparent; }
-        .pointer-popup-close { position: absolute; top: -5px; right: -5px; background-color: var(--accent-color); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 18px; text-align: center; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.3); pointer-events: all; /* Allow clicking the close button */ }
 
         /* --- Responsive Adjustments --- */
         @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            .container { padding: 20px; margin: 20px auto; }
-            .topper-name-gpa h3 { font-size: 1.2rem; }
-            .info-icon { font-size: 1.4rem; }
-            .payment-button { font-size: 1.1rem; padding: 12px 25px;}
-            .bundle-offer h3 { font-size: 1.3rem; }
-            .popup { max-width: 95%; } /* Slightly wider on small screens */
-            .popup-header { padding: 15px 20px 10px 20px; }
-            .popup-header h3 { font-size: 1.4rem; }
-            .popup-content-scrollable { padding: 15px 20px 20px 20px; }
-            .popup-content-scrollable p, .popup-content-scrollable ol li { font-size: 0.95rem; }
-            .pointer-popup { font-size: 0.85rem; max-width: 150px; }
+            h1 { font-size: 1.8rem; }
+            .topper-name-gpa h3 { font-size: 1.1rem; }
+            .payment-button { font-size: 1rem; padding: 10px 20px;}
+            .popup { padding: 20px; padding-top: 45px; /* Add top padding to avoid overlap with close btn */ }
+            .popup h3 { font-size: 1.3rem; }
+            .popup p, .popup ol li { font-size: 0.95rem; }
+            .info-icon { width: 28px; height: 28px; font-size: 1.1rem;} /* Slightly smaller icon on mobile */
         }
 
     </style>
@@ -106,37 +318,41 @@
 <body>
 
     <div class="container">
-        <h1><i class="fas fa-star" style="color: #f4a261;"></i> Unlock Top Scores with Topper Notes</h1>
+        <!-- Added Star Icon -->
+        <h1>⭐ Unlock Top Scores with Topper Notes</h1>
 
+        <!-- Individual Topper Subject Options -->
         <section class="topper-options">
+
             <!-- Topper 1: Suman Basyal -->
-            <div class="topper-card" id="first-topper-card">
+            <div class="topper-card">
                 <div class="topper-main-info">
                     <div class="topper-name-gpa">
-                        <a href="sumanbasyal.html" title="View Suman's Notes"><h3>Suman Basyal</h3></a>
+                        <a href="sumanbasyal.html" title="View Suman's Notes">
+                            <h3>Suman Basyal</h3>
+                        </a>
                         <span class="gpa">3.83 GPA</span>
                     </div>
-                    <span class="info-icon" data-topper="suman" title="More about Suman"><i class="fas fa-info-circle"></i></span>
+                    <!-- Updated Info Icon -->
+                    <span class="info-icon" data-topper="suman" title="More about Suman">ⓘ</span>
                 </div>
                 <div class="topper-details">
                     Class 10 | Experienced with New Curriculum<br>
                     Price: <strong>Rs. 45</strong> per subject
                 </div>
-                 <!-- Pointer Popup - positioned absolutely relative to card -->
-                 <div id="pointer-popup" class="pointer-popup">
-                     Click the '<i class="fas fa-info-circle"></i>' icon for details about the topper!
-                     <button class="pointer-popup-close" aria-label="Dismiss hint">×</button>
-                 </div>
             </div>
 
             <!-- Topper 2: Kshitij Chapagain -->
             <div class="topper-card">
                  <div class="topper-main-info">
                     <div class="topper-name-gpa">
-                        <a href="kshitijchapagain.html" title="View Kshitij's Notes"><h3>Kshitij Chapagain</h3></a>
+                        <a href="kshitijchapagain.html" title="View Kshitij's Notes">
+                            <h3>Kshitij Chapagain</h3>
+                        </a>
                          <span class="gpa">3.7 GPA</span>
                     </div>
-                    <span class="info-icon" data-topper="kshitij" title="More about Kshitij"><i class="fas fa-info-circle"></i></span>
+                    <!-- Updated Info Icon -->
+                    <span class="info-icon" data-topper="kshitij" title="More about Kshitij">ⓘ</span>
                 </div>
                 <div class="topper-details">
                     Class 10 | Future Doctor's Notes (MBBS Student)<br>
@@ -148,285 +364,166 @@
             <div class="topper-card">
                 <div class="topper-main-info">
                     <div class="topper-name-gpa">
-                        <a href="pranavkhanal.html" title="View Pranav's Notes"><h3>Pranav Khanal</h3></a>
+                        <a href="pranavkhanal.html" title="View Pranav's Notes">
+                            <h3>Pranav Khanal</h3>
+                        </a>
                         <span class="gpa">3.67 GPA</span>
                     </div>
-                     <span class="info-icon" data-topper="pranav" title="More about Pranav"><i class="fas fa-info-circle"></i></span>
+                    <!-- Updated Info Icon -->
+                     <span class="info-icon" data-topper="pranav" title="More about Pranav">ⓘ</span>
                 </div>
                  <div class="topper-details">
                     Class 10 | Strong in Math & Science<br>
                     Price: <strong>Rs. 39</strong> per subject
                 </div>
             </div>
+
         </section>
 
+        <!-- How to Pay / Get Notes Button -->
         <section class="payment-section">
-            <button id="how-to-pay-btn" class="payment-button"><i class="fas fa-shopping-cart"></i> How to Get Notes?</button>
+             <!-- Added Cart Icon -->
+            <button id="how-to-pay-btn" class="payment-button">🛒 How to Get Notes?</button>
         </section>
 
+        <!-- Pre-Order / Bundle Offer Section -->
         <section class="bundle-offer">
-            <h3><i class="fas fa-tags"></i> Special Offer: Get All Subjects!</h3>
+            <!-- Added Gift Icon -->
+            <h3>🎁 Special Offer: Get All Subjects Together!</h3>
             <div class="bundle-item">
-                <strong>Suman Basyal</strong> (3.83 GPA) - All Subjects: <span class="bundle-price">Rs. 100</span>
+                <strong>Suman Basyal</strong> (3.83 GPA) - All Subjects Note: <span class="bundle-price">Rs. 100</span>
             </div>
             <div class="bundle-item">
-                <strong>Kshitij Chapagain</strong> (3.7 GPA) - All Subjects: <span class="bundle-price">Rs. 89</span>
+                <strong>Kshitij Chapagain</strong> (3.7 GPA) - All Subjects Note: <span class="bundle-price">Rs. 89</span>
             </div>
             <div class="bundle-item">
-                <strong>Pranav Khanal</strong> (3.67 GPA) - All Subjects: <span class="bundle-price">Rs. 69</span>
+                <strong>Pranav Khanal</strong> (3.67 GPA) - All Subjects Note: <span class="bundle-price">Rs. 69</span>
             </div>
-            <p class="offer-deadline"><i class="fas fa-clock"></i> Limited Time Offer!</p>
+            <p class="offer-deadline">Offer ends after Dashain!</p>
         </section>
 
+        <!-- Back Button -->
         <div class="back-button-container">
-             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+             <a href="index.html" class="back-btn">Back to Home</a>
         </div>
+
     </div><!-- End Container -->
 
     <!-- --- Popups (Hidden by default) --- -->
     <div id="popup-overlay" class="popup-overlay"></div>
 
-    <!-- Payment Info Popup -->
+    <!-- Payment Info Popup (Contains the steps) -->
     <div id="payment-popup" class="popup">
-        <div class="popup-header">
-            <h3><i class="fas fa-info-circle"></i> How to Get Your Notes</h3>
-            <button class="popup-close-btn" aria-label="Close payment info">×</button>
-        </div>
-        <div class="popup-content-scrollable"> <!-- Scrollable content -->
-            <p>Follow these easy steps:</p>
-            <ol>
-                <li>Contact us via Email or WhatsApp to tell us which notes you want:
-                    <ul>
-                        <li><i class="far fa-envelope"></i> Email: <strong>s2064b@gmail.com</strong></li>
-                        <li><i class="fab fa-whatsapp"></i> WhatsApp: <strong>9824406202</strong></li>
-                    </ul>
-                </li>
-                <li>Make the payment (we will provide payment details via email/WhatsApp) and get your unique subject code(s) from us after confirming payment.</li>
-                <li>Return to this page and click the name of the student whose notes you purchased (e.g., "Suman Basyal").</li>
-                <li>On their dedicated notes page, scroll down until you find the "Enter Code to Access Notes" section.</li>
-                <li>Input the specific subject code we gave you for that student.</li>
-                <li>Select the subject name corresponding to the code you entered.</li>
-                <li>Click the "Access Notes" button. Enjoy studying with the topper notes!</li>
-            </ol>
-            <p><em>(Dear students, we understand you might prefer free resources. However, creating and verifying high-quality notes takes significant effort from the toppers. This small charge compensates them fairly and allows us to continue providing valuable study materials. We've kept the bundle prices extremely affordable, ensuring no single student's complete set exceeds Rs. 100. Your education success is our main goal!)</em></p>
-            <p>Thank you for supporting the toppers and NEB HELP!</p>
-            <!-- Added more detail to the instructions -->
-        </div>
+        <!-- Adjusted close button position slightly if needed for scroll -->
+        <button class="popup-close-btn" aria-label="Close payment info">×</button>
+        <h3>How to Get Your Notes</h3>
+        <p>Follow these easy steps:</p>
+        <ol>
+            <li>Contact us via Email or WhatsApp to tell us which notes you want:
+                <ul> <!-- Nested list for contact details -->
+                    <li>📧 Email: <strong>s2064b@gmail.com</strong></li>
+                    <li>💬 WhatsApp: <strong>9824406202</strong></li>
+                </ul>
+            </li>
+            <li>Make the payment (we will provide details) and get your unique subject code(s) from us.</li>
+            <li>Click the name of the student whose notes you purchased (on the main Topper Notes page).</li>
+            <li>On their page, scroll down to find the "Enter Code" section.</li>
+            <li>Input the code we gave you.</li>
+            <li>Select the subject you paid for.</li>
+            <li>Enjoy studying with the topper notes!</li>
+            <li><em>(Example Step 7 just to make popup taller for scroll testing)</em> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+            <li><em>(Example Step 8 just to make popup taller for scroll testing)</em> Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+            <li><em>(Example Step 9 just to make popup taller for scroll testing)</em> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+            <li><em>(Example Step 10 just to make popup taller for scroll testing)</em> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</li>
+
+        </ol>
+        <p><em>(Dear students, we know you'd love the notes for free, but we have to pay the toppers to get the notes. So by charging small amount we get the money to make more notes available, however we promise you that no notes price will be higher than rs 100 even if we have to suffer loss. your education is our top priority)</em></p>
     </div>
 
-    <!-- Topper Info Popup -->
+    <!-- Topper Info Popup (Content filled by JS) -->
     <div id="topper-info-popup" class="popup">
-        <div class="popup-header">
-             <h3 id="topper-info-name">Topper Details</h3>
-             <button class="popup-close-btn" aria-label="Close topper info">×</button>
-        </div>
-         <div id="topper-info-content" class="popup-content-scrollable"> <!-- Scrollable content -->
+         <button class="popup-close-btn" aria-label="Close topper info">×</button>
+         <h3 id="topper-info-name">Topper Details</h3>
+         <div id="topper-info-content">
+             <!-- Content will be filled by JS based on icon clicked -->
              <p>Loading details...</p>
          </div>
     </div>
 
     <script>
-        // --- Topper Information Data (Keep this data structure) ---
+        // --- Popup Logic ---
+        const overlay = document.getElementById('popup-overlay');
+        const paymentPopup = document.getElementById('payment-popup');
+        const topperInfoPopup = document.getElementById('topper-info-popup');
+        const allPopups = document.querySelectorAll('.popup');
+        const infoIcons = document.querySelectorAll('.info-icon');
+        const paymentBtn = document.getElementById('how-to-pay-btn');
+        const closeBtns = document.querySelectorAll('.popup-close-btn');
+
+        // --- Topper Information Data ---
         const topperDetails = {
-             suman: {
+            suman: {
                 name: "Suman Basyal (3.83 GPA)",
-                info: `<p>Suman achieved an outstanding 3.83 GPA and was a top student in his class and town. He completed his SEE in 2079 BS, navigating the newly implemented curriculum effectively. His notes reflect a deep understanding of the current syllabus.</p>
-                       <p>Aspiring to become a professor, Suman has a passion for teaching and helping peers succeed. His notes are meticulously crafted, featuring study materials, practical examples, memory aids (mnemonics), and crystal-clear explanations designed for easy comprehension.</p>
-                       <p>Notably, Suman provided tuition to around 50 students from the 2080 BS SEE batch, all of whom remarkably scored A+! His teaching methods, embedded in these notes, are proven effective for modern learners.</p>
-                       <p><strong>Direct Support:</strong> As Suman is an active part of our NEB HELP team, choosing his notes gives you the unique advantage of being able to contact him directly for clarifications or questions related to the notes.</p>`
+                info: `<p>Suman is a top student from his class and town. He took the SEE exam in 2079, right after the new curriculum started, so he knows the new topics well.</p>
+                       <p>He dreams of becoming a professor and enjoys helping others learn. His notes include study material, examples, memory tricks (mnemonics), and clear explanations.</p>
+                       <p>Suman also taught tuition to 50 students from the 2080 batch, and all scored A+! These notes use methods that help modern students understand easily.</p>
+                       <p><strong>Good News:</strong> Suman is part of our team! If you choose his notes, you can contact him directly to ask questions.</p>`
             },
             kshitij: {
                 name: "Kshitij Chapagain (3.7 GPA)",
-                info: `<p>Kshitij, a high-achiever from Mahilwar, Lumbini, secured a strong 3.7 GPA in his SEE. He is currently pursuing an MBBS degree at USCMS (Universal College of Medical Sciences).</p>
-                       <p>These notes can be considered the "notes of a future doctor." They are characterized by meticulous organization, clarity, and precision – reflecting the rigorous study habits essential for demanding academic fields like medicine.</p>
-                       <p>If you appreciate structured and concise study material, Kshitij's notes are an excellent choice.</p>`
+                info: `<p>Kshitij is a topper from Mahilwar, Lumbini. He is currently studying MBBS (medicine) at USCMS.</p>
+                       <p>Think of these as the "notes of a future doctor"! They are well-organized and clear, reflecting the study habits needed for demanding fields.</p>`
             },
             pranav: {
                 name: "Pranav Khanal (3.67 GPA)",
-                info: `<p>Pranav demonstrates exceptional strength in quantitative subjects, securing A+ grades in both Compulsory Mathematics and Science. His overall GPA is a very respectable 3.67.</p>
-                       <p>While excelling in logical subjects, Pranav found descriptive subjects like Nepali and Social Studies slightly more challenging, achieving B+ in them. This honesty highlights where his notes are likely strongest.</p>
-                       <p>If you are looking to specifically boost your understanding and performance in Math and Science, Pranav's notes, filled with his insights and problem-solving approaches, offer significant value.</p>`
+                info: `<p>Pranav is excellent in Math and Science, scoring A+ in both subjects. These notes are especially strong for these subjects.</p>
+                       <p>His overall GPA is slightly lower because he finds descriptive subjects like Nepali and Social Studies more challenging (scored B+ in both).</p>
+                       <p>If Math and Science are your focus, Pranav's notes offer great insights and methods.</p>`
             }
         };
 
-        // --- Wait for the DOM to be fully loaded before running scripts ---
-        document.addEventListener('DOMContentLoaded', () => {
+        // --- Functions to manage popups ---
+        function openPopup(popupElement) {
+            if (!popupElement) return; // Do nothing if popup doesn't exist
+            overlay.classList.add('active'); // Show dark overlay
+            popupElement.classList.add('active'); // Show the specific popup
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        function closePopups() {
+            overlay.classList.remove('active'); // Hide overlay
+            allPopups.forEach(popup => popup.classList.remove('active')); // Hide all popups
+            document.body.style.overflow = ''; // Allow background scrolling again
+            // --- Function to show specific topper info ---
+        function showTopperInfo(topperKey) {
+            const details = topperDetails[topperKey]; // Get data from topperDetails object
+            if (!details) return; // Exit if no details found
 
-            // --- DOM Element Selection ---
-            const overlay = document.getElementById('popup-overlay');
-            const paymentPopup = document.getElementById('payment-popup');
-            const topperInfoPopup = document.getElementById('topper-info-popup');
-            const allPopups = document.querySelectorAll('.popup');
-            const infoIcons = document.querySelectorAll('.info-icon');
-            const paymentBtn = document.getElementById('how-to-pay-btn');
-            const closeBtns = document.querySelectorAll('.popup-close-btn');
-            const pointerPopup = document.getElementById('pointer-popup');
-            const pointerPopupCloseBtn = pointerPopup?.querySelector('.pointer-popup-close'); // Safety check
-            const firstTopperCard = document.getElementById('first-topper-card'); // Get the card itself
-            const firstInfoIcon = firstTopperCard?.querySelector('.info-icon'); // Icon inside the first card
+            // Update the content of the topper info popup
+            document.getElementById('topper-info-name').textContent = details.name;
+            document.getElementById('topper-info-content').innerHTML = details.info;
 
+            openPopup(topperInfoPopup); // Open the updated popup
+            // --- Event Listeners ---
+        // Open payment popup when "How to Get Notes?" button is clicked
+        paymentBtn.addEventListener('click', () => {
+            openPopup(paymentPopup);
+        });
 
-            // --- Basic Check for Elements ---
-            if (!overlay || !paymentPopup || !topperInfoPopup || allPopups.length === 0 || infoIcons.length === 0 || !paymentBtn || closeBtns.length === 0) {
-                console.error("Error: One or more essential popup elements or buttons could not be found. Check IDs and classes.");
-                // Optionally display a user-friendly message on the page
-                // document.body.insertAdjacentHTML('afterbegin', '<p style="color: red; text-align: center; padding: 10px; background: #ffe0e0;">Error: Page functionality might be limited. Could not find all elements.</p>');
-                // return; // Stop script execution if critical elements are missing
-            }
-
-
-            // --- Popup Management Functions ---
-            function openPopup(popupElement) {
-                if (!popupElement || !overlay) return; // Check elements exist
-                // console.log("Opening popup:", popupElement.id); // Debugging log
-                overlay.classList.add('active');
-                popupElement.classList.add('active');
-                // Scroll content to top when opening
-                const scrollableContent = popupElement.querySelector('.popup-content-scrollable');
-                if (scrollableContent) {
-                    scrollableContent.scrollTop = 0;
-                }
-                document.body.style.overflow = 'hidden'; // Prevent background scroll
-            }
-
-            function closePopups() {
-                // console.log("Closing popups"); // Debugging log
-                if (overlay) overlay.classList.remove('active');
-                allPopups.forEach(popup => popup.classList.remove('active'));
-                document.body.style.overflow = ''; // Restore background scroll
-            }
-
-            function showTopperInfo(topperKey) {
-                const details = topperDetails[topperKey];
-                if (!details || !topperInfoPopup) {
-                     console.error("Could not find details for topper key:", topperKey, "or topper info popup element.");
-                     return;
-                }
-                // console.log("Showing info for:", topperKey); // Debugging log
-
-                // Target the specific elements within the topper info popup
-                const nameElement = topperInfoPopup.querySelector('#topper-info-name');
-                const contentElement = topperInfoPopup.querySelector('#topper-info-content');
-
-                if (nameElement) nameElement.textContent = details.name;
-                else console.error("Could not find #topper-info-name element inside popup.");
-
-                if (contentElement) contentElement.innerHTML = details.info;
-                else console.error("Could not find #topper-info-content element inside popup.");
-
-
-                openPopup(topperInfoPopup); // Open the generic topper info popup
-            }
-
-            // --- Event Listener Attachments ---
-
-            // Open "How to Get Notes" Popup
-            if (paymentBtn) {
-                paymentBtn.addEventListener('click', () => {
-                    // console.log("Payment button clicked"); // Debugging log
-                    openPopup(paymentPopup);
-                });
-            } else {
-                 console.error("Payment button (#how-to-pay-btn) not found.");
-            }
-
-            // Open Topper Info Popup for each icon
-            infoIcons.forEach(icon => {
-                icon.addEventListener('click', (e) => {
-                    const topperKey = e.currentTarget.getAttribute('data-topper');
-                    // console.log("Info icon clicked for:", topperKey); // Debugging log
-                    if (topperKey) {
-                        showTopperInfo(topperKey);
-                        // Hide pointer popup if user clicks the icon it's pointing to
-                        if (pointerPopup && pointerPopup.style.display === 'block') {
-                            pointerPopup.style.display = 'none';
-                        }
-                    } else {
-                         console.error("Info icon clicked, but 'data-topper' attribute is missing or empty.");
-                    }
-                });
+        // Open topper info popup when an info icon is clicked
+        infoIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const topperKey = icon.getAttribute('data-topper'); // Get which topper (suman, kshitij, pranav)
+                                  showTopperInfo(topperKey);
             });
+        });
 
-            // Close Popups using Close Buttons
-            closeBtns.forEach(btn => {
-                btn.addEventListener('click', closePopups);
-            });
+        // Close popups when any close button ('X') is clicked
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', closePopups);
+        });
 
-            // Close Popups using Overlay Click
-            if (overlay) {
-                overlay.addEventListener('click', closePopups);
-            }
+        // Close popups when the dark overlay area is clicked
+        overlay.addEventListener('click', closePopups);
 
-            // --- Pointer Popup Logic ---
-            const visitedKey = 'topperNotesPointerShown_v1'; // Use a specific key, maybe version it if you change behavior
-            const hasSeenPointer = localStorage.getItem(visitedKey);
-
-            if (!hasSeenPointer && pointerPopup && firstInfoIcon && firstTopperCard) { // Check all required elements exist
-                // Use setTimeout to ensure layout is stable after page load
-                setTimeout(() => {
-                    try {
-                        // Make it visible *before* getting offsetWidth and calculating position
-                        pointerPopup.style.display = 'block';
-                        const popupWidth = pointerPopup.offsetWidth;
-                        const popupHeight = pointerPopup.offsetHeight; // Not strictly needed for this positioning
-
-                        // Get position of the icon *relative to its positioned parent (the card)*
-                        const iconTopRelToCard = firstInfoIcon.offsetTop;
-                        const iconLeftRelToCard = firstInfoIcon.offsetLeft;
-                        const iconHeight = firstInfoIcon.offsetHeight;
-                        const iconWidth = firstInfoIcon.offsetWidth;
-
-                        // Position popup's top edge just below the icon + a gap
-                        pointerPopup.style.top = `${iconTopRelToCard + iconHeight + 10}px`; // 10px gap below icon
-
-                        // Position popup's left edge so it's centered under the icon
-                        // Calculation: Icon's left edge + half icon width - half popup width
-                        pointerPopup.style.left = `${iconLeftRelToCard + (iconWidth / 2) - (popupWidth / 2)}px`;
-
-                        // console.log("Showing pointer popup"); // Debugging log
-
-                        // Add listener for its close button *only if* the popup is shown
-                        if (pointerPopupCloseBtn) {
-                            pointerPopupCloseBtn.addEventListener('click', (e) => {
-                                e.stopPropagation(); // Prevent triggering other clicks
-                                pointerPopup.style.display = 'none';
-                                // console.log("Pointer popup closed by button"); // Debugging log
-                                localStorage.setItem(visitedKey, 'true'); // Also mark as seen when closed manually
-                            }, { once: true }); // Remove listener after first click
-                        } else {
-                            console.error("Pointer popup close button not found.");
-                        }
-
-                        // Optionally: Hide after a few seconds if not dismissed
-                        /*
-                        setTimeout(() => {
-                            if (pointerPopup.style.display === 'block') {
-                                pointerPopup.style.display = 'none';
-                                localStorage.setItem(visitedKey, 'true'); // Mark as seen if timed out
-                                console.log("Pointer popup timed out"); // Debugging log
-                            }
-                        }, 7000); // Hide after 7 seconds
-                        */
-
-                         // Mark as seen immediately after showing attempt
-                         localStorage.setItem(visitedKey, 'true');
-
-                    } catch (error) {
-                        console.error("Error displaying or positioning pointer popup:", error);
-                        if(pointerPopup) pointerPopup.style.display = 'none'; // Hide if error occurs
-                    }
-
-                }, 500); // 500ms delay to allow rendering
-            } else {
-                 // console.log("Pointer popup conditions not met (already seen or elements missing).");
-                 if (!hasSeenPointer) {
-                    if(!pointerPopup) console.log("Pointer hint check: pointerPopup element missing.");
-                    if(!firstInfoIcon) console.log("Pointer hint check: firstInfoIcon element missing.");
-                    if(!firstTopperCard) console.log("Pointer hint check: firstTopperCard element missing.");
-                 }
-            }
-
-        }); // End of DOMContentLoaded
     </script>
 
 </body>
