@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kshitij Chapagain Notes - NEB HELP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        /* --- CSS Styles (Keep as before) --- */
+        /* Basic Reset & Defaults */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f7f9fc; color: #333; line-height: 1.6; padding-bottom: 80px; }
+        .container { max-width: 900px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        h1, h2 { text-align: center; color: #2a9d8f; margin-bottom: 25px; }
+        h1 { font-size: 2rem; } h2 { font-size: 1.6rem; margin-top: 35px; padding-top: 20px; border-top: 1px solid #eee; }
+        /* Subject Links */
+        .subject-links { padding: 15px; background-color: #f0f4f8; border-radius: 10px; margin-bottom: 30px; }
+        .subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
+        .subject-box { background-color: #264653; color: white; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 1rem; font-weight: bold; transition: background-color 0.3s ease, transform 0.2s ease; display: flex; justify-content: center; align-items: center; min-height: 60px; }
+        .subject-box:hover { background-color: #2a9d8f; transform: translateY(-3px); }
+        /* Dongle Entry */
+        .dongle-entry { padding: 20px; background-color: #fefae0; border: 1px solid #fae588; border-radius: 10px; margin-bottom: 30px; }
+        .dongle-toggle-btn { background-color: #e76f51; color: white; border: none; padding: 10px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; display: block; width: 100%; margin-bottom: 15px; }
+        .dongle-toggle-btn:hover { background-color: #d85a3e; }
+        .dongle-form-container { display: none; border-top: 1px dashed #ccc; padding-top: 20px; }
+        .dongle-subject-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .dongle-subject-item label { display: block; padding: 10px; background-color: #fff; border: 1px solid #ddd; border-radius: 6px; text-align: center; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; }
+        .dongle-subject-item input[type="radio"] { display: none; }
+        .dongle-subject-item input[type="radio"]:checked + label { background-color: #d1e7dd; border-color: #a3cfbb; font-weight: bold; }
+        .dongle-subject-item label:hover { background-color: #f8f9fa; }
+        .dongle-input-area { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
+        .dongle-input-area label { font-weight: bold; margin-right: 5px; }
+        .dongle-input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; flex-grow: 1; min-width: 150px; }
+        .dongle-submit-btn { background-color: #2a9d8f; color: white; border: none; padding: 10px 20px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; }
+        .dongle-submit-btn:hover { background-color: #264653; }
+        .hidden-by-cookie { display: none !important; }
+        /* Audio Message */
+        .audio-message { text-align: center; margin: 30px 0; }
+        .audio-play-button { background-color: #1e88e5; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 1.8rem; cursor: pointer; transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease; display: inline-flex; justify-content: center; align-items: center; box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
+        .audio-play-button:hover { background-color: #1565c0; }
+        .audio-play-button:active { transform: scale(0.9); }
+        .audio-player { display: none; }
+        /* Popups */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1000; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .popup-overlay.active { display: block; opacity: 1; }
+        .popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background-color: white; padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); z-index: 1001; width: 90%; max-width: 400px; display: none; opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; text-align: center; }
+        .popup.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .popup p { font-size: 1.1rem; margin: 0; }
+        .popup.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        /* Back Button */
+        .back-button-container { text-align: center; margin-top: 40px; }
+        .back-btn { background-color: #6c757d; color: white; border: none; padding: 10px 25px; font-size: 1.1rem; cursor: pointer; border-radius: 8px; text-decoration: none; transition: background-color 0.3s ease; }
+        .back-btn:hover { background-color: #5a6268; }
+        /* Responsive */
+         @media (max-width: 480px) { h1 { font-size: 1.6rem; } h2 { font-size: 1.3rem; } .subject-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; } .subject-box { font-size: 0.9rem; min-height: 50px; padding: 10px; } .dongle-subject-options { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; } .dongle-toggle-btn, .dongle-submit-btn, .dongle-input { font-size: 0.95rem; padding: 8px 15px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⭐ Kshitij Chapagain Notes</h1>
+
+        <section class="subject-links">
+            <h2>Available Subjects</h2>
+            <div class="subject-grid">
+                <!-- Link paths are relative to this file's location -->
+                <a href="kshitij/english.html" class="subject-box">English</a>
+                <a href="kshitij/nepali.html" class="subject-box">Nepali</a>
+                <a href="kshitij/science.html" class="subject-box">Science</a>
+                <a href="kshitij/math.html" class="subject-box">Math</a>
+                <a href="kshitij/social.html" class="subject-box">Social</a>
+                <a href="kshitij/computer.html" class="subject-box">Computer</a>
+                <a href="kshitij/opt_math.html" class="subject-box">Opt. Math</a>
+            </div>
+             <p style="font-size: 0.9rem; text-align: center; margin-top: 15px; color: #555;">
+                Note: Enter the code below to enable access to the subject pages.
+            </p>
+        </section>
+
+        <section class="dongle-entry">
+            <h2>Unlock Subject Access</h2>
+            <button id="dongle-toggle-btn" class="dongle-toggle-btn">Enter Code to Unlock</button>
+            <div id="dongle-form-container" class="dongle-form-container">
+                 <p style="text-align: center; margin-bottom: 15px; font-size: 0.95rem; color: #333;">Select the subject you have the code for:</p>
+                <form id="dongle-form">
+                    <div id="dongle-subject-options" class="dongle-subject-options">
+                        <!-- Options dynamically populated by JS -->
+                    </div>
+                    <div class="dongle-input-area">
+                        <label for="dongle-code">Enter Code:</label>
+                        <input type="password" id="dongle-code" class="dongle-input" required autocomplete="off" placeholder="e.g., basyal/131...">
+                        <button type="submit" class="dongle-submit-btn">Submit Code</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="audio-message">
+             <h2>A Message from Suman</h2>
+             <button id="audio-play-button" class="audio-play-button" title="Play Message">🔊</button>
+             <audio id="suman-audio" class="audio-player" src="path/to/your/placeholder_suman_audio.mp3">
+                 Your browser does not support the audio element.
+             </audio>
+        </section>
+
+        <div class="back-button-container">
+             <a href="toppersnote.html" class="back-btn">Back to Topper List</a>
+        </div>
+    </div>
+
+    <div id="popup-overlay" class="popup-overlay"></div>
+    <div id="message-popup" class="popup">
+        <p id="popup-message-text">Message</p>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        const SUBJECTS = [
+            // --- Codes CODES ---
+            { id: 'english', name: 'English', code: 'kshitij/5147129198', cookieName: 'kshitij_english', page: 'kshitij/english.html' },
+            { id: 'nepali', name: 'Nepali', code: 'kshitij/145161129', cookieName: 'kshitij_nepali', page: 'kshitij/nepali.html' },
+            { id: 'science', name: 'Science', code: 'kshitij/193951435', cookieName: 'kshitij_science', page: 'kshitij/science.html' },
+            { id: 'math', name: 'Math', code: 'kshitij/131208', cookieName: 'kshitij_math', page: 'kshitij/math.html' },
+            { id: 'social', name: 'Social', code: 'kshitij/191539112', cookieName: 'kshitij_social', page: 'kshitij/social.html' },
+            { id: 'computer', name: 'computer', code: 'kshitij/315132115518', cookieName: 'kshitij_computer', page: 'kshitij/computer.html' },
+            { id: 'opt_math', name: 'Opt. Math', code: 'kshitij/151620131208', cookieName: 'kshitij_opt_math', page: 'kshitij/opt_math.html' }
+        ];
+
+        // --- DOM Element References (Same as before) ---
+        const dongleToggleBtn = document.getElementById('dongle-toggle-btn');
+        const dongleFormContainer = document.getElementById('dongle-form-container');
+        const dongleSubjectOptionsDiv = document.getElementById('dongle-subject-options');
+        const dongleForm = document.getElementById('dongle-form');
+        const dongleCodeInput = document.getElementById('dongle-code');
+        const overlay = document.getElementById('popup-overlay');
+        const messagePopup = document.getElementById('message-popup');
+        const popupMessageText = document.getElementById('popup-message-text');
+        const audioPlayButton = document.getElementById('audio-play-button');
+        const audioPlayer = document.getElementById('suman-audio');
+
+        // --- Cookie Functions (Same as before) ---
+        function setCookie(name, value, days) { let expires = ""; if (days) { const date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax"; }
+        function getCookie(name) { const nameEQ = name + "="; const ca = document.cookie.split(';'); for (let i = 0; i < ca.length; i++) { let c = ca[i]; while (c.charAt(0) === ' ') c = c.substring(1, c.length); if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length); } return null; }
+
+        // --- Popup Functions (Same as before) ---
+        let popupTimeout; function showPopup(message, isError = false, duration = 2000) { clearTimeout(popupTimeout); popupMessageText.textContent = message; messagePopup.classList.toggle('error', isError); overlay.classList.add('active'); messagePopup.classList.add('active'); popupTimeout = setTimeout(() => { overlay.classList.remove('active'); messagePopup.classList.remove('active'); }, duration); }
+
+        // --- Dongle Section Logic (Same as before, uses updated SUBJECTS) ---
+        function initializeDongleView() { dongleSubjectOptionsDiv.innerHTML = ''; let hasVisibleOptions = false; SUBJECTS.forEach(subject => { const isUnlocked = getCookie(subject.cookieName) === 'unlocked'; if (!isUnlocked) { hasVisibleOptions = true; const itemDiv = document.createElement('div'); itemDiv.classList.add('dongle-subject-item'); itemDiv.dataset.subjectId = subject.id; const input = document.createElement('input'); input.type = 'radio'; input.id = `dongle-${subject.id}`; input.name = 'dongle_subject'; input.value = subject.id; input.required = true; const label = document.createElement('label'); label.htmlFor = `dongle-${subject.id}`; label.textContent = subject.name; itemDiv.appendChild(input); itemDiv.appendChild(label); dongleSubjectOptionsDiv.appendChild(itemDiv); } }); if (!hasVisibleOptions) { dongleToggleBtn.textContent = "All Subjects Unlocked!"; dongleToggleBtn.disabled = true; dongleFormContainer.style.display = 'none'; } }
+        function handleDongleSubmit(event) { event.preventDefault(); const selectedRadio = document.querySelector('input[name="dongle_subject"]:checked'); const enteredCode = dongleCodeInput.value.trim(); if (!selectedRadio) { showPopup("Please select a subject.", true, 2000); return; } if (!enteredCode) { showPopup("Please enter the code.", true, 2000); return; } const selectedSubjectId = selectedRadio.value; const subject = SUBJECTS.find(s => s.id === selectedSubjectId); if (!subject) { showPopup("An error occurred. Please refresh.", true, 2000); return; } if (enteredCode === subject.code) { setCookie(subject.cookieName, 'unlocked', 365); showPopup(`${subject.name} unlocked successfully!`, false, 2000); const itemToRemove = dongleSubjectOptionsDiv.querySelector(`div[data-subject-id="${subject.id}"]`); if (itemToRemove) { itemToRemove.classList.add('hidden-by-cookie'); } dongleCodeInput.value = ''; selectedRadio.checked = false; if (dongleSubjectOptionsDiv.querySelectorAll('.dongle-subject-item:not(.hidden-by-cookie)').length === 0) { dongleToggleBtn.textContent = "All Subjects Unlocked!"; dongleToggleBtn.disabled = true; dongleFormContainer.style.display = 'none'; } } else { showPopup("Incorrect code. Please try again.", true, 2000); dongleCodeInput.value = ''; dongleCodeInput.focus(); } }
+
+        // --- Audio Logic (Same as before) ---
+        audioPlayButton.addEventListener('click', () => { if (audioPlayer.paused) { audioPlayer.play(); audioPlayButton.textContent = '❚❚'; } else { audioPlayer.pause(); audioPlayer.currentTime = 0; audioPlayButton.textContent = '🔊'; } }); audioPlayer.addEventListener('ended', () => { audioPlayButton.textContent = '🔊'; });
+
+        // --- Initial Setup & Event Listeners (Same as before) ---
+        document.addEventListener('DOMContentLoaded', () => { initializeDongleView(); dongleToggleBtn.addEventListener('click', () => { const isVisible = dongleFormContainer.style.display === 'block'; dongleFormContainer.style.display = isVisible ? 'none' : 'block'; dongleToggleBtn.textContent = isVisible ? "Enter Code to Unlock" : "Hide Code Entry"; }); dongleForm.addEventListener('submit', handleDongleSubmit); overlay.addEventListener('click', () => { clearTimeout(popupTimeout); overlay.classList.remove('active'); messagePopup.classList.remove('active'); }); });
+    </script>
+
+</body>
+</html>
