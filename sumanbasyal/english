@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Science Notes - Suman Basyal - NEB HELP</title>
+    <!-- Base URL for relative links (like notepage_viewer.html) -->
+    <!-- Assumes notepage_viewer.html is in the parent directory -->
+    <base href="../">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        /* --- Basic Reset & Defaults --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 80px; /* Space for back button */
+        }
+        .container {
+            max-width: 900px; /* Max width for content */
+            margin: 20px auto; /* Center container */
+            padding: 20px;
+            background-color: #fff; /* White card background */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        h1, h2 {
+            text-align: center;
+            color: #2a9d8f; /* Main teal heading color */
+            margin-bottom: 25px;
+        }
+        h1 { font-size: 2rem; } /* Main title */
+        h2 { font-size: 1.6rem; margin-top: 15px; color: #333; } /* Section subtitle */
+
+        /* --- Topic Links Section --- */
+        .topic-links {
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+        .topic-grid {
+            display: grid;
+            /* Responsive grid: fills space, min width 180px */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px; /* Space between boxes */
+        }
+        .topic-box {
+            /* Professional Blue color */
+            background-color: #4A7A9D;
+            color: white;
+            padding: 18px 15px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none; /* Remove underline from link */
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex; /* Align text vertically */
+            justify-content: center;
+            align-items: center;
+            min-height: 65px; /* Consistent box height */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .topic-box:hover {
+            /* Darker blue on hover */
+            background-color: #3a607d;
+            transform: translateY(-3px); /* Lift effect */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* --- Access Note --- */
+         .access-note {
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 25px;
+            color: #555;
+            background-color: #fefae0; /* Light yellow warning */
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #fae588;
+         }
+         .access-note strong {
+             color: #e76f51; /* Orange-red emphasis */
+         }
+
+        /* --- Back Button --- */
+        .back-button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .back-btn {
+            background-color: #6c757d; /* Neutral grey */
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #5a6268; /* Darker grey */
+        }
+
+        /* --- Responsive Adjustments --- */
+         @media (max-width: 600px) {
+            /* Adjust grid for smaller screens */
+            .topic-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+         }
+         @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.3rem; }
+            /* Force two columns on very small screens */
+            .topic-grid { grid-template-columns: 1fr 1fr; gap: 10px;}
+            .topic-box { font-size: 0.9rem; min-height: 60px; padding: 15px 10px; }
+         }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Science Notes - Suman Basyal</h1>
+
+        <!-- Section for Topic Links -->
+        <section class="topic-links">
+            <h2>Select a Topic to View Notes</h2>
+            <div class="topic-grid">
+                <!-- Each link points to the SINGLE viewer page, passing a unique topic identifier -->
+                <!-- These identifiers MUST be consistent and match what the viewer expects -->
+                <a href="notepage_viewer.html?topic=suman_english_current_affairs" class="topic-box">Current Affairs</a>
+                <a href="notepage_viewer.html?topic=suman_english_festival_and_celebration" class="topic-box">Festival and Celebration</a>
+                <a href="notepage_viewer.html?topic=suman_english_health_and_wellness" class="topic-box">Health and Wellness</a>
+                <a href="notepage_viewer.html?topic=suman_english_work_and_leisure" class="topic-box">Work and Leisure</a>
+                <a href="notepage_viewer.html?topic=suman_english_science_and_experiment" class="topic-box">Science and Experiment </a>
+                <a href="notepage_viewer.html?topic=suman_english_food_and_cuisine" class="topic-box">Food and Cuisine</a>
+                <a href="notepage_viewer.html?topic=suman_english_cyber_security" class="topic-box">Cyber Security</a>
+                <a href="notepage_viewer.html?topic=suman_english_hobbies_and_intreset" class="topic-box">Hobbies and Interests</a>
+                <a href="notepage_viewer.html?topic=suman_english_history_and_culture" class="topic-box">History and Culture</a>
+                <a href="notepage_viewer.html?topic=suman_englsih_games_and_sports" class="topic-box">Games and Sports</a>
+                <a href="notepage_viewer.html?topic=suman_englsih_ethics_and_morality" class="topic-box">Ethics and Mortality</a>
+            </div>
+            <p class="access-note">
+                <strong>Important:</strong> Access to these topics requires the Suman Basyal Science code. Please ensure you have unlocked access on the previous page. (Protected by Cloudflare).
+            </p>
+        </section>
+
+        <!-- Back Button -->
+        <div class="back-button-container">
+             <!-- Links back to the specific topper's page -->
+             <a href="sumanbasyal.html" class="back-btn">Back to Suman's Main Page</a>
+        </div>
+
+    </div><!-- End Container -->
+
+    <!--
+        REMINDER:
+        - The security for THIS page relies on Cloudflare (Layer 1) checking for the 'suman_science' cookie BEFORE this page is served.
+        - The links above point to 'notepage_viewer.html'. Cloudflare (Layer 2) should ALSO check that page, verifying the correct subject cookie based on the '?topic=' parameter.
+        - Actual note images should be organized in folders like '/images/notes/suman/science/scientific_study/page_1.jpg' etc.
+    -->
+</body>
+</html>
