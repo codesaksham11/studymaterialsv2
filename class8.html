@@ -14,36 +14,43 @@
 
         html, body {
             height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Formal, common font */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333; /* Dark grey text */
-            background-color: #f4f7f6; /* Light neutral background */
+            color: #333;
+            background-color: #f4f7f6;
         }
 
         /* Flexbox Container for Centering */
         .container {
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            min-height: 100vh; /* Full viewport height */
-            padding: 20px; /* Padding for smaller screens */
-            text-align: center; /* Center text within the content box */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
         }
 
         /* Content Box Styling */
         .content {
-            background-color: #ffffff; /* White background */
-            padding: 40px 30px;
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
-            max-width: 600px; /* Max width on larger screens */
-            width: 100%; /* Responsive width */
+            background-color: #ffffff;
+            padding: 30px 30px 40px 30px; /* Adjusted padding */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        /* Image Styling */
+        .construction-image {
+            max-width: 200px; /* Adjust size as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 25px; /* Space below image */
         }
 
         /* Heading Styling */
         h1 {
-            font-size: 2.0em; /* Slightly smaller heading */
-            color: #004080; /* Dark, formal blue */
+            font-size: 2.0em;
+            color: #004080;
             margin-bottom: 20px;
             font-weight: 600;
         }
@@ -52,7 +59,7 @@
         p {
             font-size: 1.05em;
             margin-bottom: 18px;
-            color: #555; /* Slightly lighter text */
+            color: #555;
         }
 
         /* Completion Time Styling */
@@ -64,7 +71,7 @@
         }
 
         .completion-time strong {
-            color: #004080; /* Highlight the date */
+            color: #004080;
             font-weight: 600;
         }
 
@@ -72,11 +79,14 @@
         .signature {
             margin-top: 30px;
             font-size: 0.9em;
-            color: #777; /* Grey color */
+            color: #777;
         }
 
         /* Responsive Adjustments */
         @media (max-width: 600px) {
+             .construction-image {
+                max-width: 150px; /* Smaller image on mobile */
+            }
             h1 {
                 font-size: 1.7em;
             }
@@ -84,7 +94,7 @@
                 font-size: 1em;
             }
             .content {
-                padding: 30px 20px;
+                padding: 20px 20px 30px 20px; /* Adjust padding for mobile */
             }
         }
     </style>
@@ -92,6 +102,11 @@
 <body>
     <div class="container">
         <div class="content">
+            <!-- === IMAGE TAG === -->
+            <!-- Make sure to upload the image and update the src path below -->
+            <img src="images/Site under construction poster men worke_.. _ Free Vector #Freepik #freevector #poster #road #construction #work.jpg" alt="Site Under Construction" class="construction-image">
+            <!-- === /IMAGE TAG === -->
+
             <h1>Site Under Development</h1>
             <p>
                 Thank you for visiting. This part of our website is currently undergoing improvements and active development by our team.
@@ -103,7 +118,7 @@
                 We are working to bring you an enhanced experience soon. We appreciate your understanding and invite you to return after the specified completion date.
             </p>
             <p class="signature">
-                [NEB Assist Team, Nepal]
+                [NEB Assist team, Nepal]
             </p>
         </div>
     </div>
