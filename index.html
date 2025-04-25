@@ -42,8 +42,6 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            /* Prevent content jumping when menu opens/closes */
-             /* overflow-x: hidden; */ /* Replaced by container below */
         }
 
         .container {
@@ -60,7 +58,15 @@
         /* --- Header --- */
         header {
             text-align: center;
-            padding: 80px 0 40px 0; /* More top padding for menu button, more bottom spacing */
+            padding: 60px 0 40px 0; /* Adjusted top padding for logo */
+        }
+
+        /* Logo Styling */
+        .header-logo {
+            display: block; /* Needed for margin auto centering */
+            max-width: 100px; /* Adjust size as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0 auto 20px auto; /* Center horizontally, add space below */
         }
 
         header h1 {
@@ -80,7 +86,6 @@
 
         /* --- Content Area --- */
         .content-wrapper {
-             /* Center the content box horizontally */
              display: flex;
              justify-content: center;
              width: 100%;
@@ -129,25 +134,33 @@
             font-size: 0.9em;
         }
 
-        .see-more {
-            color: var(--accent-color);
+        /* Container for the toggle text */
+        .toggle-trigger-section {
+            margin-top: 15px;
+            text-align: left; /* Align with bullets */
             font-size: 1rem;
+            color: var(--dark-text);
+        }
+
+        /* Styling for the clickable "Read more/See less" part */
+        .toggle-link {
+            color: var(--accent-color);
             font-weight: 600;
             cursor: pointer;
             text-decoration: none; /* Remove underline */
-            margin-top: 15px;
-            display: inline-block;
+            display: inline-block; /* Allows border-bottom */
+            margin-left: 5px; /* Space after the static text */
             border-bottom: 2px solid transparent;
             transition: border-bottom 0.3s ease;
         }
 
-        .see-more:hover {
+        .toggle-link:hover {
             border-bottom: 2px solid var(--accent-color);
         }
 
         .hidden-text {
             display: none;
-            margin: 15px 0;
+            margin: 15px 0 0 0; /* Adjusted margin */
             font-size: 1rem;
             color: var(--dark-text);
             text-align: left;
@@ -327,12 +340,18 @@
 
         /* --- Responsive Adjustments --- */
         @media (max-width: 768px) {
+             header {
+                padding-top: 80px; /* Increase top padding slightly if menu button overlaps */
+             }
             header h1 {
                 font-size: 2.4rem;
             }
             header p.subheading {
                 font-size: 1.1rem;
             }
+             .header-logo {
+                 max-width: 80px; /* Slightly smaller logo on tablets */
+             }
             .content {
                 padding: 25px;
             }
@@ -356,15 +375,15 @@
         }
 
         @media (max-width: 480px) {
-            body {
-                 /* Remove body padding if container handles it */
-             }
             .container {
                 padding: 0 10px; /* Less horizontal padding on very small screens */
             }
             header {
                 padding: 70px 0 30px 0;
             }
+             .header-logo {
+                 max-width: 70px; /* Smaller logo on phones */
+             }
             header h1 {
                 font-size: 2rem;
             }
@@ -382,6 +401,9 @@
             .bullet-points li {
                 padding-left: 22px; /* Adjust bullet spacing */
             }
+            .toggle-trigger-section, .hidden-text {
+                 font-size: 0.95rem; /* Adjust font size for smaller screens */
+             }
             footer {
                 padding: 20px 0;
                 font-size: 0.8rem;
@@ -395,14 +417,14 @@
     <!-- Menu Toggle Button -->
     <button id="menu-toggle" aria-label="Toggle menu">
         <i class="fas fa-bars"></i> <!-- Font Awesome Hamburger Icon -->
-        <!-- Or use the text symbol if not using Font Awesome: ☰ -->
     </button>
 
     <!-- Side Menu Panel -->
     <div id="side-menu">
         <!-- Added Font Awesome Icons for visual aid -->
         <a href="toppersnote.html" class="highlight-link"><i class="fas fa-star"></i> Toppers Note</a>
-        <a href="mcq.html"><i class="fas fa-check-square"></i> MCQ Practice</a> <!-- Added MCQ Link -->
+        <!-- *** MODIFIED LINK BELOW *** -->
+        <a href="https://mcqv4.pages.dev/" target="_blank" rel="noopener noreferrer"><i class="fas fa-check-square"></i> MCQ Practice</a>
         <a href="ourteam.html"><i class="fas fa-users"></i> Our Team</a>
         <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
     </div>
@@ -410,6 +432,8 @@
     <!-- Main Content Container -->
     <div class="container">
         <header>
+            <!-- *** LOGO ADDED HERE *** -->
+            <img src="images/IMG_20250425_092825.jpg" alt="NEB HELP Logo" class="header-logo">
             <h1>Welcome to NEB HELP</h1>
             <p class="subheading">Struggling to get the marks you deserve? Your answers might need a local touch.</p>
         </header>
@@ -417,14 +441,19 @@
         <div class="content-wrapper">
             <div class="content">
                 <div class="bullet-points">
-                    <p style="font-weight: 600; margin-bottom: 10px;">Common pitfalls:</p> <!-- Added a small heading -->
+                    <p style="font-weight: 600; margin-bottom: 10px;">Common pitfalls:</p>
                     <ul>
                         <li>Internet answers might not align with Nepal's curriculum.</li>
                         <li>Missing keywords that examiners look for.</li>
                         <li>Lack of practice with relevant question sets (like 10 Sets).</li>
                     </ul>
                 </div>
-                <div class="see-more" onclick="toggleMoreText()">Why 10 Sets matter...</div>
+
+                <!-- *** MODIFIED "SEE MORE" STRUCTURE BELOW *** -->
+                <div class="toggle-trigger-section">
+                    Why 10 Sets matter...
+                    <span class="toggle-link" onclick="toggleMoreText()">Read more...</span>
+                </div>
                 <div id="moreText" class="hidden-text">
                     <p>10 Sets can be costly. We believe every student deserves access to quality practice material. That's why we provide questions from various 10 Sets completely <strong>FREE</strong> to help everyone succeed!</p>
                 </div>
@@ -451,28 +480,27 @@
     </div> <!-- End .container -->
 
     <script>
+        // *** MODIFIED toggleMoreText FUNCTION BELOW ***
         function toggleMoreText() {
             const moreText = document.getElementById('moreText');
-            const seeMoreLink = document.querySelector('.see-more');
+            const toggleLink = document.querySelector('.toggle-link'); // Target the clickable span
             if (moreText.style.display === "block") {
                 moreText.style.display = "none";
-                seeMoreLink.textContent = "Why 10 Sets matter...";
+                toggleLink.textContent = "Read more..."; // Change text back
             } else {
                 moreText.style.display = "block";
-                seeMoreLink.textContent = "See less...";
+                toggleLink.textContent = "See less..."; // Change text when expanded
             }
         }
 
         const menuToggle = document.getElementById('menu-toggle');
         const sideMenu = document.getElementById('side-menu');
-        // No need for body class toggle if not adjusting body styles
 
         menuToggle.addEventListener('click', function(event) {
             sideMenu.classList.toggle('active');
-            event.stopPropagation(); // Prevent click from immediately closing menu if logic below is uncommented
+            event.stopPropagation();
         });
 
-        // Optional: Close menu if clicking outside the menu itself
         document.addEventListener('click', function(event) {
             const isClickInsideMenu = sideMenu.contains(event.target);
             const isClickOnToggleButton = menuToggle.contains(event.target);
